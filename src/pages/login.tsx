@@ -1,0 +1,11 @@
+import { FC } from "react";
+
+import styles from './login.module.css';
+
+export const LoginPage: FC = () => {
+  return (
+    <main className={styles.container}>
+      <h1 className={styles.title}>С кем я учусь?</h1>
+    </main>
+  )
+}

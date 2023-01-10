@@ -1,11 +1,15 @@
-import { FC } from "react";
+import { FC } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { AppRoutes } from '../app-routes/app-routes';
 
 const App: FC = () => {
-
   return (
-
-    <h1>Branch develop</h1>
-  )
-}
+    <div>
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
+    </div>
+  );
+};
 
 export default App;

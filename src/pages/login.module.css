@@ -1,0 +1,17 @@
+.container {
+border: 1px solid blue;
+display: flex;
+justify-content: center;
+padding: 0;
+max-width: 1270px;
+height: 100vh;
+margin: 0 auto;
+}
+
+.title {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 52px;
+}

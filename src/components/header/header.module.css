@@ -1,0 +1,29 @@
+.header {
+  border: 1px solid red;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 43.5px 40px;
+  max-width: 1270px;
+}
+
+.logoContainer {
+
+}
+.userContainer {
+
+}
+
+.userIcon {
+
+}
+
+.userName {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+}
