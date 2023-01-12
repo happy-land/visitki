@@ -1,12 +1,13 @@
 import { FC } from "react";
-import { LoginForm } from "../components/login-form/login-form";
+import { ButtonId } from "../components/button-id/button-id";
+import styles from "./login.module.css";
 
-import styles from './login.module.css';
 
 export const LoginPage: FC = () => {
   return (
     <main className={styles.container}>
-      <LoginForm />
+      <h1 className={styles.title}>С кем я учусь?</h1>
+      <ButtonId />
     </main>
-  )
-}
+  );
+};
