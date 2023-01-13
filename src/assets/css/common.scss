@@ -1,0 +1,65 @@
+@import './variables.scss';
+
+/* h1 desktop */
+.text_type_header-extra-large {
+  font-family: $font-family;
+  font-size: 60px;
+  line-height: 60px;
+  font-weight: 500;
+  color: $colors-text-dark;
+}
+
+/* h1 tablet */
+.text_type_header-extra-large-tablet {
+  font-family: $font-family;
+  font-size: 40px;
+  line-height: 40px;
+  font-weight: 500;
+  color: $colors-text-dark;
+}
+
+/* h1 mobile */
+.text_type_header-extra-large-mobile {
+  font-family: $font-family;
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 500;
+  color: $colors-text-dark;
+}
+
+/* h2 */
+.text_type_header-large {
+  font-family: $font-family;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 400;
+  color: $colors-text-dark;
+}
+
+/* h3 */
+.text_type_header-medium {
+  font-family: $font-family;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: $colors-text-dark;
+}
+
+/* h4 */
+.text_type_header-small {
+  font-family: $font-family;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 400;
+  color: $colors-text-dark;
+}
+
+/* plain text default */
+.text_type_main-default {
+  font-family: $font-family;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: $colors-text-dark;
+}
