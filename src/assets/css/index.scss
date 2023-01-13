@@ -1,0 +1,7 @@
+@import url(./normalize.css);
+@import url(./fonts/fonts.css);
+@import './common.scss';
+
+body {
+  font-family: $font-family;
+}
