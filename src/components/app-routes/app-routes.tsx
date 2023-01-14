@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { LoginPage } from "../../pages";
+import { LoginPage, DetailPage } from "../../pages";
 import { Layout } from "../layout/layout";
 import { useState, useEffect } from "react";
 export const AppRoutes = () => {
@@ -19,6 +19,7 @@ export const AppRoutes = () => {
         <Route path="/" element={<Layout />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/profile" element={<div>Страница профиля</div>} />
+          <Route path="/detail" element={<DetailPage />} />
         </Route>
       </Routes>
     </div>
