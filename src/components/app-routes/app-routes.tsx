@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { LoginPage, DetailPage } from "../../pages";
 import { Layout } from "../layout/layout";
 import { useState, useEffect } from "react";
+import {ProfilePage} from "../../pages/profile";
 export const AppRoutes = () => {
   const [jwt, setJwt] = useState(null);
 
@@ -18,7 +19,7 @@ export const AppRoutes = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/profile" element={<div>Страница профиля</div>} />
+          <Route path="/profile" element={<ProfilePage />} />
           <Route path="/detail" element={<DetailPage />} />
         </Route>
       </Routes>

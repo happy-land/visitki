@@ -1,0 +1,39 @@
+.inputContainer {
+	padding: 0;
+	margin: 0;
+	width: 440px;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+@media screen and (max-width: 441px) {
+	.inputContainer {
+		width: 272px;
+	}
+}
+
+.labelText {
+	padding: 0;
+	margin: 0;
+	font-family: inherit;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 24px;
+	color: #100C34;
+}
+
+.input {
+	padding: 12px 16px;
+}
+
+.input::placeholder {
+	color: #83828F;
+}
+
+.inputPhoto {
+	border: 1px solid grey;
+	border-radius: 50%;
+	width: 150px;
+	height: 150px;
+}
