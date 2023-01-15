@@ -1,4 +1,4 @@
-import { FC, useEffect, MouseEvent, useState, useRef } from 'react';
+import { FC, useEffect, MouseEvent, useState } from 'react';
 import axios from 'axios';
 import '../../assets/css/common.scss';
 import styles from './profile-list.module.css';
@@ -23,28 +23,41 @@ export const ProfileList: FC = () => {
   const [totalCount, setTotalCount] = useState(0);
   const [spinner, setSpinner] = useState(false);
   const [cardLimit, setCardLimit] = useState<number>(0);
-  const [profileNameStyle, setProfileNameStyle] = useState({});
-  const [chatIconStyle, setChatIconStyle] = useState({});
-
-  // const profileNameRef = useRef<HTMLParagraphElement>();
-  const profileNameRef = useRef<HTMLParagraphElement | null>(null);
-  const chatIconRef = useRef<SVGSVGElement>(null);
+  const [desktopMode, setDeskTopMode] = useState<boolean>(true);
 
   useEffect(() => {
     if (cardLimit === 0) {
-      // console.log(window.innerWidth);
       if (window.innerWidth >= 1440) {
         setCardLimit(8);
+        setDeskTopMode(true);
       } else if (window.innerWidth < 1440 && window.innerWidth >= 900) {
         setCardLimit(6);
+        setDeskTopMode(false);
       } else if (window.innerWidth < 900 && window.innerWidth >= 400) {
         setCardLimit(4);
+        setDeskTopMode(false);
       } else {
         setCardLimit(2);
+        setDeskTopMode(false);
       }
     }
-    // console.log(cardLimit);
-  }, [cardLimit]);
+  }, [cardLimit, desktopMode]);
+
+  useEffect(() => {
+    const handleWindowResize = (event: Event) => {
+      if (window.innerWidth >= 1440) {
+        setDeskTopMode(true);
+      } else {
+        setDeskTopMode(false);
+      }
+    };
+
+    window.addEventListener('resize', (event) => handleWindowResize(event));
+
+    return () => {
+      window.removeEventListener('resize', (event) => handleWindowResize(event));
+    };
+  }, []);
 
   useEffect(() => {
     if (fetching && cardLimit !== 0) {
@@ -103,32 +116,18 @@ export const ProfileList: FC = () => {
   };
 
   const onCardOver = (event: MouseEvent<HTMLElement>): void => {
-
-    setProfileNameStyle({
-      color: '#ff00a8',
-    });
-    setChatIconStyle({
-      display: 'none'
-    });
-
-    // console.log(profileNameRef.current?.className);
-    // profileNameRef.current?.style.color = '#ff00a8';
-    // CSSStyleDeclaration
-    const style: CSSStyleDeclaration | undefined = profileNameRef.current?.style;
-
-    console.log(style);
-
-    // chatIconRef.style = chatIconStyle;
-    
-    // profileNameRef.current?.className = ''
-    // style={profileNameStyle}
-    
+    // setProfileNameStyle({
+    //   color: '#ff00a8',
+    // });
+    // setChatIconStyle({
+    //   display: 'none'
+    // });
   };
 
   const onCardOut = (event: MouseEvent<HTMLElement>): void => {
     // console.log('mouseout');
-    setProfileNameStyle({});
-    setChatIconStyle({});
+    // setProfileNameStyle({});
+    // setChatIconStyle({});
   };
 
   return (
@@ -142,11 +141,7 @@ export const ProfileList: FC = () => {
       <div className={styles.cards}>
         {photos.map((photo, index) => (
           <Link className={styles.cardLink} to='' key={index}>
-            <ProfileCard
-              photo={photo}
-              onCardOver={onCardOver}
-              onCardOut={onCardOut}
-            />
+            <ProfileCard photo={photo} onCardOver={onCardOver} onCardOut={onCardOut} desktopMode={desktopMode} />
           </Link>
         ))}
       </div>
