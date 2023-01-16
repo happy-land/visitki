@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Outlet } from "react-router-dom";
 import { Header } from "../header/header";
 import { Footer } from "../footer/footer"
-import { ProfileList } from "../profile-list/profile-list";
+import {Button} from "../../ui/button/button";
 
 export const Layout: FC = () => {
 
@@ -12,8 +12,11 @@ export const Layout: FC = () => {
         <Header />
       </div>
       <main>
-        {/* <ProfileList /> */}
         <Outlet />
+        <Button type='primary' children='Large' size='large'/>
+        <Button type='primary' children='Large Disabled' size='large' disabled/>
+        <Button type='primary' children='Small' size='small'/>
+        <Button type='primary' children='Small Disabled' size='small' disabled/>
       </main>
       <div>
         <Footer />

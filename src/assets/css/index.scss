@@ -2,15 +2,34 @@
 @import url(./fonts/fonts.css);
 @import './common.scss';
 
-
 body {
-  height: 100vh;
-  font-family: 'IBM Plex Sans', Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: $font-family;
 }
 
-a {
-  background-color: transparent;
-  text-decoration: none;
+html[data-theme='serious'] {
+  --userAvatar-border-radius: 0%;
+  --quote-background-image: url(../../images/quote.svg);
+  --quote-text-color: #100C34;
+  --line-background-image: url(../../images/line.svg);
+  --line-height: 3px;
+  --mask-dispalay: none;
+
+}
+
+html[data-theme='romantic'] {
+  --userAvatar-border-radius: 50%;
+  --quote-background-image: url(../../images/quote2.svg);
+  --quote-text-color: #FF00A8;
+  --line-background-image: url(../../images/line2.svg);
+  --line-height: 9px;
+  --mask-dispalay: none;
+}
+
+html[data-theme='bold'] {
+  --userAvatar-border-radius: 0%;
+  --quote-background-image: url(../../images/quote3.svg);
+  --quote-text-color: #38EC42;
+  --line-background-image: url(../../images/line3.svg);
+  --line-height: 9px;
+  --mask-dispalay: block;
 }
