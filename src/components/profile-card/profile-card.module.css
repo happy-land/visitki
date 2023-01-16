@@ -2,6 +2,7 @@
   /* border: 1px solid green; */
   position: relative;
   width: 325px;
+  box-sizing: content-box;
 }
 
 .profilePhotoContainer {

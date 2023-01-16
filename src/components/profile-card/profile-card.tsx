@@ -1,5 +1,6 @@
 import { FC, MouseEvent, useEffect, useState } from 'react';
 import { ReactComponent as ChatIcon } from '../../assets/images/ChatIcon.svg';
+import { CommentsBlock } from '../comments-block/commets-block';
 
 import styles from './profile-card.module.css';
 
@@ -22,6 +23,7 @@ export const ProfileCard: FC<IProfileCard> = ({ photo, onCardOver, onCardOut, de
   const [photoStyle, setPhotoStyle] = useState({});
   const [profileNameStyle, setProfileNameStyle] = useState({});
   const [chatIconStyle, setChatIconStyle] = useState(desktopMode ? { display: 'none' } : { display: 'flex' });
+  const [showComments, setShowComments] = useState<boolean>(false);
 
   useEffect(() => {
     if (desktopMode) {
@@ -44,6 +46,12 @@ export const ProfileCard: FC<IProfileCard> = ({ photo, onCardOver, onCardOut, de
     if (desktopMode) setChatIconStyle({ display: 'none' });
   };
 
+  const commentsBlockToggle = (event: MouseEvent) => {
+    setShowComments(!showComments);
+    console.log(showComments);
+
+  }
+
   return (
     <article
       className={styles.profileCard}
@@ -61,7 +69,8 @@ export const ProfileCard: FC<IProfileCard> = ({ photo, onCardOver, onCardOut, de
         Иванов Сергей {window.innerWidth}
       </p>
       <p className={`${styles.profileCity} text_type_main-default`}>Москва {desktopMode.toString()}</p>
-      <ChatIcon className={styles.chatIcon} style={chatIconStyle} />
+      <ChatIcon className={styles.chatIcon} style={chatIconStyle} onClick={commentsBlockToggle} />
+      <CommentsBlock isOpen={showComments} />
     </article>
   );
 };
