@@ -1,14 +1,14 @@
 import React, { FC } from "react";
-import adminstyle from "./adminstudents.module.css";
+import adminstyle from "./admin-students-list.module.css";
 {/*import {getStudentsApi} from '../../utils/Api'*/}
 
 export const AdminStudentsList:FC = () => {
   return (
     <div className={adminstyle.page_wrapper}>
       <ul className={adminstyle.list_headings}>
-        <li></li>
-        <li></li>
-        <li></li>
+        <li>Номер когорты</li>
+        <li>e-mail</li>
+        <li>Имя и фамилия студента</li>
       </ul>
       <div className={adminstyle.list_wrapper}>
         <ul className={adminstyle.list}>
