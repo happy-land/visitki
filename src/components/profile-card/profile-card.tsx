@@ -1,7 +1,7 @@
 import { FC, MouseEvent, useEffect, useState } from 'react';
 import { ReactComponent as ChatIcon } from '../../assets/images/ChatIcon.svg';
 import { CommentsBlock } from '../comments-block/commets-block';
-
+import '../../assets/css/common.scss';
 import styles from './profile-card.module.css';
 
 interface IPhoto {

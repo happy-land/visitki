@@ -12,13 +12,13 @@ export const AdminStudentsList:FC = () => {
       </ul>
       <div className={adminstyle.list_wrapper}>
         <ul className={adminstyle.list}>
-          {getStudentsApi.map((element, index) => (
+          {/* {getStudentsApi.map((element, index) => (
             <li className={adminstyle.list_item} key={index}>
               <p className={adminstyle.list_item_text}>{element.team}</p>
               <p className={adminstyle.list_item_text}>{element.email}</p>
               <p className={adminstyle.list_item_text}>{element.fullName}</p>
             </li>
-          ))}
+          ))} */}
         </ul>
       </div>
     </div>

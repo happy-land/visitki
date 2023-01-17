@@ -18,7 +18,7 @@ export const AdminCommentsList: FC = () => {
       </div>
       <div className={commentstyle.list_wrapper}>
         <ul className={commentstyle.list}>
-          {getStudentsApi.map((element, index) => (
+          {/* {getStudentsApi.map((element, index) => (
             <li className={commentstyle.list_item} key={index}>
               <p className={commentstyle.list_item_text}>{element.team}</p>
               <p className={commentstyle.list_item_text}>{element.date}</p>
@@ -30,7 +30,7 @@ export const AdminCommentsList: FC = () => {
                 <img alt="delete icon" src={deleteIcon}/>
               </div>
             </li>
-          ))}
+          ))} */}
         </ul>
       </div>
     </div>

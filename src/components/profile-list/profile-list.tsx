@@ -1,6 +1,6 @@
 import { FC, useEffect, MouseEvent, useState } from 'react';
 import axios from 'axios';
-import '../../assets/css/common.scss';
+
 import styles from './profile-list.module.css';
 
 import { ReactComponent as Loader } from '../../assets/images/Loader.svg';
@@ -140,7 +140,7 @@ export const ProfileList: FC = () => {
       </div>
       <div className={styles.cards}>
         {photos.map((photo, index) => (
-          <Link className={styles.cardLink} to='' key={index}>
+          <Link className={styles.cardLink} to='/detail' key={index}>
             <ProfileCard photo={photo} onCardOver={onCardOver} onCardOut={onCardOut} desktopMode={desktopMode} />
           </Link>
         ))}
