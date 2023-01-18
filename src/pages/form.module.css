@@ -1,0 +1,60 @@
+
+.form {
+    width: 31%;
+    margin: 0 auto;
+}
+
+.form fieldset {
+    border: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.form input {
+    height: 48px;
+    border: 1px solid #100C34;
+    border-radius: 4px;
+}
+
+.form select {
+    height: 48px;
+    border: 1px solid #100C34;
+    border-radius: 4px;
+}
+
+.hideInput {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.customInputAvatart {
+    display: block;
+    width: 150px;
+    height: 150px;
+    border: 1px solid #100C34;
+    border-radius: 50%;
+    margin: auto;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.avatarSpan {
+    position: absolute;
+    width: 130px;
+    height: 31px;
+    bottom: -32px;
+    right: 8px;
+    background: rgba(16, 12, 52, 0.05);
+    transition: bottom .4s;
+    background-image: url('../ui//form-icons/camera-photo.svg');
+    background-repeat: no-repeat;
+    background-position: 50px; 
+}
+
+.customInputAvatart:hover .avatarSpan {
+    bottom: 0;
+}
