@@ -47,6 +47,7 @@ export const ProfileCard: FC<IProfileCard> = ({ photo, onCardOver, onCardOut, de
   };
 
   const commentsBlockToggle = (event: MouseEvent) => {
+    event.preventDefault();
     setShowComments(!showComments);
     console.log(showComments);
 

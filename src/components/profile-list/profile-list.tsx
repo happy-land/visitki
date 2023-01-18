@@ -140,7 +140,7 @@ export const ProfileList: FC = () => {
       </div>
       <div className={styles.cards}>
         {photos.map((photo, index) => (
-          <Link className={styles.cardLink} to='/detail' key={index}>
+          <Link className={styles.cardLink} to='' key={index}>
             <ProfileCard photo={photo} onCardOver={onCardOver} onCardOut={onCardOut} desktopMode={desktopMode} />
           </Link>
         ))}

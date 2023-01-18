@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { EmojiBlock } from '../emoji-block/emoji-block';
 import styles from './comments-block.module.css';
 
 interface ICommentsBlockProps {
@@ -22,6 +23,7 @@ export const CommentsBlock: FC<ICommentsBlockProps> = ({ isOpen }) => {
             </li>
           </ul>
           <input className={styles.input} placeholder='Обратная связь' />
+          <EmojiBlock />
         </div>
       )}
     </>
