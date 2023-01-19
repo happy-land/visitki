@@ -9,7 +9,7 @@ export const Emoji: FC<IEmojiProps> = ({ image }) => {
   return (
     <div className={styles.container}>
       <img className={styles.image} src={image} alt='' />
-      <p className={styles.counter}>12</p>
+      <p className={styles.counter}>19</p>
     </div>
   )
 }

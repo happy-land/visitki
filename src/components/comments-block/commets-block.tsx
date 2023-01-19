@@ -16,8 +16,14 @@ export const CommentsBlock: FC<ICommentsBlockProps> = ({ isOpen }) => {
             <li className={styles.comment}>
               Классные у тебя увлечения, я тоже играю в настолки, любимая игра — Эволюция.
               Люблю еще музыку
+              <div className={styles.line}></div>
             </li>
-            <li>
+            <li className={styles.comment}>
+              Классные у тебя увлечения, я тоже играю в настолки, любимая игра — Эволюция.
+              Люблю еще музыку
+              <div className={styles.line}></div> {/* в последнем комментарии линию не добавлять */}
+            </li>
+            <li className={styles.comment}>
               Классные у тебя увлечения, я тоже играю в настолки, любимая игра — Эволюция.
               Люблю еще музыку
             </li>

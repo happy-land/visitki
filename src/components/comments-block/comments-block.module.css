@@ -14,14 +14,39 @@
 }
 
 .commentsList {
+  display: flex;
+  flex-direction: column;
+  max-height: 136px;
+  overflow: hidden;
+  overflow-y: scroll;
   list-style-type: none;
-  margin: 0;
+  margin: 0 0 12px 0;
   padding: 0;
+}
+
+.commentsList::-webkit-scrollbar {
+  width: 3px;
+  
+}
+
+.commentsList::-webkit-scrollbar-thumb {
+  background-color: #a3a3a3;
 }
 
 .comment {
   margin: 0;
   padding: 0;
+  color: #100C34;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.line {
+  margin: 8px 0 8px 0;
+  padding: 0;
+  background-image: url(../../images/line.svg);
+  width: 288px;
+  height: 1px;
 }
 
 .input {
