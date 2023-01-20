@@ -3,6 +3,8 @@ import { Outlet } from "react-router-dom";
 import { Header } from "../header/header";
 import { Footer } from "../footer/footer"
 import {Button} from "../../ui/button/button";
+import {AdminStudentsList} from '../../components/admin-students-list/admin-students-list'
+import {AdminCommentsList} from '../../components/admin-comments-list/admin-comments-list'
 
 export const Layout: FC = () => {
 
@@ -11,7 +13,7 @@ export const Layout: FC = () => {
       <div>
         <Header />
       </div>
-      <main>
+           <main>
         <Outlet />
         <Button type='primary' children='Large' size='large'/>
         <Button type='primary' children='Large Disabled' size='large' disabled/>
