@@ -1,63 +1,69 @@
-.page_wrapper{
-width: 100%;
-overflow: auto;
+.page_wrapper {
+ margin-left: 200px; 
+  max-width: 1440px;
+  overflow: auto;
 }
 
-.list_wrapper{
-    box-sizing: border-box;
-max-width: 987px;
-margin-top: 11px;
-overflow: auto;
-height: calc(100vh - 362px);
+.list_wrapper {
+  box-sizing: border-box;
+  max-width: 987px;
+  margin-top: 11px;
+  overflow: auto;
+  height: calc(100vh - 362px);
 }
 
-.list_headings{
-width: 100%;
-box-sizing: border-box;
-list-style-type: none;
-margin: 48px 0 0 0;
-padding: 0 30px 0 0;
-display: grid;
-grid-template-columns: minmax(30px, 209px) minmax(30px, 271px) minmax(30px, 271px);
-color: rgba(131, 130, 143, 1);
-text-align:left;
-font-size: 16px;
-line-height: 24px;
-gap: 31px;
+.list_headings {
+  width: 100%;
+  box-sizing: border-box;
+  list-style-type: none;
+  margin: 48px 0 0 0;
+  padding: 0 30px 0 0;
+  display: grid;
+  grid-template-columns: minmax(30px, 209px) minmax(30px, 271px) minmax(
+      30px,
+      271px
+    );
+  color: rgba(131, 130, 143, 1);
+  text-align: left;
+  font-size: 16px;
+  line-height: 24px;
+  gap: 31px;
 }
 
-.list{
-list-style-type: none;
-margin: 0;
-padding: 0;
+.list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
-.list_item{
-display: grid;
-grid-template-columns: minmax(30px, 209px) minmax(30px, 271px) minmax(30px, 271px);
-text-align:left;
-border-bottom: 1px solid #83828f;
-padding: 12px 0 12px 0;
-gap: 31px;
+.list_item {
+  display: grid;
+  grid-template-columns: minmax(30px, 209px) minmax(30px, 271px) minmax(
+      30px,
+      271px
+    );
+  text-align: left;
+  border-bottom: 1px solid #83828f;
+  padding: 12px 0 12px 0;
+  gap: 31px;
+}
+.list_item_text {
+  font-size: 16px;
+  line-height: 24px;
+  margin: 0;
+  color: #100c34;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
 
+.list_item:first-child {
+  border-top: 1px solid #83828f;
 }
-.list_item_text{
-    font-size: 16px;
-    line-height: 24px;
-    margin: 0;
-    color: #100c34;
-    text-overflow: ellipsis;
-    overflow: hidden;
+.list_wrapper::-webkit-scrollbar {
+  background-color: inherit;
+  width: 4px;
+  height: 4px;
 }
-
-.list_item:first-child{
-    border-top: 1px solid #83828f;
-}
-.list_wrapper::-webkit-scrollbar{
-    background-color: inherit;
-    width: 4px;
-    height: 4px;
-}
-.list_wrapper::-webkit-scrollbar-thumb{
-    background-color: #83828f;
-    border-radius: 7px;
+.list_wrapper::-webkit-scrollbar-thumb {
+  background-color: #83828f;
+  border-radius: 7px;
 }
