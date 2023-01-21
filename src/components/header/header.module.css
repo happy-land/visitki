@@ -26,7 +26,11 @@
   border-radius: 50%;
   object-fit: cover;
   object-position: center;
-  filter: grayscale(100%)
+  filter: grayscale(100%);
+
+  background-image: url(../../assets/images/user-photo.png);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .userName {
@@ -40,6 +44,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  text-decoration: none;
 }
 
 @media screen and (max-width: 1023px) {
