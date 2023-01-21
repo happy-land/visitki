@@ -1,7 +1,7 @@
 import { FC, MouseEvent, useEffect, useState } from 'react';
 import { ReactComponent as ChatIcon } from '../../assets/images/ChatIcon.svg';
 import { CommentsBlock } from '../comments-block/commets-block';
-
+import '../../assets/css/common.scss';
 import styles from './profile-card.module.css';
 
 interface IPhoto {
@@ -47,6 +47,7 @@ export const ProfileCard: FC<IProfileCard> = ({ photo, onCardOver, onCardOut, de
   };
 
   const commentsBlockToggle = (event: MouseEvent) => {
+    event.preventDefault();
     setShowComments(!showComments);
     console.log(showComments);
 

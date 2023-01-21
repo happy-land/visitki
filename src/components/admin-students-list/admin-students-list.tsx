@@ -2,9 +2,7 @@ import { render } from "@testing-library/react";
 import axios from "axios";
 import React, { FC, useEffect, useState } from "react";
 import adminstyle from "./admin-students-list.module.css";
-{
-  /*import {getStudentsApi} from '../../utils/Api'*/
-}
+
 
 interface IStudents {
   cohort: string;
@@ -40,7 +38,7 @@ export const AdminStudentsList: FC = () => {
               <p className={adminstyle.list_item_text}>{element.email}</p>
               <p className={adminstyle.list_item_text}>{element.name}</p>
             </li>
-          ))}
+          ))} 
         </ul>
       </div>
     </div>

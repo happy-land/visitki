@@ -1,6 +1,6 @@
 import { FC, useEffect, MouseEvent, useState } from 'react';
 import axios from 'axios';
-import '../../assets/css/common.scss';
+
 import styles from './profile-list.module.css';
 
 import { ReactComponent as Loader } from '../../assets/images/Loader.svg';
