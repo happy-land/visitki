@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { EmojiBlock } from '../emoji-block/emoji-block';
 import styles from './comments-block.module.css';
 
 interface ICommentsBlockProps {
@@ -15,13 +16,20 @@ export const CommentsBlock: FC<ICommentsBlockProps> = ({ isOpen }) => {
             <li className={styles.comment}>
               Классные у тебя увлечения, я тоже играю в настолки, любимая игра — Эволюция.
               Люблю еще музыку
+              <div className={styles.line}></div>
             </li>
-            <li>
+            <li className={styles.comment}>
+              Классные у тебя увлечения, я тоже играю в настолки, любимая игра — Эволюция.
+              Люблю еще музыку
+              <div className={styles.line}></div> {/* в последнем комментарии линию не добавлять */}
+            </li>
+            <li className={styles.comment}>
               Классные у тебя увлечения, я тоже играю в настолки, любимая игра — Эволюция.
               Люблю еще музыку
             </li>
           </ul>
           <input className={styles.input} placeholder='Обратная связь' />
+          <EmojiBlock />
         </div>
       )}
     </>
