@@ -103,21 +103,14 @@ const reactions = {
   ]
 }
 
-
+ 
 
 export const EmojiBlock: FC = () => {
   
   // получить список реакций с сервера
   // {{baseUrl}}/profiles/:id/reactions
 
-  useEffect(() => {
-    fetch('/profiles/abfccdaa23e0bd1c4448d2f3/reactions')
-      .then((result) => checkResponse(result))
-      .then((responseBody) => {
-        console.log(responseBody, 'this is RESPONSE BODY');
-      })
-      .catch((err) => console.log(err));
-  });
+  
 
 
   return (
