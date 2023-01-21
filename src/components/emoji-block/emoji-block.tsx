@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { Emoji } from '../emoji/emoji';
 
 import ThumbsUpIcon from '../../ui/icons/thumbsup-icon.svg';
@@ -104,47 +104,44 @@ const reactions = {
 
 
 
-
-export const EmojiBlock = () => {
+export const EmojiBlock: FC = () => {
   
-  // получить список 
-  // {{baseUrl}}/profiles/abfccdaa23e0bd1c4448d2f3/reactions
+  // получить список реакций с сервера
+  // {{baseUrl}}/profiles/:id/reactions
 
-
-  const [] = useState();
 
   return (
     <div className={styles.container}>
       <ul className={styles.emojiList}>
-        <li className={styles.emojiItem}>
-          <Emoji image={ThumbsUpIcon} />
+        <li className={styles.emojiItem} >
+          <Emoji image={ThumbsUpIcon} counter={null} />
         </li>
         <li className={styles.emojiItem}>
-          <Emoji image={ThumbsDownIcon} />
+          <Emoji image={ThumbsDownIcon} counter={1} />
         </li>
         <li className={styles.emojiItem}>
-          <Emoji image={WawingHandIcon} />
+          <Emoji image={WawingHandIcon} counter={null} />
         </li>
         <li className={styles.emojiItem}>
-          <Emoji image={SlightlySmilingHeadIcon} />
+          <Emoji image={SlightlySmilingHeadIcon} counter={null} />
         </li>
         <li className={styles.emojiItem}>
-          <Emoji image={PensiveFaceIcon} />
+          <Emoji image={PensiveFaceIcon} counter={14} />
         </li>
         <li className={styles.emojiItem}>
-          <Emoji image={RollingIcon} />
+          <Emoji image={RollingIcon} counter={99} />
         </li>
         <li className={styles.emojiItem}>
-          <Emoji image={GrimacingFaceIcon} />
+          <Emoji image={GrimacingFaceIcon} counter={1} />
         </li>
         <li className={styles.emojiItem}>
-          <Emoji image={FaceScreamigIcon} />
+          <Emoji image={FaceScreamigIcon} counter={80} />
         </li>
         <li className={styles.emojiItem}>
-          <Emoji image={HeartEyesIcon} />
+          <Emoji image={HeartEyesIcon} counter={null} />
         </li>
         <li className={styles.emojiItem}>
-          <Emoji image={BlackHeartIcon} />
+          <Emoji image={BlackHeartIcon} counter={null} />
         </li>
       </ul>
     </div>

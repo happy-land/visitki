@@ -1,7 +1,6 @@
 .container {
   display: flex;
   align-items: center;
-  border: 1px solid #ff00a8;
   border-radius: 20px;
   margin-bottom: 2px;
   padding: 2px;
