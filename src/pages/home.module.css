@@ -1,0 +1,16 @@
+.container {
+  /* border: 1px solid blueviolet; */
+  max-width: 1440px;
+  /* height: 100vh; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+@media screen and (max-width: 1134px) {
+  .container {
+    padding: 0 32px;
+  }
+}

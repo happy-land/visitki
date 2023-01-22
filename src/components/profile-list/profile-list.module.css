@@ -1,0 +1,76 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 0 0 40px 0;
+}
+
+ .citySelector {
+
+ }
+
+.mapLink {
+  margin: 0;
+  padding: 0;
+  color: #100c34;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(325px, 1fr));
+  row-gap: 39px;
+  column-gap: 20px;
+  max-width: 100%;
+}
+
+.cardLink {
+  text-decoration: none;
+}
+
+.spinnerContainer {
+  margin: 0 auto;
+  padding: 70px 0;
+}
+
+@keyframes spinnerAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.spinner {
+  animation: spinnerAnimation 1.5s linear infinite;
+}
+
+@media screen and (max-width: 1440px) {
+  .cards {
+    margin: 0 auto;
+    grid-template-columns: repeat(auto-fit, minmax(342px, 1fr));
+    row-gap: 31px;
+  }
+  .profileCard {
+    width: 342px;
+  }
+}
+
+@media screen and (max-width: 793px) {
+  .cards {
+    grid-template-columns: repeat(auto-fit, minmax(272px, 1fr));
+    row-gap: 24px;
+  }
+  .profileCard {
+    width: 272px;
+  }
+}
