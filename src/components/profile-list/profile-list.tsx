@@ -61,13 +61,12 @@ export const ProfileList: FC = () => {
 
   useEffect(() => {
     if (fetching && cardLimit !== 0) {
-      // console.log(cardLimit);
       axios
         // .get(`https://jsonplaceholder.typicode.com/photos?_limit=12&page=${currentPage}`)
         .get(`https://jsonplaceholder.typicode.com/photos?_limit=${cardLimit}`)
         // .get(`/profiles`)
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           // const totCount = Number(response.headers['x-total-count']);
           const totCount = 30;
           setPhotos(
@@ -93,7 +92,6 @@ export const ProfileList: FC = () => {
 
   const scrollHandler = (event: Event): void => {
     const target = event.target as Document;
-    // console.log(photos, 'HERE IS photos.length');
     if (
       target.documentElement.scrollHeight -
         (target.documentElement.scrollTop + window.innerHeight) <
@@ -101,7 +99,6 @@ export const ProfileList: FC = () => {
       photos.length < totalCount
     ) {
       // приближаемся к нижнему краю страницы
-      console.log(photos.length);
       setFetching(true);
     }
     // отображать спиннер или нет
@@ -115,21 +112,6 @@ export const ProfileList: FC = () => {
     // console.log('innerHeight', window.innerHeight); // высота видимой области страницы (высота браузера)
   };
 
-  const onCardOver = (event: MouseEvent<HTMLElement>): void => {
-    // setProfileNameStyle({
-    //   color: '#ff00a8',
-    // });
-    // setChatIconStyle({
-    //   display: 'none'
-    // });
-  };
-
-  const onCardOut = (event: MouseEvent<HTMLElement>): void => {
-    // console.log('mouseout');
-    // setProfileNameStyle({});
-    // setChatIconStyle({});
-  };
-
   return (
     <div className={styles.container}>
       <div className={styles.actions}>
@@ -141,7 +123,7 @@ export const ProfileList: FC = () => {
       <div className={styles.cards}>
         {photos.map((photo, index) => (
           <Link className={styles.cardLink} to='' key={index}>
-            <ProfileCard photo={photo} onCardOver={onCardOver} onCardOut={onCardOut} desktopMode={desktopMode} />
+            <ProfileCard photo={photo} desktopMode={desktopMode} />
           </Link>
         ))}
       </div>

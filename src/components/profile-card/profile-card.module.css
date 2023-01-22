@@ -1,5 +1,4 @@
 .profileCard {
-  /* border: 1px solid green; */
   position: relative;
   width: 325px;
   box-sizing: content-box;
@@ -23,7 +22,6 @@
   color: #100c34;
 }
 
-
 .profileCity {
   margin: 0;
   padding: 0;
@@ -34,5 +32,16 @@
   position: absolute;
   top: 19px;
   right: 19px;
+}
 
+@media screen and (max-width: 1440px) {
+  .profileCard {
+    width: 342px;
+  }
+}
+
+@media screen and (max-width: 793px) {
+  .profileCard {
+    width: 272px;
+  }
 }

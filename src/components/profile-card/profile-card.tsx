@@ -14,12 +14,10 @@ interface IPhoto {
 
 interface IProfileCard {
   photo: IPhoto;
-  onCardOver: (event: MouseEvent<HTMLElement>) => void;
-  onCardOut: (event: MouseEvent<HTMLElement>) => void;
   desktopMode: boolean;
 }
 
-export const ProfileCard: FC<IProfileCard> = ({ photo, onCardOver, onCardOut, desktopMode }) => {
+export const ProfileCard: FC<IProfileCard> = ({ photo, desktopMode }) => {
   const [photoStyle, setPhotoStyle] = useState({});
   const [profileNameStyle, setProfileNameStyle] = useState({});
   const [chatIconStyle, setChatIconStyle] = useState(desktopMode ? { display: 'none' } : { display: 'flex' });
