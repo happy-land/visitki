@@ -15,10 +15,6 @@ export const Layout: FC = () => {
       </div>
            <main>
         <Outlet />
-        <Button type='primary' children='Large' size='large'/>
-        <Button type='primary' children='Large Disabled' size='large' disabled/>
-        <Button type='primary' children='Small' size='small'/>
-        <Button type='primary' children='Small Disabled' size='small' disabled/>
       </main>
       <div>
         <Footer />
