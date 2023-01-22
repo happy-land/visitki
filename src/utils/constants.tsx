@@ -81,20 +81,12 @@ export type TProfileItem = {
 	}
 }
 
-
 export type TCity = {
 	name: string,
 	geocode: Array<number>
 }
 
-
 export const getProfiles = (responseObj: TProfileResponse): Array<TProfileItem> => {
 	const profiles = responseObj.items.map(item => item.profile);
 	return profiles;
 }
-
-// export const getCities = (profiles: A): Array<TCity> => {
-// 	const profiles = responseObj.items.map(item => item.profile);
-// 	const cities = profiles.map(profile => profile.city);
-// 	return cities;
-// }
