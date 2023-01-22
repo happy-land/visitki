@@ -8,7 +8,9 @@ import {
 	ZoomControl,
 	GeolocationControl,
 	SearchControl,
-	TypeSelector, TrafficControl, FullscreenControl
+	TypeSelector,
+	TrafficControl,
+	FullscreenControl
 } from "@pbe/react-yandex-maps";
 import {getProfiles, TProfileResponse} from "../../utils/constants";
 
@@ -38,7 +40,7 @@ export const MapElement: FC<TMapElementProps> = ({data}) => {
 		<YMaps query={{lang: "ru_RU"}} >
 			<Map className={styles.container}
 					 defaultState={mapData}
-					 modules={['control.ZoomControl']}
+					 apiKey={'7b03e5be-fa74-4659-af5a-b6eb243376e6'}
 			>
 				{profiles.map((profile, index) =>
 					<Placemark
