@@ -37,10 +37,9 @@ export const MapElement: FC<TMapElementProps> = ({data}) => {
 	const profiles = getProfiles(data);
 
 	return (
-		<YMaps query={{lang: "ru_RU"}} >
+		<YMaps query={{lang: "ru_RU", apikey: '7b03e5be-fa74-4659-af5a-b6eb243376e6'}} >
 			<Map className={styles.container}
 					 defaultState={mapData}
-					 apiKey={'7b03e5be-fa74-4659-af5a-b6eb243376e6'}
 			>
 				{profiles.map((profile, index) =>
 					<Placemark
