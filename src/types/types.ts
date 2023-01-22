@@ -1,31 +1,25 @@
-export type TUser = {
-  _id: string,
-  createdAt: number,
-  updatedAt?: number,
+export type TBaseUserData = {
   email: string,
   cohort: string,
+  _id: string,
+  createdAt: number,
+  updatedAt: number,
+}
+
+export type TUser = {
   name: string
-  photo?: string
-};
+} & TBaseUserData
 
 export type TStudent = {
-  _id: string,
-  createdAt: number,
-  updatedAt?: number,
-  email: string,
-  cohort: string,
   profile: {
       name: string,
       photo: string,
       city: {
           name: string,
-          geocode: [
-              string,
-              string
-          ]
+          geocode: Array<string>
       }
   }
-}
+} & TBaseUserData
 
 export type TReaction = {
   _id: string;
