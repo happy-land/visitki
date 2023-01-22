@@ -26,3 +26,23 @@ export type TStudent = {
       }
   }
 }
+
+export type TReaction = {
+  _id: string;
+  from: {
+    _id: string;
+    name: string;
+    email: string;
+  };
+  target: 'hobby' | 'edu' | 'status' | 'job' | null;
+  text: string;
+  emotion?: 'like' | 'smile' | 'heart' | undefined;
+}
+
+export type TEmotions = {
+  [key: string]: Array<TReaction>;
+}
+
+// type T = {
+//   [key: string]: Array<TReaction>;
+// }

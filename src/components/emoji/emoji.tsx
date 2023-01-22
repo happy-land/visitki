@@ -8,7 +8,6 @@ interface IEmojiProps {
 }
 
 export const Emoji: FC<IEmojiProps> = ({ image, counter }) => {
-
   const [border, setBorder] = useState(false);
   const [count, setCount] = useState(counter);
 
@@ -16,17 +15,17 @@ export const Emoji: FC<IEmojiProps> = ({ image, counter }) => {
     setCount(counter);
   }, []);
 
-  // при клике на смайлик отправлять POST запрос на сервер
-  // {{baseUrl}}/profiles/:id/reactions
-
   const handleClick = () => {
     setBorder(!border);
     if (!border) {
-      setCount(count! + 1)
+      setCount(count! + 1);
+      // при клике на смайлик отправлять POST запрос на сервер
+      // {{baseUrl}}/profiles/:id/reactions
     } else {
       setCount(counter);
+      // сделать  DELETE запрос на удаление реакции
     }
-  }
+  };
 
   return (
     <div
