@@ -18,16 +18,19 @@ export const Emoji: FC<IEmojiProps> = ({ image, counter, type }) => {
     setCount(counter);
   }, []);
 
+
   const handleClick = (e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {
     const target = e.currentTarget;
     //здесь нужно присвоить id рекции по идее
     console.log(target);
+
     setBorder(!border);
     if (!border) {
-      setCount(count! + 1)
+      setCount(count! + 1);
     } else {
       setCount(counter);
     }
+
     if (border) {
       //а здесь удалить при повторном нажатии
       //но апи на delete только с комментариями
@@ -38,6 +41,7 @@ export const Emoji: FC<IEmojiProps> = ({ image, counter, type }) => {
     }
   
   }
+
 
   return (
     <div

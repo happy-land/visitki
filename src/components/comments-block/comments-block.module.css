@@ -44,7 +44,7 @@
 .line {
   margin: 8px 0 8px 0;
   padding: 0;
-  background-image: url(../../images/line.svg);
+  background-image: url(../../assets/images/line.svg);
   width: 288px;
   height: 1px;
 }

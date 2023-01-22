@@ -103,6 +103,7 @@ const reactions = {
   ]
 }
 
+
 type TEmotion = {
   emotion: string;
 }
@@ -169,7 +170,7 @@ export const EmojiBlock: FC = () => {
     counter: 0
   },
 ]);
-  
+
   // получить список реакций с сервера
   // {{baseUrl}}/profiles/:id/reactions
   useEffect(() => {
@@ -193,7 +194,7 @@ export const EmojiBlock: FC = () => {
         return acc;
     }, {})
   }
-
+  
   return (
     <div className={styles.container}>
       <ul className={styles.emojiList}>
