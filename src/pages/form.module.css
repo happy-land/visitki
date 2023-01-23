@@ -16,12 +16,6 @@
     border-radius: 4px;
 }
 
-.form select {
-    height: 48px;
-    border: 1px solid #100C34;
-    border-radius: 4px;
-}
-
 .hideInput {
     position: absolute;
     opacity: 0;

@@ -25,8 +25,7 @@ export const FormPage = () => {
       </fieldset>
       <fieldset>
         <label>Дата рождения *</label>
-        <InputDate value=""/>
-        <input type="date" name="date"/>
+        <InputDate/>
       </fieldset>
       <fieldset>
         <label>Выберите город *</label>
