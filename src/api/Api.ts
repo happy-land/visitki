@@ -1,5 +1,5 @@
 import {TApiConfig, TApiResponse} from "./types";
-import {TUser} from "../types/types";
+import {TStudent, TUser} from "../types/types";
 import {apiConfig} from "./config";
 
 class Api {
@@ -31,7 +31,7 @@ class Api {
 	}
 
 	//получаем список пользователей контректной когорты - для студента
-	getCohortData = (token: string) => {
+	getCohortData = (token: string): Promise<TApiResponse<TStudent>> => {
 		return fetch(`${this.baseUrl}/profiles`, {
 			method: 'GET',
 			headers: {
