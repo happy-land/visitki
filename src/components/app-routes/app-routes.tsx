@@ -5,7 +5,7 @@ import {
   useNavigate,
   useResolvedPath,
 } from 'react-router-dom';
-import { LoginPage, DetailPage, HomePage, MapPage } from '../../pages';
+import { LoginPage, DetailPage, HomePage, MapPage, FormPage } from '../../pages';
 import { Layout } from '../layout/layout';
 import { useState, useEffect } from 'react';
 
@@ -65,7 +65,9 @@ export const AppRoutes = () => {
             <Route path='/' element={<HomePage />} />
             <Route path='/profile' element={<div>Страница профиля</div>} />
             <Route path='/map' element={<MapPage />} />
+            <Route path="/form" element={<FormPage />} />
           </Route>
+          
           <Route
             path='/'
             element={<ProtectedRoutes roleRequired={'student' || 'curator'} />}
