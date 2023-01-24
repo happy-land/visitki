@@ -1,0 +1,20 @@
+.customInput {
+    height: 48px;
+    border: 1px solid #100C34;
+    border-radius: 4px;
+    position: relative;
+}
+
+.hideInput {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.img {
+    position: absolute;
+    right: 5px;
+    top: 13px;
+}

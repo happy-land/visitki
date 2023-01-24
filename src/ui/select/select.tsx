@@ -1,56 +1,77 @@
-import { FC, BaseSyntheticEvent, SetStateAction, Dispatch } from "react";
+import {
+  useEffect,
+  useState,
+  FC,
+  BaseSyntheticEvent,
+  SetStateAction,
+  Dispatch,
+} from "react";
 import styles from "./select.module.css";
 import caretSvg from "../form-icons/caret-down.svg";
 
 type SelectType = {
-  citySelected: string;
-  setCitySeleted: Dispatch<SetStateAction<string>>;
+  payload: string;
+  setPayloadSeleted: Dispatch<SetStateAction<string>>;
+  optionArr: Array<string>;
+  name: string
 };
 
-export const Select: FC<SelectType> = ({ citySelected, setCitySeleted }) => {
+export const Select: FC<SelectType> = ({ payload, setPayloadSeleted, optionArr, name }) => {
   const readOnly = () => null;
+  const [ulElemActive, setUlElemActive] = useState(false);
+  const [imageActive, setImageActive] = useState(false);
+  // const optionArr = ["Чебаксары", "Москва", "Санкт-Петербург"];
 
-  const optionArr = ["Чебаксары", "Москва", "Санкт-Петербург"];
-  
   const handleClick = (e: BaseSyntheticEvent) => {
-    const baseElem = e.currentTarget;
+    e.stopPropagation();
     const currentElem = e.target;
-    const ulElem = baseElem.querySelector("." + styles.ul);
-    const image = baseElem
-      .querySelector("." + styles.titleSelect)
-      .querySelector("." + styles.imgCaret);
 
-    ulElem.classList.add(styles.ulActive);
-    image.classList.add(styles.imgCaretActive);
+    setActive(true);
 
     if (currentElem.closest("ul")) {
-      setCitySeleted(currentElem.textContent);
-      ulElem.classList.remove(styles.ulActive);
-      image.classList.remove(styles.imgCaretActive);
+      setPayloadSeleted(currentElem.textContent);
+      setActive(false);
     }
   };
+
+  const setActive = (payLoade: boolean) => {
+    setUlElemActive(payLoade);
+    setImageActive(payLoade);
+  };
+
+  useEffect(() => {
+    const handleClickPad = () => {
+      setActive(false);
+    };
+
+    document.addEventListener("click", handleClickPad);
+
+    return () => document.removeEventListener("click", handleClickPad);
+  }, []);
 
   return (
     <>
       <div onClick={handleClick} className={styles.conteiner}>
         <div className={styles.titleSelect}>
-          {citySelected}{" "}
+          {payload}
           <img
-            className={styles.imgCaret}
+            className={`${styles.imgCaret} ${
+              imageActive && styles.imgCaretActive
+            }`}
             src={caretSvg}
             alt="иконка стрека вниз список"
           />
         </div>
-        <ul className={styles.ul}>
+        <ul className={`${styles.ul} ${ulElemActive && styles.ulActive}`}>
           {optionArr.map((item, index) => (
             <li key={index}>{item}</li>
           ))}
         </ul>
       </div>
       <select
-        name="cites"
+        name={name}
         id="#"
-        value={citySelected}
+        value={payload}
         onChange={readOnly}
         className={styles.selectOriginal}
       >
