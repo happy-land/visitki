@@ -1,9 +1,11 @@
-import { Route, Routes } from "react-router-dom";
+import {Route, Routes, useLocation} from "react-router-dom";
 import { LoginPage, DetailPage, HomePage } from "../../pages";
 import { Layout } from "../layout/layout";
 import { useState, useEffect } from "react";
+
 export const AppRoutes = () => {
   const [jwt, setJwt] = useState(null);
+  // const location = useLocation();
 
   useEffect(() => {
     if (/access_token=([^&]+)/.test(document.location.hash)) {
@@ -13,7 +15,14 @@ export const AppRoutes = () => {
   }, []);
   console.log(jwt);
 
-  
+  // useEffect(() => {
+  //   console.log(location.hash);
+  //   const tokenHash = location.hash.split("&")[0].split("=")[1] || null;
+  //   if (tokenHash) {
+  //     localStorage.setItem("access_token", tokenHash);
+  //     console.log(tokenHash);
+  //   }
+  // }, []);
 
   return (
     <div>

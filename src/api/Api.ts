@@ -1,5 +1,5 @@
 import {TApiConfig, TApiResponse} from "./types";
-import {TStudent, TUser} from "../types/types";
+import {TBaseUserData, TComment, TProfileDetails, TReaction, TReactionBody, TStudent, TUser} from "../types/types";
 import {apiConfig} from "./config";
 
 class Api {
@@ -7,6 +7,7 @@ class Api {
 	private readonly headers: {
 		[key: string]: string,
 	};
+	private token: string = '';
 
 	constructor(config: TApiConfig) {
 		this.baseUrl = config.baseUrl;
@@ -19,58 +20,65 @@ class Api {
 		: res.json().then((data) => Promise.reject(data));
 	}
 
+	// сохраняем токен в области видимости методов класса.
+	// необходимо передать в него токен до начала работы с другими
+	// методами класса Api. При обновлении токена так же обновить.
+	public setToken(token: string) {
+		this.token = token;
+	}
 	//получаем список всех пользователей - для админки
-	getUsersData = (token: string): Promise<TApiResponse<TUser>> => {
+	getUsersData = (): Promise<TApiResponse<TUser>> => {
 		return fetch(`${this.baseUrl}/users`, {
 			method: 'GET',
 			headers: {
 				...this.headers,
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${this.token}`
 			}
 		}).then((response) => this.checkResponse(response));
 	}
 
 	//получаем список пользователей контректной когорты - для студента
-	getCohortData = (token: string): Promise<TApiResponse<TStudent>> => {
+	getCohortData = (): Promise<TApiResponse<TStudent>> => {
 		return fetch(`${this.baseUrl}/profiles`, {
+			mode: 'no-cors',
 			method: 'GET',
 			headers: {
 				...this.headers,
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${this.token}`
 			}
 		}).then((response) => this.checkResponse(response));
-	}
+	};
 
 	//получаем детальную информацию о пользователе - для студента
-	getProfileData = (token: string, id: string) => {
-		return fetch(`${this.baseUrl}/profiles/:${id}`, {
+	getProfileData = (_id: string): Promise<TStudent> => {
+		return fetch(`${this.baseUrl}/profiles/:${_id}`, {
 			method: 'GET',
 			headers: {
 				...this.headers,
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${this.token}`
 			}
 		}).then((response) => this.checkResponse(response));
 	}
 
 	//изменяем детальную информацию о пользователе - для студента
-	setProfileData = (token: string, id: string, profileData: any) => {
-		return fetch(`${this.baseUrl}/profiles/:${id}`, {
+	setProfileData = (_id: string, profileData: TProfileDetails): Promise<TStudent> => {
+		return fetch(`${this.baseUrl}/profiles/:${_id}`, {
 			method: 'PATCH',
 			headers: {
 				...this.headers,
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${this.token}`
 			},
 			body: JSON.stringify({profileData}),
 		}).then((response) => this.checkResponse(response));
 	}
 
 	//добавляем нового пользователч - для админки
-	addNewUserData = (token: string, userData: any) => {
+	addNewUserData = (userData: TBaseUserData): Promise<TBaseUserData> => {
 		return fetch(`${this.baseUrl}/users`, {
 			method: 'POST',
 			headers: {
 				...this.headers,
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${this.token}`
 			},
 			body: JSON.stringify({
 				email: userData.email,
@@ -80,59 +88,59 @@ class Api {
 	}
 
 	//изменяем данные пользователя - для админки
-	changeUserData = (token: string, userData: any) => {
-		return fetch(`${this.baseUrl}/users/:${userData.id}`, {
+	changeUserData = (userData: TBaseUserData): Promise<TBaseUserData> => {
+		return fetch(`${this.baseUrl}/users/:${userData._id}`, {
 			method: 'PUT',
 			headers: {
 				...this.headers,
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${this.token}`
 			},
 			body: JSON.stringify({
 				email: userData.email,
 				cohort: userData.cohort
 			})
-		})
+		}).then((response) => this.checkResponse(response));
 	}
 
 	//получаем все комментарии - для админки
-	getCommentsData = (token: string) => {
+	getCommentsData = (): Promise<TApiResponse<TComment>> => {
 		return fetch(`${this.baseUrl}/comments)`, {
 			method: 'GET',
 			headers: {
 				...this.headers,
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${this.token}`
 			}
 		}).then((response) => this.checkResponse(response))
 	}
 
-	//удаляем комментарий - для админки
-	deleteComment = (token: string, id: string) => {
-		return fetch(`${this.baseUrl}/comments/:${id}`, {
+	//удаляем комментарий по id комментария(реакции)- для админки
+	deleteComment = (_id: string): Promise<void> => {
+		return fetch(`${this.baseUrl}/comments/:${_id}`, {
 			method: 'DELETE',
 			headers: {
 				...this.headers,
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${this.token}`
 			}
 		}).then((response) => this.checkResponse(response))
 	}
 
 	//получаем все реакции по id пользователя - для студента
-	getReactionsForUser = (token: string, id: string) => {
-		return fetch(`${this.baseUrl}/profiles/:${id}/reactions`, {
+	getReactionsForUser = (_id: string): Promise<TApiResponse<TReaction>> => {
+		return fetch(`${this.baseUrl}/profiles/:${_id}/reactions`, {
 			method: 'GET',
 			headers: {
 				...this.headers,
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${this.token}`
 			}
 		}).then((response) => this.checkResponse(response))
 	}
 
-	sendNewReaction = (token: string, id: string, reactionData: any) => {
-		return fetch(`${this.baseUrl}/profiles/:${id}/reactions`, {
+	sendNewReaction = (_id: string, reactionData: TReactionBody): Promise<any> => {
+		return fetch(`${this.baseUrl}/profiles/:${_id}/reactions`, {
 			method: 'POST',
 			headers: {
 				...this.headers,
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${this.token}`
 			},
 			body: JSON.stringify({
 				target: reactionData.target,
