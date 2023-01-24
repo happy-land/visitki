@@ -1,5 +1,6 @@
-import { FC, useEffect } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { Emoji } from '../emoji/emoji';
+import { getReaction } from '../../utils/api';
 
 import ThumbsUpIcon from '../../ui/icons/thumbsup-icon.svg';
 import ThumbsDownIcon from '../../ui/icons/thumbsdown-icon.svg';
@@ -14,8 +15,6 @@ import BlackHeartIcon from '../../ui/icons/blackheart-icon.svg';
 
 
 import styles from './emoji-block.module.css';
-import { checkResponse } from '../../utils/utils';
-import { TEmotions } from '../../types/types';
 
 
 const reactions = {
@@ -104,51 +103,105 @@ const reactions = {
   ]
 }
 
- interface IEmojiBlockProps {
-  emotions: TEmotions;
- }
 
-export const EmojiBlock: FC<IEmojiBlockProps> = ({ emotions }) => {
-  
+type TEmotion = {
+  emotion: string;
+}
+
+export const EmojiBlock: FC = () => {
+
+  const [ emotions, setEmotions ] = useState([]);
+  const [ emojis, setEmojis ] = useState([{
+    type: 'like',
+    image: ThumbsUpIcon,
+    counter: 0
+  },
+  {
+    type: 'dislike',
+    image: ThumbsDownIcon,
+    counter: 0
+  },
+  {
+    type: 'wave',
+    image: WawingHandIcon,
+    counter: 0
+  },
+  {
+    type: 'smile',
+    image: SlightlySmilingHeadIcon,
+    counter: 0
+  },
+  {
+    type: 'upset',
+    image: PensiveFaceIcon,
+    counter: 0
+  },
+  {
+    type: 'funny',
+    image: RollingIcon,
+    counter: 0
+  },
+  {
+    type: 'confused',
+    image: GrimacingFaceIcon,
+    counter: 0
+  },
+  {
+    type: 'confused',
+    image: GrimacingFaceIcon,
+    counter: 0
+  },
+  {
+    type: 'confused',
+    image: GrimacingFaceIcon,
+    counter: 0
+  },
+  {
+    type: 'scream',
+    image: FaceScreamigIcon ,
+    counter: 0
+  },{
+    type: 'love',
+    image: HeartEyesIcon,
+    counter: 0
+  },{
+    type: 'heart',
+    image: BlackHeartIcon,
+    counter: 0
+  },
+]);
+
   // получить список реакций с сервера
   // {{baseUrl}}/profiles/:id/reactions
+  useEffect(() => {
+    getReaction()
+      .then((data) => {
+        setEmotions(data.items.filter((element: { emotion: string; }) => element.emotion));
+        emojis && setEmojis(emojis.map(element => {
+          return {
+            ...element,
+            counter: countEmojis(emotions)[element.type] | 0
+          }
+        }))
+  })
+      .catch(err => console.log(err));
+  }, [])
 
+  const countEmojis = (array: Array<TEmotion>) => {
+    return array.reduce((acc: { [emotion: string]: number}, val) => {
+        const emotion = val.emotion;
+        acc[emotion] = (acc[emotion] || 0) + 1;
+        return acc;
+    }, {})
+  }
   
-
-
   return (
     <div className={styles.container}>
       <ul className={styles.emojiList}>
-        <li className={styles.emojiItem} >
-          <Emoji image={ThumbsUpIcon} counter={emotions.like.length} />
-        </li>
-        <li className={styles.emojiItem}>
-          <Emoji image={ThumbsDownIcon} counter={null} />  {/* counter={emotions.dislike.length} */}
-        </li>
-        <li className={styles.emojiItem}>
-          <Emoji image={WawingHandIcon} counter={null} />
-        </li>
-        <li className={styles.emojiItem}>
-          <Emoji image={SlightlySmilingHeadIcon} counter={emotions.smile.length} />
-        </li>
-        <li className={styles.emojiItem}>
-          <Emoji image={PensiveFaceIcon} counter={null} />
-        </li>
-        <li className={styles.emojiItem}>
-          <Emoji image={RollingIcon} counter={99} />
-        </li>
-        <li className={styles.emojiItem}>
-          <Emoji image={GrimacingFaceIcon} counter={null} />
-        </li>
-        <li className={styles.emojiItem}>
-          <Emoji image={FaceScreamigIcon} counter={null} />
-        </li>
-        <li className={styles.emojiItem}>
-          <Emoji image={HeartEyesIcon} counter={null} />
-        </li>
-        <li className={styles.emojiItem}>
-          <Emoji image={BlackHeartIcon} counter={emotions.heart.length} />
-        </li>
+        {emojis.map((element, index) =>
+        <li className={styles.emojiItem} key={index}>
+          <Emoji image={element.image} counter={element.counter} type={element.type} />
+        </li>)}
       </ul>
     </div>
   );

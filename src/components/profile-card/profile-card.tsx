@@ -71,7 +71,7 @@ export const ProfileCard: FC<IProfileCard> = ({ photo, onCardOver, onCardOut, de
       </p>
       <p className={`${styles.profileCity} text_type_main-default`}>Москва {desktopMode.toString()}</p>
       <ChatIcon className={styles.chatIcon} style={chatIconStyle} onClick={commentsBlockToggle} />
-      <CommentsBlock isOpen={showComments} target="hobby" />
+      <CommentsBlock isOpen={showComments} />
     </article>
   );
 };
