@@ -3,6 +3,8 @@ import { ReactComponent as ChatIcon } from '../../assets/images/ChatIcon.svg';
 import { CommentsBlock } from '../comments-block/commets-block';
 import '../../assets/css/common.scss';
 import styles from './profile-card.module.css';
+import { ReactionCounter } from '../reactions-counter/reactions-counter';
+import { getStudentById } from '../../utils/api';
 
 interface IPhoto {
   albumId: number;
@@ -20,10 +22,26 @@ interface IProfileCard {
 }
 
 export const ProfileCard: FC<IProfileCard> = ({ photo, onCardOver, onCardOut, desktopMode }) => {
+  let owner: any;
+  const _owner = localStorage.getItem("user");
+  if (_owner) {
+		owner = JSON.parse(_owner)
+	}
+
+
   const [photoStyle, setPhotoStyle] = useState({});
   const [profileNameStyle, setProfileNameStyle] = useState({});
   const [chatIconStyle, setChatIconStyle] = useState(desktopMode ? { display: 'none' } : { display: 'flex' });
   const [showComments, setShowComments] = useState<boolean>(false);
+  const [count, setCount] = useState(0);
+
+	useEffect(() => {
+    getStudentById('abfccdaa23e0bd1c4448d2f3')
+      .then((data) => {
+				setCount(data.reactions);
+			})
+      .catch((err: any) => console.log(err));
+  }, []);
 
   useEffect(() => {
     if (desktopMode) {
@@ -71,6 +89,7 @@ export const ProfileCard: FC<IProfileCard> = ({ photo, onCardOver, onCardOut, de
       </p>
       <p className={`${styles.profileCity} text_type_main-default`}>Москва {desktopMode.toString()}</p>
       <ChatIcon className={styles.chatIcon} style={chatIconStyle} onClick={commentsBlockToggle} />
+      {count && (<ReactionCounter counter={count} style={chatIconStyle}/>)}
       <CommentsBlock isOpen={showComments} />
     </article>
   );

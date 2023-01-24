@@ -32,16 +32,8 @@ export const getProfiles = () => {
   });
 }
 
-export const getProfileById = (id: string) => {
-  axios.get(`/profiles/${id}`)
-  .then((response) => {
-
-  })
-  .catch((error) => console.log(error))
-  .finally(() => {
-
-  });
-}
+export const getStudentById = (id: string) => fetch(`/profiles/${id}`)
+.then(checkResponse)
 
 export const getComments = () => {
   axios.get('/comments')
@@ -67,7 +59,7 @@ export const sendReaction = (element: {target: string | null, text?: string, emo
       emotion: element.emotion,
     })
   })
-    .then(checkResponse)
+  .then(checkResponse)
 }
 
 export const deleteReaction = (id: string) => {
