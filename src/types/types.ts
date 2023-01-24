@@ -1,13 +1,28 @@
-export type TUser = {
-  _id: string,
-  createdAt: number,
-  updatedAt?: number,
+// Анна
+export type TBaseUserData = {
   email: string,
   cohort: string,
-  name: string
-  photo?: string
-};
+  _id?: string,
+  createdAt?: number,
+  updatedAt?: number,
+}
 
+export type TUser = {
+  name?: string
+} & TBaseUserData
+
+// Елизавета
+// export type TUser = {
+//   _id: string,
+//   createdAt: number,
+//   updatedAt?: number,
+//   email: string,
+//   cohort: string,
+//   name: string
+//   photo?: string
+// };
+
+// Елизавета
 export type TStudent = {
   _id: string,
   createdAt: number,
@@ -27,6 +42,47 @@ export type TStudent = {
   }
 }
 
+// Анна
+// export type TStudent = {
+//   reactions?: number | null,
+// } & TBaseUserData & TProfileDetails
+
+// Анна
+export type TProfileDetails = {
+  profile: {
+    name?: string,
+    photo?: string,
+    city?: TCity,
+    birthday?: string,
+    quote?: string,
+    telegram?: string,
+    github?: string,
+    template?: string,
+  }
+  info?: TProfileInfo
+}
+
+// Анна
+export type TProfileInfo = {
+  hobby?: TProfileBlock,
+  status?: TProfileBlock,
+  job?: TProfileBlock,
+  edu?: TProfileBlock
+}
+
+// Анна
+export type TCity = {
+  name: string,
+  geocode: Array<string>
+}
+
+// Анна
+export type TProfileBlock = {
+  text?: string,
+  image?: string | null
+}
+
+// Елизавета
 export type TStudentDetail = {
   email: string,
   cohort: string,
@@ -72,6 +128,24 @@ export type TStudentDetail = {
   reactions?: number
 }
 
+// Елизавета
+// export type TReaction = {
+//   _id: string;
+//   from: {
+//     _id: string;
+//     name: string;
+//     email: string;
+//   };
+//   target: 'hobby' | 'edu' | 'status' | 'job' | null;
+//   text: string,
+//   to: {
+//     _id: string;
+//     name: string;
+//     email: string;
+//   }
+// }
+
+// Анна
 export type TReaction = {
   _id: string;
   from: {
@@ -79,9 +153,30 @@ export type TReaction = {
     name: string;
     email: string;
   };
-  target: 'hobby' | 'edu' | 'status' | 'job' | null;
-  text: string;
   emotion?: 'like' | 'smile' | 'heart' | undefined;
+} & TReactionBody
+
+// Анна
+export type TReactionBody = {
+  target: 'hobby' | 'edu' | 'status' | null;
+  text:string
+}
+
+// Анна
+export type TComment = {
+  _id: string;
+  from: {
+    _id: string;
+    name: string;
+    email: string;
+  };
+  target: 'hobby' | 'edu' | 'status' | 'job' | null;
+  text: string,
+  to: {
+    _id: string;
+    name: string;
+    email: string;
+  }
 }
 
 export type TEmotions = {
