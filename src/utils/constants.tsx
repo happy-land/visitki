@@ -1,5 +1,5 @@
 export const testProfilesResponse = {
-	"total": 30153691.64024033,
+	"total": 2,
 	"items": [
 		{
 			"email": "5pM@CmJsssbzcVSciTPMZH.wdp",
