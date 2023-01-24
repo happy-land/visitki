@@ -27,6 +27,51 @@ export type TStudent = {
   }
 }
 
+export type TStudentDetail = {
+  email: string,
+  cohort: string,
+  _id: string,
+  createdAt: number,
+  updatedAt?: number,
+  profile: {
+    name: string,
+    photo: string,
+    city?: {
+      name: string,
+      geocode: [
+          string,
+          string
+      ]
+    },
+    birthday: string,
+    quote?: string,
+    telegram?: string,
+    github?: string,
+    template: string
+  },
+  info?: {
+    hobby?: {
+      image: string;
+      reactions: number;
+      text: string;
+    },
+    status?: {
+      image: string;
+      reactions: number;
+      text: string;
+    },
+    job?: {
+      reactions: number;
+      text: string;
+    },
+    edu?: {
+      reactions: number;
+      text: string;
+    }
+  },
+  reactions?: number
+}
+
 export type TReaction = {
   _id: string;
   from: {

@@ -21,7 +21,7 @@ export const Emoji: FC<IEmojiProps> = ({ image, counter, type }) => {
 
   const handleClick = (e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {
     const target = e.currentTarget;
-    //здесь нужно присвоить id рекции по идее
+    //здесь нужно присвоить id реакции по идее
     console.log(target);
 
     setBorder(!border);

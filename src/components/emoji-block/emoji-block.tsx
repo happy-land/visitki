@@ -147,16 +147,6 @@ export const EmojiBlock: FC = () => {
     counter: 0
   },
   {
-    type: 'confused',
-    image: GrimacingFaceIcon,
-    counter: 0
-  },
-  {
-    type: 'confused',
-    image: GrimacingFaceIcon,
-    counter: 0
-  },
-  {
     type: 'scream',
     image: FaceScreamigIcon ,
     counter: 0
