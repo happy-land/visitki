@@ -38,8 +38,8 @@ class Api {
 	}
 
 	//получаем список пользователей контректной когорты - для студента
-	getCohortData = (): Promise<TApiResponse<TStudent>> => {
-		return fetch(`${this.baseUrl}/profiles`, {
+	getCohortData = (limit: number = 10): Promise<TApiResponse<TStudent>> => {
+		return fetch(`${this.baseUrl}/profiles?limit=${limit}`, {
 			method: 'GET',
 			headers: {
 				...this.headers,

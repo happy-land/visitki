@@ -5,23 +5,16 @@ import '../../assets/css/common.scss';
 import styles from './profile-card.module.css';
 import { ReactionCounter } from '../reactions-counter/reactions-counter';
 import { getStudentById } from '../../utils/api';
+import { TReaction, TStudent } from '../../types/types';
+import { api } from '../../api/Api';
 
-interface IPhoto {
-  albumId: number;
-  id: number;
-  title: string;
-  url: string;
-  thumbnailUrl: string;
-}
 
 interface IProfileCard {
-  photo: IPhoto;
-  onCardOver: (event: MouseEvent<HTMLElement>) => void;
-  onCardOut: (event: MouseEvent<HTMLElement>) => void;
+  profile: TStudent;
   desktopMode: boolean;
 }
 
-export const ProfileCard: FC<IProfileCard> = ({ photo, onCardOver, onCardOut, desktopMode }) => {
+export const ProfileCard: FC<IProfileCard> = ({ profile, desktopMode }) => {
   let owner: any;
   const _owner = localStorage.getItem("user");
   if (_owner) {
@@ -33,7 +26,16 @@ export const ProfileCard: FC<IProfileCard> = ({ photo, onCardOver, onCardOut, de
   const [profileNameStyle, setProfileNameStyle] = useState({});
   const [chatIconStyle, setChatIconStyle] = useState(desktopMode ? { display: 'none' } : { display: 'flex' });
   const [showComments, setShowComments] = useState<boolean>(false);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState<Array<TReaction>>([]);
+
+  // useEffect(() => {
+  //   console.log(owner, 'THIS IS OWNER');
+  //   api.getReactionsForUser(owner._id)
+  //   .then((data) => {
+  //     setCount(data.items);
+  //   })
+  //   .catch((err: any) => console.log(err));
+  // }, []);
 
 	useEffect(() => {
     getStudentById('abfccdaa23e0bd1c4448d2f3')
@@ -78,18 +80,18 @@ export const ProfileCard: FC<IProfileCard> = ({ photo, onCardOver, onCardOut, de
       onMouseOut={handleMouseOut}
     >
       <div className={styles.profilePhotoContainer} style={photoStyle}>
-      <img className={styles.profilePhoto} src={photo.thumbnailUrl} alt={photo.title} />
+      <img className={styles.profilePhoto} src={profile.profile.photo} alt={profile.profile.name} />
       </div>
       
       <p
         className={`${styles.profileName} text_type_header-small`}
         style={profileNameStyle}
       >
-        Иванов Сергей {window.innerWidth}
+        {profile.profile.name}
       </p>
-      <p className={`${styles.profileCity} text_type_main-default`}>Москва {desktopMode.toString()}</p>
+      <p className={`${styles.profileCity} text_type_main-default`}>{profile.profile.city.name}</p>
       <ChatIcon className={styles.chatIcon} style={chatIconStyle} onClick={commentsBlockToggle} />
-      {count && (<ReactionCounter counter={count} style={chatIconStyle}/>)}
+      {/* {count && (<ReactionCounter counter={count} style={chatIconStyle}/>)} */}
       <CommentsBlock isOpen={showComments} />
     </article>
   );
