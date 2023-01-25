@@ -1,5 +1,5 @@
 export const testProfilesResponse = {
-	"total": 2,
+	"total": 3,
 	"items": [
 		{
 			"email": "5pM@CmJsssbzcVSciTPMZH.wdp",
@@ -13,8 +13,8 @@ export const testProfilesResponse = {
 				"city": {
 					"name": "Москва",
 					"geocode": [
-						55.755864,
-						37.617698
+						'55.755864',
+						'37.617698'
 					]
 				}
 			}
@@ -31,8 +31,8 @@ export const testProfilesResponse = {
 				"city": {
 					"name": "Санкт-Петербург",
 					"geocode": [
-						59.938955,
-						30.315644
+						'59.938955',
+						'30.315644'
 					]
 				}
 			}
@@ -49,44 +49,11 @@ export const testProfilesResponse = {
 				"city": {
 					"name": "Казань",
 					"geocode": [
-						55.796127,
-						49.106414
+						'55.796127',
+						'49.106414'
 					]
 				}
 			}
 		}
 	]
-}
-
-export type TProfileResponse = {
-	"total": number,
-	"items": Array<TUserItem>
-}
-
-export type TUserItem = {
-	"email": string,
-	"cohort": string,
-	"_id": string,
-	"createdAt": number,
-	"updatedAt": number,
-	"profile": TProfileItem
-}
-
-export type TProfileItem = {
-	"name": string,
-	"photo": string,
-	"city": {
-		"name": string,
-		"geocode": Array<number>
-	}
-}
-
-export type TCity = {
-	name: string,
-	geocode: Array<number>
-}
-
-export const getProfiles = (responseObj: TProfileResponse): Array<TProfileItem> => {
-	const profiles = responseObj.items.map(item => item.profile);
-	return profiles;
 }

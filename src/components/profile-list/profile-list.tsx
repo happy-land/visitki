@@ -134,7 +134,7 @@ export const ProfileList: FC = () => {
     <div className={styles.container}>
       <div className={styles.actions}>
         <div className={styles.citySelector}>Выберите город</div>
-        <Link className={styles.mapLink} to='#'>
+        <Link className={styles.mapLink} to='/map'>
           Посмотреть на карте
         </Link>
       </div>

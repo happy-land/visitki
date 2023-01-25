@@ -9,13 +9,12 @@ import {
 	YMaps,
 	ZoomControl
 } from "@pbe/react-yandex-maps";
-import {getProfiles, testProfilesResponse, TProfileItem} from "../utils/constants";
+import {testProfilesResponse} from "../utils/constants";
 import styles from "./map.module.css";
 import pin from "../images/map-pin.svg";
+import {TStateMapPage} from "../types/types";
+import {getProfiles} from "../utils/utils";
 
-type TStateMapPage = {
-	data: Array<TProfileItem> | null;
-}
 
 export const MapPage: FC = () => {
 
