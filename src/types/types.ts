@@ -141,4 +141,3 @@ export type TEmotions = {
 export type TStateMapPage = {
   data: Array<TProfileShortItem> | null;
 }
-

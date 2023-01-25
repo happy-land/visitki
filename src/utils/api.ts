@@ -10,27 +10,7 @@ const checkResponse = (res: Response) => {
   return res.json();
 }
 
-export const getUsers = () => {
-  axios.get('/users')
-  .then((response) => {
 
-  })
-  .catch((error) => console.log(error))
-  .finally(() => {
-
-  });
-}
-
-export const getProfiles = () => {
-  axios.get('/profiles')
-  .then((response) => {
-
-  })
-  .catch((error) => console.log(error))
-  .finally(() => {
-
-  });
-}
 
 export const getStudentById = (id: string) => fetch(`/profiles/${id}`)
 .then(checkResponse)
