@@ -9,13 +9,12 @@ import {
 	YMaps,
 	ZoomControl
 } from "@pbe/react-yandex-maps";
-import {getProfiles, testProfilesResponse, TProfileItem} from "../utils/constants";
 import styles from "./map.module.css";
 import pin from "../images/map-pin.svg";
+import {TStateMapPage} from "../types/types";
+import {getProfiles} from "../utils/utils";
+import {api} from "../api/Api";
 
-type TStateMapPage = {
-	data: Array<TProfileItem> | null;
-}
 
 export const MapPage: FC = () => {
 
@@ -24,10 +23,12 @@ export const MapPage: FC = () => {
 	})
 
 	useEffect(() => {
-		const profiles = getProfiles(testProfilesResponse);
-		setProfilesData({
-			...profilesData,
-			data: profiles
+		api.getCohortData().then((data) => {
+			const profiles = getProfiles(data);
+			setProfilesData({
+				...profilesData,
+				data: profiles
+			})
 		})
 	}, []);
 

@@ -11,6 +11,7 @@ export type TUser = {
   name?: string
 } & TBaseUserData
 
+
 // Анна
  export type TStudent = {
    reactions: number,
@@ -51,52 +52,6 @@ export type TProfileBlock = {
   image?: string | null
 }
 
-// Елизавета
-export type TStudentDetail = {
-  email: string,
-  cohort: string,
-  _id: string,
-  createdAt: number,
-  updatedAt?: number,
-  profile: {
-    name: string,
-    photo: string,
-    city?: {
-      name: string,
-      geocode: [
-          string,
-          string
-      ]
-    },
-    birthday: string,
-    quote?: string,
-    telegram?: string,
-    github?: string,
-    template: string
-  },
-  info?: {
-    hobby?: {
-      image?: string;
-      reactions?: number;
-      text?: string;
-    },
-    status?: {
-      image?: string;
-      reactions?: number;
-      text?: string;
-    },
-    job?: {
-      reactions?: number;
-      text?: string;
-    },
-    edu?: {
-      reactions?: number;
-      text?: string;
-    }
-  },
-  reactions: number
-}
-
 // Анна
 export type TReaction = {
   _id: string;
@@ -133,4 +88,10 @@ export type TComment = {
 
 export type TEmotions = {
   [key: string]: Array<TReaction>;
+
 }
+
+export type TStateMapPage = {
+  data: Array<TProfileShortItem> | null;
+}
+

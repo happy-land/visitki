@@ -40,7 +40,6 @@ class Api {
 	//получаем список пользователей контректной когорты - для студента
 	getCohortData = (): Promise<TApiResponse<TStudent>> => {
 		return fetch(`${this.baseUrl}/profiles`, {
-			mode: 'no-cors',
 			method: 'GET',
 			headers: {
 				...this.headers,
@@ -50,7 +49,7 @@ class Api {
 	};
 
 	//получаем детальную информацию о пользователе - для студента
-	getProfileData = (_id: string): Promise<TStudentDetail> => {
+	getProfileData = (_id: string): Promise<TStudent> => {
 		return fetch(`${this.baseUrl}/profiles/${_id}`, {
 			method: 'GET',
 			headers: {
@@ -104,7 +103,7 @@ class Api {
 
 	//получаем все комментарии - для админки
 	getCommentsData = (): Promise<TApiResponse<TComment>> => {
-		return fetch(`${this.baseUrl}/comments)`, {
+		return fetch(`${this.baseUrl}/comments`, {
 			method: 'GET',
 			headers: {
 				...this.headers,
