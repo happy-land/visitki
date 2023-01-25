@@ -11,6 +11,7 @@ export type TUser = {
   name?: string
 } & TBaseUserData
 
+
 // Елизавета
 // export type TUser = {
 //   _id: string,
@@ -38,8 +39,9 @@ export type TStudent = {
 
 // Анна
 // export type TStudent = {
-//   reactions?: number | null,
-// } & TBaseUserData & TProfileDetails
+//   reactions: number,
+ //} & TBaseUserData & TProfileDetails
+
 
 export type TProfileShortItem = {
   "name": string,
@@ -47,7 +49,8 @@ export type TProfileShortItem = {
   "city": TCity
 }
 
-// Анна
+
+ //Анна
 export type TProfileDetails = {
   profile: {
     name?: string,
@@ -119,25 +122,8 @@ export type TStudentDetail = {
       text: string;
     }
   },
-  reactions?: number
+  reactions: number
 }
-
-// Елизавета
-// export type TReaction = {
-//   _id: string;
-//   from: {
-//     _id: string;
-//     name: string;
-//     email: string;
-//   };
-//   target: 'hobby' | 'edu' | 'status' | 'job' | null;
-//   text: string,
-//   to: {
-//     _id: string;
-//     name: string;
-//     email: string;
-//   }
-// }
 
 // Анна
 export type TReaction = {
@@ -147,12 +133,12 @@ export type TReaction = {
     name: string;
     email: string;
   };
-  emotion?: 'like' | 'smile' | 'heart' | undefined;
+  emotion?: 'like' | 'smile' | 'heart' | 'upset' | 'funny' | 'confused' | 'scream' | 'love' | 'heart';
 } & TReactionBody
 
 // Анна
 export type TReactionBody = {
-  target: 'hobby' | 'edu' | 'status' | null;
+  target: 'hobby' | 'edu' | 'status' | 'job' | null;
   text:string
 }
 
@@ -175,12 +161,10 @@ export type TComment = {
 
 export type TEmotions = {
   [key: string]: Array<TReaction>;
+
 }
 
 export type TStateMapPage = {
   data: Array<TProfileShortItem> | null;
 }
 
-// type T = {
-//   [key: string]: Array<TReaction>;
-// }
