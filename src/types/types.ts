@@ -11,7 +11,7 @@ export type TUser = {
   name?: string
 } & TBaseUserData
 
-<<<<<<< Updated upstream
+
 // Елизавета
 // export type TUser = {
 //   _id: string,
@@ -25,36 +25,32 @@ export type TUser = {
 
 // Елизавета
 export type TStudent = {
+  email: string,
+  cohort: string,
   _id: string,
   createdAt: number,
   updatedAt?: number,
-  email: string,
-  cohort: string,
   profile: {
       name: string,
       photo: string,
-      city: {
-          name: string,
-          geocode: [
-              string,
-              string
-          ]
-      }
+      city: TCity
   }
 }
-=======
->>>>>>> Stashed changes
 
 // Анна
- export type TStudent = {
-   reactions: number,
- } & TBaseUserData & TProfileDetails
+// export type TStudent = {
+//   reactions: number,
+ //} & TBaseUserData & TProfileDetails
 
-<<<<<<< Updated upstream
-// Анна
-=======
+
+export type TProfileShortItem = {
+  "name": string,
+  "photo": string,
+  "city": TCity
+}
+
+
  //Анна
->>>>>>> Stashed changes
 export type TProfileDetails = {
   profile: {
     name?: string,
@@ -99,13 +95,7 @@ export type TStudentDetail = {
   profile: {
     name: string,
     photo: string,
-    city?: {
-      name: string,
-      geocode: [
-          string,
-          string
-      ]
-    },
+    city?: TCity,
     birthday: string,
     quote?: string,
     telegram?: string,
@@ -171,12 +161,10 @@ export type TComment = {
 
 export type TEmotions = {
   [key: string]: Array<TReaction>;
-<<<<<<< Updated upstream
+
 }
 
-// type T = {
-//   [key: string]: Array<TReaction>;
-// }
-=======
+export type TStateMapPage = {
+  data: Array<TProfileShortItem> | null;
 }
->>>>>>> Stashed changes
+
