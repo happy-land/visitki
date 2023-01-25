@@ -15,17 +15,19 @@ export const Header: FC = () => {
       <NavLink to='/' className={styles.logoContainer}>
         <Logo />
       </NavLink>
-      {user.tag ==='student' 
-          ? 
-       (<NavLink to='/' className={styles.userContainer}>
+      {user?  ( 
+        (user.tag ==='student' 
+        ?
+        (<NavLink to='/' className={styles.userContainer}>
           <img className={styles.userIcon} src={user.photo} alt={user.name}></img>
           <p className={styles.userName}>{user.name}</p>
-        </NavLink>) 
-          : 
-         (<NavLink to='/admin' className={styles.userContainer}>
+        </NavLink>)
+        : 
+        (<NavLink to='/admin' className={styles.userContainer}>
           <img className={styles.userIcon} src={user.photo} alt={user.name}></img>
           <p className={styles.userName}>{user.name}</p>
-        </NavLink>)}
+        </NavLink>))
+      ) : null}
     </header>
   );
 };

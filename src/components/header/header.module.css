@@ -1,5 +1,4 @@
 .header {
-  border: 1px solid red;
   max-width: 1440px;
   display: flex;
   flex-direction: row;
@@ -9,9 +8,6 @@
   padding: 40px;
 }
 
-.logoContainer {
-
-}
 .userContainer {
   max-width: 248px;
   display: flex;

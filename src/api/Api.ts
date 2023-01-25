@@ -1,5 +1,5 @@
 import {TApiConfig, TApiResponse} from "./types";
-import {TBaseUserData, TComment, TProfileDetails, TReaction, TReactionBody, TStudent, TUser} from "../types/types";
+import {TBaseUserData, TComment, TProfileDetails, TReaction, TReactionBody, TStudent, TStudentDetail, TUser} from "../types/types";
 import {apiConfig} from "./config";
 
 class Api {
@@ -49,7 +49,7 @@ class Api {
 	};
 
 	//получаем детальную информацию о пользователе - для студента
-	getProfileData = (_id: string): Promise<TStudent> => {
+	getProfileData = (_id: string): Promise<TStudentDetail> => {
 		return fetch(`${this.baseUrl}/profiles/${_id}`, {
 			method: 'GET',
 			headers: {
