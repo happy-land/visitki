@@ -40,7 +40,6 @@ class Api {
 	//получаем список пользователей контректной когорты - для студента
 	getCohortData = (): Promise<TApiResponse<TStudent>> => {
 		return fetch(`${this.baseUrl}/profiles`, {
-			mode: 'no-cors',
 			method: 'GET',
 			headers: {
 				...this.headers,
@@ -51,7 +50,7 @@ class Api {
 
 	//получаем детальную информацию о пользователе - для студента
 	getProfileData = (_id: string): Promise<TStudent> => {
-		return fetch(`${this.baseUrl}/profiles/:${_id}`, {
+		return fetch(`${this.baseUrl}/profiles/${_id}`, {
 			method: 'GET',
 			headers: {
 				...this.headers,
@@ -62,7 +61,7 @@ class Api {
 
 	//изменяем детальную информацию о пользователе - для студента
 	setProfileData = (_id: string, profileData: TProfileDetails): Promise<TStudent> => {
-		return fetch(`${this.baseUrl}/profiles/:${_id}`, {
+		return fetch(`${this.baseUrl}/profiles/${_id}`, {
 			method: 'PATCH',
 			headers: {
 				...this.headers,
@@ -89,7 +88,7 @@ class Api {
 
 	//изменяем данные пользователя - для админки
 	changeUserData = (userData: TBaseUserData): Promise<TBaseUserData> => {
-		return fetch(`${this.baseUrl}/users/:${userData._id}`, {
+		return fetch(`${this.baseUrl}/users/${userData._id}`, {
 			method: 'PUT',
 			headers: {
 				...this.headers,
@@ -104,7 +103,7 @@ class Api {
 
 	//получаем все комментарии - для админки
 	getCommentsData = (): Promise<TApiResponse<TComment>> => {
-		return fetch(`${this.baseUrl}/comments)`, {
+		return fetch(`${this.baseUrl}/comments`, {
 			method: 'GET',
 			headers: {
 				...this.headers,
@@ -115,7 +114,7 @@ class Api {
 
 	//удаляем комментарий по id комментария(реакции)- для админки
 	deleteComment = (_id: string): Promise<void> => {
-		return fetch(`${this.baseUrl}/comments/:${_id}`, {
+		return fetch(`${this.baseUrl}/comments/${_id}`, {
 			method: 'DELETE',
 			headers: {
 				...this.headers,
@@ -126,7 +125,7 @@ class Api {
 
 	//получаем все реакции по id пользователя - для студента
 	getReactionsForUser = (_id: string): Promise<TApiResponse<TReaction>> => {
-		return fetch(`${this.baseUrl}/profiles/:${_id}/reactions`, {
+		return fetch(`${this.baseUrl}/profiles/${_id}/reactions`, {
 			method: 'GET',
 			headers: {
 				...this.headers,
@@ -136,7 +135,7 @@ class Api {
 	}
 
 	sendNewReaction = (_id: string, reactionData: TReactionBody): Promise<any> => {
-		return fetch(`${this.baseUrl}/profiles/:${_id}/reactions`, {
+		return fetch(`${this.baseUrl}/profiles/${_id}/reactions`, {
 			method: 'POST',
 			headers: {
 				...this.headers,

@@ -30,7 +30,7 @@ export const LoginForm: FC = () => {
   return (
     <div>
       <h1 className={styles.title}>С кем я учусь?</h1>
-      <Button handleClick={login} variant='' type='primary'>
+      <Button handleClick={login} htmlType='submit'>
         Войти с Яндекс ID
       </Button>
     </div>
