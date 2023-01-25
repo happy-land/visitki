@@ -1,10 +1,11 @@
 import { FC, MouseEvent, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { ReactComponent as ChatIcon } from '../../assets/images/ChatIcon.svg';
 import { CommentsBlock } from '../comments-block/commets-block';
 import '../../assets/css/common.scss';
 import styles from './profile-card.module.css';
 import { ReactionCounter } from '../reactions-counter/reactions-counter';
-import { getStudentById } from '../../utils/api';
+import { api } from '../../api/Api';
 
 interface IPhoto {
   albumId: number;
@@ -22,12 +23,11 @@ interface IProfileCard {
 }
 
 export const ProfileCard: FC<IProfileCard> = ({ photo, onCardOver, onCardOut, desktopMode }) => {
-  let owner: any;
-  const _owner = localStorage.getItem("user");
-  if (_owner) {
-		owner = JSON.parse(_owner)
+  let user: any
+  const _user = localStorage.getItem("user")
+	if (_user) {
+		user = JSON.parse(_user)
 	}
-
 
   const [photoStyle, setPhotoStyle] = useState({});
   const [profileNameStyle, setProfileNameStyle] = useState({});
@@ -35,8 +35,15 @@ export const ProfileCard: FC<IProfileCard> = ({ photo, onCardOver, onCardOut, de
   const [showComments, setShowComments] = useState<boolean>(false);
   const [count, setCount] = useState(0);
 
+  const [isOwner, setOwner] = useState<boolean>(false);
+	if (user._id === card._id) {
+		setOwner(true)
+	} else {
+		setOwner(false)
+	}
+
 	useEffect(() => {
-    getStudentById('abfccdaa23e0bd1c4448d2f3')
+    api.getProfileData(user._id)
       .then((data) => {
 				setCount(data.reactions);
 			})
@@ -89,8 +96,9 @@ export const ProfileCard: FC<IProfileCard> = ({ photo, onCardOver, onCardOut, de
       </p>
       <p className={`${styles.profileCity} text_type_main-default`}>Москва {desktopMode.toString()}</p>
       <ChatIcon className={styles.chatIcon} style={chatIconStyle} onClick={commentsBlockToggle} />
-      {count && (<ReactionCounter counter={count} style={chatIconStyle}/>)}
-      <CommentsBlock isOpen={showComments} />
+      {user.tag === 'curator' || isOwner === true && count && 
+      (<ReactionCounter counter={count} style={chatIconStyle}/>)}
+      <CommentsBlock isOpen={showComments} target={null} owner={isOwner}/>
     </article>
   );
 };

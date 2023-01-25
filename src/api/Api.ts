@@ -153,35 +153,3 @@ class Api {
 const api = new Api(apiConfig);
 
 export {api}
-
-
-
-// методы Елизаветы из файла src/utils/api.ts, который в ветке anna-api удален
-// исправить вызовы методов в компонентах:
-// comments-block.tsx
-// emoji-block.tsx 
-// и затем удалить
-
-// export const getReaction = () => fetch('/profiles/abfccdaa23e0bd1c4448d2f3/reactions')
-//   .then(checkResponse)
-
-// export const sendReaction = (element: {target: string | null, text?: string, emotion?: string}) => {
-//   return fetch('/profiles/e638ad9bce6d7efd1b5b035b/reactions', { 
-//     method: 'POST',
-//     headers: {'Content-Type': 'application/json'},
-//     body: JSON.stringify ({
-//       target: element.target,
-//       text: element.text,
-//       emotion: element.emotion,
-//     })
-//   })
-//     .then(checkResponse)
-// }
-
-// export const deleteReaction = (id: string) => {
-//   return fetch(`/comments/${id}`, { 
-//     method: 'DELETE',
-//     headers: {'Content-Type': 'application/json'}
-//   })
-//   .then(checkResponse)
-// }
