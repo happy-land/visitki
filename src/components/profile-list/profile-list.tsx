@@ -10,14 +10,6 @@ import { ProfileCard } from '../profile-card/profile-card';
 import { api } from '../../api/Api';
 import { TStudent } from '../../types/types';
 
-interface IPhoto {
-  albumId: number;
-  id: number;
-  title: string;
-  url: string;
-  thumbnailUrl: string;
-}
-
 export const ProfileList: FC = () => {
   // const [photos, setPhotos] = useState<Array<TStude>>([]);
   const [profiles, setProfiles] = useState<Array<TStudent>>([]);
@@ -27,6 +19,17 @@ export const ProfileList: FC = () => {
   const [spinner, setSpinner] = useState(false);
   const [cardLimit, setCardLimit] = useState<number>(0);
   const [desktopMode, setDeskTopMode] = useState<boolean>(true);
+
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    let user: any
+    const _user = localStorage.getItem("user");
+    if (_user) {
+      // user = JSON.parse(_user)
+      setUser(JSON.parse(_user));
+    }
+  }, []);
 
   useEffect(() => {
     if (cardLimit === 0) {
@@ -65,7 +68,7 @@ export const ProfileList: FC = () => {
   useEffect(() => {
     api.getCohortData(cardLimit)
     .then((response) => {
-      console.log(response);
+      // console.log(response);
       const totCount = 30;  /*response.total*/
       setProfiles(profiles.length < totCount ? [...profiles, ...response.items] : [...profiles]);
       setTotalCount(totCount);
@@ -139,9 +142,9 @@ export const ProfileList: FC = () => {
       </div>
       <div className={styles.cards}>
         {profiles.map((profile, index) => (
-          <Link className={styles.cardLink} to='' key={index}>
-            <ProfileCard profile={profile} desktopMode={desktopMode} />
-          </Link>
+          // <Link className={styles.cardLink} to='' key={index}>
+            <ProfileCard key={index} profile={profile} user={user} desktopMode={desktopMode} />
+          // </Link>
         ))}
       </div>
       <div className={styles.spinnerContainer}>

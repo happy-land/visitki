@@ -1,32 +1,27 @@
 import { FC, MouseEvent, useEffect, useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import { ReactComponent as ChatIcon } from '../../assets/images/ChatIcon.svg';
 import { CommentsBlock } from '../comments-block/commets-block';
 import '../../assets/css/common.scss';
 import styles from './profile-card.module.css';
 import { ReactionCounter } from '../reactions-counter/reactions-counter';
-import { getStudentById } from '../../utils/api';
 import { TReaction, TStudent } from '../../types/types';
 import { api } from '../../api/Api';
 
-
 interface IProfileCard {
   profile: TStudent;
+  user: any;
   desktopMode: boolean;
 }
 
-export const ProfileCard: FC<IProfileCard> = ({ profile, desktopMode }) => {
-  let owner: any;
-  const _owner = localStorage.getItem("user");
-  if (_owner) {
-		owner = JSON.parse(_owner)
-	}
-
-
+export const ProfileCard: FC<IProfileCard> = ({ profile, user, desktopMode }) => {
   const [photoStyle, setPhotoStyle] = useState({});
   const [profileNameStyle, setProfileNameStyle] = useState({});
-  const [chatIconStyle, setChatIconStyle] = useState(desktopMode ? { display: 'none' } : { display: 'flex' });
+  const [chatIconStyle, setChatIconStyle] = useState(
+    desktopMode ? { display: 'none' } : { display: 'flex' }
+  );
   const [showComments, setShowComments] = useState<boolean>(false);
-  const [count, setCount] = useState<Array<TReaction>>([]);
+  const [count, setCount] = useState(0);
 
   // useEffect(() => {
   //   console.log(owner, 'THIS IS OWNER');
@@ -37,19 +32,29 @@ export const ProfileCard: FC<IProfileCard> = ({ profile, desktopMode }) => {
   //   .catch((err: any) => console.log(err));
   // }, []);
 
-	useEffect(() => {
-    getStudentById('abfccdaa23e0bd1c4448d2f3')
+  const [isOwner, setOwner] = useState<boolean>(false);
+  useEffect(() => {
+    if (user._id === profile._id) {
+      setOwner(true);
+    } else {
+      setOwner(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    api
+      .getProfileData(profile._id)
       .then((data) => {
-				setCount(data.reactions);
-			})
+        setCount(data.reactions);
+      })
       .catch((err: any) => console.log(err));
   }, []);
 
   useEffect(() => {
     if (desktopMode) {
-      setChatIconStyle({ display: 'none' }); 
+      setChatIconStyle({ display: 'none' });
     } else {
-      setChatIconStyle({ display: 'flex' }); 
+      setChatIconStyle({ display: 'flex' });
     }
   }, [desktopMode]);
 
@@ -57,7 +62,6 @@ export const ProfileCard: FC<IProfileCard> = ({ profile, desktopMode }) => {
     setPhotoStyle({ border: '2px solid #ff00a8' });
     setProfileNameStyle({ color: '#ff00a8' });
     if (desktopMode) setChatIconStyle({ display: 'flex' });
-    
   };
 
   const handleMouseOut = (event: MouseEvent<HTMLElement>) => {
@@ -68,31 +72,48 @@ export const ProfileCard: FC<IProfileCard> = ({ profile, desktopMode }) => {
 
   const commentsBlockToggle = (event: MouseEvent) => {
     event.preventDefault();
+    event.stopPropagation();
     setShowComments(!showComments);
-    console.log(showComments);
-
-  }
+  };
 
   return (
-    <article
-      className={styles.profileCard}
-      onMouseOver={handleMouseOver}
-      onMouseOut={handleMouseOut}
-    >
-      <div className={styles.profilePhotoContainer} style={photoStyle}>
-      <img className={styles.profilePhoto} src={profile.profile.photo} alt={profile.profile.name} />
-      </div>
-      
-      <p
-        className={`${styles.profileName} text_type_header-small`}
-        style={profileNameStyle}
+    <Link className={styles.cardLink} to={{
+      pathname: `/detail/${profile._id}`
+    }}>
+      <article
+        className={styles.profileCard}
+        onMouseOver={handleMouseOver}
+        onMouseOut={handleMouseOut}
       >
-        {profile.profile.name}
-      </p>
-      <p className={`${styles.profileCity} text_type_main-default`}>{profile.profile.city.name}</p>
-      <ChatIcon className={styles.chatIcon} style={chatIconStyle} onClick={commentsBlockToggle} />
-      {/* {count && (<ReactionCounter counter={count} style={chatIconStyle}/>)} */}
-      <CommentsBlock isOpen={showComments} />
-    </article>
+        <div className={styles.profilePhotoContainer} style={photoStyle}>
+          <img
+            className={styles.profilePhoto}
+            src={profile.profile.photo}
+            alt={profile.profile.name}
+          />
+        </div>
+
+        <p
+          className={`${styles.profileName} text_type_header-small`}
+          style={profileNameStyle}
+        >
+          {profile.profile.name}
+        </p>
+        <p className={`${styles.profileCity} text_type_main-default`}>
+          {profile.profile.city.name}
+        </p>
+        <ChatIcon
+          className={styles.chatIcon}
+          style={chatIconStyle}
+          onClick={commentsBlockToggle}
+        />
+
+        {user.tag === 'curator' ||
+          (isOwner === true && count && (
+            <ReactionCounter counter={count} style={chatIconStyle} />
+          ))}
+        <CommentsBlock isOpen={showComments} target={null} owner={isOwner} />
+      </article>
+    </Link>
   );
 };
