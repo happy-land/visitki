@@ -24,21 +24,15 @@ export type TUser = {
 
 // Елизавета
 export type TStudent = {
+  email: string,
+  cohort: string,
   _id: string,
   createdAt: number,
   updatedAt?: number,
-  email: string,
-  cohort: string,
   profile: {
       name: string,
       photo: string,
-      city: {
-          name: string,
-          geocode: [
-              string,
-              string
-          ]
-      }
+      city: TCity
   }
 }
 
@@ -46,6 +40,12 @@ export type TStudent = {
 // export type TStudent = {
 //   reactions?: number | null,
 // } & TBaseUserData & TProfileDetails
+
+export type TProfileShortItem = {
+  "name": string,
+  "photo": string,
+  "city": TCity
+}
 
 // Анна
 export type TProfileDetails = {
@@ -92,13 +92,7 @@ export type TStudentDetail = {
   profile: {
     name: string,
     photo: string,
-    city?: {
-      name: string,
-      geocode: [
-          string,
-          string
-      ]
-    },
+    city?: TCity,
     birthday: string,
     quote?: string,
     telegram?: string,
@@ -181,6 +175,10 @@ export type TComment = {
 
 export type TEmotions = {
   [key: string]: Array<TReaction>;
+}
+
+export type TStateMapPage = {
+  data: Array<TProfileShortItem> | null;
 }
 
 // type T = {
