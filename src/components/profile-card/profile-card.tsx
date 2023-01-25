@@ -1,5 +1,4 @@
 import { FC, MouseEvent, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { ReactComponent as ChatIcon } from '../../assets/images/ChatIcon.svg';
 import { CommentsBlock } from '../comments-block/commets-block';
 import '../../assets/css/common.scss';
@@ -23,11 +22,11 @@ interface IProfileCard {
 }
 
 export const ProfileCard: FC<IProfileCard> = ({ photo, onCardOver, onCardOut, desktopMode }) => {
-  let user: any
-  const _user = localStorage.getItem("user")
+  let user: any;
+  const _user = localStorage.getItem("user");
 	if (_user) {
 		user = JSON.parse(_user)
-	}
+	};
 
   const [photoStyle, setPhotoStyle] = useState({});
   const [profileNameStyle, setProfileNameStyle] = useState({});
@@ -35,12 +34,15 @@ export const ProfileCard: FC<IProfileCard> = ({ photo, onCardOver, onCardOut, de
   const [showComments, setShowComments] = useState<boolean>(false);
   const [count, setCount] = useState(0);
 
+  //проверка юзера для просмотра комментариев (добавить card._id в условие)
   const [isOwner, setOwner] = useState<boolean>(false);
-	if (user._id === card._id) {
-		setOwner(true)
-	} else {
-		setOwner(false)
-	}
+  useEffect(() => {
+    if (user._id) {
+			setOwner(true)
+		} else {
+			setOwner(false)
+		}
+  }, []);
 
 	useEffect(() => {
     api.getProfileData(user._id)

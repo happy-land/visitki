@@ -19,13 +19,13 @@ export const AppRoutes = () => {
   const navigate = useNavigate();
 
   const [jwt, setJwt] = useState(null);
-  // const location = useLocation();
+
 
   //тестовые данные, которые приходят с сервера
   const student = {
     email: 'Chaim.Armstrong@gmail.com',
     cohort: 'web+16',
-    _id: 'abfccdaa23e0bd1c4448d2f3',
+    _id: '2cb3baaa7528a9bb5e2c20d9',
     createdAt: 1669856400806,
     updatedAt: null,
     name: 'Ricky Fadel',
@@ -42,6 +42,7 @@ export const AppRoutes = () => {
   };
 
   useEffect(() => {
+    //выбираем роль вручную, записываем student или curator
     localStorage.setItem('user', JSON.stringify(student));
 
     if (/access_token=([^&]+)/.test(document.location.hash)) {
@@ -60,21 +61,13 @@ export const AppRoutes = () => {
           {/** Public Route */}
           <Route path='/login' element={<LoginPage />} />
 
-          {/** Protected Routes */}
-          <Route path='/' element={<ProtectedRoutes roleRequired='student' />}>
+          {/** Protected Routes - будут разделены позже */}
+          <Route path='/' element={<ProtectedRoutes roleRequired={'student' || 'curator'} />}>
             <Route path='/' element={<HomePage />} />
-            <Route path='/profile' element={<div>Страница профиля</div>} />
+            <Route path="/form" element={<FormPage />} />
+            <Route path='/detail/:id' element={<DetailPage />} />
             <Route path='/map' element={<MapPage />} />
             <Route path="/form" element={<FormPage />} />
-          </Route>
-          
-          <Route
-            path='/'
-            element={<ProtectedRoutes roleRequired={'student' || 'curator'} />}
-          >
-            <Route path='/detail/:id' element={<DetailPage />} />
-          </Route>
-          <Route path='/admin' element={<ProtectedRoutes roleRequired='curator' />}>
             <Route path='/admin' element={<AdminPage />} />
             <Route path='/admin/users' element={<div>Страница списка студентов</div>} />
           </Route>

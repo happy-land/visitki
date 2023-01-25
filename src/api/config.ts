@@ -1,7 +1,7 @@
 import {TApiConfig} from "./types";
 
 export const apiConfig: TApiConfig = {
-		baseUrl: 'https://visitki.practicum-team.ru/api',
+		baseUrl: '',
 		headers: {
 			'Content-Type': 'application/json',
 		},

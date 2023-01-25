@@ -6,11 +6,15 @@ import { CommentsBlock } from '../comments-block/commets-block';
 import { ReactionCounter } from '../reactions-counter/reactions-counter';
 import { useTheme } from '../../hooks/use-theme';
 import { TStudentDetail } from '../../types/types';
-import { getStudentById } from '../../utils/api';
+import { api } from '../../api/Api';
 
 type TStudentDetails = {
 	student?:TStudentDetail;
 }
+
+type TParams = {
+  id: string;
+};
 
 export const StudentDetails: FC<TStudentDetails> = () => {
 	let user: any
@@ -19,29 +23,24 @@ export const StudentDetails: FC<TStudentDetails> = () => {
 		user = JSON.parse(_user)
 	}
 
-	const params = useParams();
+	const { id } = useParams<TParams>();
 	
 	const [student, setStudent] = useState<TStudentDetail>();
-	const [countHobby, setCountHobby] = useState(0);
-	const [countStatus, setCountStatus] = useState(0);
-	const [countJob, setCountJob] = useState(0);
-	const [countEdu, setCountEdu] = useState(0);
 
 	const [isOwner, setOwner] = useState<boolean>(false);
-	if (user._id === params.id) {
-		setOwner(true)
-	} else {
-		setOwner(false)
-	}
+	
+	useEffect(() => {
+    if (user._id === id) {
+			setOwner(true)
+		} else {
+			setOwner(false)
+		}
+  }, []);
 
 	useEffect(() => {
-    getStudentById(`${params.id}`)
+    api.getProfileData(`${id}`)
       .then((data) => {
 				setStudent(data);
-				setCountHobby(data.info.hobby.reactions);
-				setCountStatus(data.info.status.reactions);
-				setCountJob(data.info.job.reactions);
-				setCountEdu(data.info.edu.reactions);
 			})
       .catch((err: any) => console.log(err));
   }, []);
@@ -211,7 +210,7 @@ export const StudentDetails: FC<TStudentDetails> = () => {
           <p className={styles.description}>{student?.info?.hobby?.text}</p>
 					<ChatIcon className={styles.chatIcon} style={chatIconStyleHobby} onClick={commentsBlockToggleHobby} />
       		{user.tag === 'curator' || isOwner === true && 
-					(<ReactionCounter counter={countHobby} style={chatIconStyleHobby}/>)}
+					(<ReactionCounter counter={student.info.hobby.reactions} style={chatIconStyleHobby}/>)}
 					<CommentsBlock isOpen={showCommentsHobby} target={'hobby'} owner={isOwner}/>
 				</div>)}
 				
@@ -223,7 +222,7 @@ export const StudentDetails: FC<TStudentDetails> = () => {
           <p className={styles.description}>{student?.info?.status?.text}</p>
 					<ChatIcon className={styles.chatIcon} style={chatIconStyleStatus} onClick={commentsBlockToggleStatus} />
       		{user.tag === 'curator' || isOwner === true && 
-					(<ReactionCounter counter={countStatus} style={chatIconStyleStatus}/>)}
+					(<ReactionCounter counter={student.info.status.reactions} style={chatIconStyleStatus}/>)}
 					<CommentsBlock isOpen={showCommentsStatus} target={'status'} owner={isOwner}/>
 				</div>)}
 				
@@ -235,7 +234,7 @@ export const StudentDetails: FC<TStudentDetails> = () => {
           <p className={styles.description}>{student?.info?.job?.text}</p>
 					<ChatIcon className={styles.chatIcon} style={chatIconStyleJob} onClick={commentsBlockToggleJob} />
       		{user.tag === 'curator' || isOwner === true && 
-					(<ReactionCounter counter={countJob} style={chatIconStyleJob}/>)}
+					(<ReactionCounter counter={student.info.job.reactions} style={chatIconStyleJob}/>)}
 					<CommentsBlock isOpen={showCommentsJob} target={'job'} owner={isOwner}/>
 				</div>)}
 				
@@ -247,7 +246,7 @@ export const StudentDetails: FC<TStudentDetails> = () => {
           <p className={styles.description}>{student?.info?.edu?.text}</p>
 					<ChatIcon className={styles.chatIcon} style={chatIconStyleEdu} onClick={commentsBlockToggleEdu} />
       		{user.tag === 'curator' || isOwner === true && 
-					(<ReactionCounter counter={countEdu} style={chatIconStyleEdu}/>)}
+					(<ReactionCounter counter={student.info.edu.reactions} style={chatIconStyleEdu}/>)}
 					<CommentsBlock isOpen={showCommentsEdu} target={'edu'} owner={isOwner}/>
 				</div>)}
 				
