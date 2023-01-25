@@ -1,5 +1,5 @@
 import {TApiResponse} from "../api/types";
-import {TProfileShortItem, TStudent} from "../types/types";
+import {TProfileShortItem, TStudent, TStudentDetail} from "../types/types";
 
 export type TResponse<T> = {
   success: boolean;
@@ -17,5 +17,7 @@ export const checkSuccess = <T>(response: TResponse<T>) => {
 }
 
 export const getProfiles = (responseObj: TApiResponse<TStudent>): Array<TProfileShortItem> => {
-  return responseObj.items.map(item => item.profile);
+  console.log(responseObj.items, 'getProfiles');
+  return []
+  // return responseObj.items.map(item => item.profile);
 }

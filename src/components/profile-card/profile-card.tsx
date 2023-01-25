@@ -5,11 +5,11 @@ import { CommentsBlock } from '../comments-block/commets-block';
 import '../../assets/css/common.scss';
 import styles from './profile-card.module.css';
 import { ReactionCounter } from '../reactions-counter/reactions-counter';
-import { TReaction, TStudent } from '../../types/types';
+import { TReaction, TStudentDetail } from '../../types/types';
 import { api } from '../../api/Api';
 
 interface IProfileCard {
-  profile: TStudent;
+  profile: TStudentDetail;
   user: any;
   desktopMode: boolean;
 }
@@ -100,7 +100,7 @@ export const ProfileCard: FC<IProfileCard> = ({ profile, user, desktopMode }) =>
           {profile.profile.name}
         </p>
         <p className={`${styles.profileCity} text_type_main-default`}>
-          {profile.profile.city.name}
+          {profile.profile.city!.name}
         </p>
         <ChatIcon
           className={styles.chatIcon}

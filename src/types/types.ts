@@ -11,37 +11,10 @@ export type TUser = {
   name?: string
 } & TBaseUserData
 
-
-// Елизавета
-// export type TUser = {
-//   _id: string,
-//   createdAt: number,
-//   updatedAt?: number,
-//   email: string,
-//   cohort: string,
-//   name: string
-//   photo?: string
-// };
-
-// Елизавета
-export type TStudent = {
-  email: string,
-  cohort: string,
-  _id: string,
-  createdAt: number,
-  updatedAt?: number,
-  profile: {
-      name: string,
-      photo: string,
-      city: TCity
-  },
-  reactions: number,
-}
-
 // Анна
-// export type TStudent = {
-//   reactions: number,
- //} & TBaseUserData & TProfileDetails
+ export type TStudent = {
+   reactions: number,
+ } & TBaseUserData & TProfileDetails
 
 
 export type TProfileShortItem = {
@@ -51,7 +24,7 @@ export type TProfileShortItem = {
 }
 
 
- //Анна
+// Анна
 export type TProfileDetails = {
   profile: {
     name?: string,
@@ -105,22 +78,22 @@ export type TStudentDetail = {
   },
   info?: {
     hobby?: {
-      image: string;
-      reactions: number;
-      text: string;
+      image?: string;
+      reactions?: number;
+      text?: string;
     },
     status?: {
-      image: string;
-      reactions: number;
-      text: string;
+      image?: string;
+      reactions?: number;
+      text?: string;
     },
     job?: {
-      reactions: number;
-      text: string;
+      reactions?: number;
+      text?: string;
     },
     edu?: {
-      reactions: number;
-      text: string;
+      reactions?: number;
+      text?: string;
     }
   },
   reactions: number
@@ -168,4 +141,3 @@ export type TEmotions = {
 export type TStateMapPage = {
   data: Array<TProfileShortItem> | null;
 }
-

@@ -8,11 +8,11 @@ import { ReactComponent as Loader } from '../../assets/images/Loader.svg';
 import { Link } from 'react-router-dom';
 import { ProfileCard } from '../profile-card/profile-card';
 import { api } from '../../api/Api';
-import { TStudent } from '../../types/types';
+import { TStudentDetail } from '../../types/types';
 
 export const ProfileList: FC = () => {
   // const [photos, setPhotos] = useState<Array<TStude>>([]);
-  const [profiles, setProfiles] = useState<Array<TStudent>>([]);
+  const [profiles, setProfiles] = useState<Array<TStudentDetail>>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [fetching, setFetching] = useState(true);
   const [totalCount, setTotalCount] = useState(0);
