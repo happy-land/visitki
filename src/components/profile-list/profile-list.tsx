@@ -66,9 +66,9 @@ export const ProfileList: FC = () => {
   }, []);
 
   useEffect(() => {
-    api.getCohortData(cardLimit)
+    api.getCohortData()
     .then((response) => {
-      // console.log(response);
+      console.log(response);
       const totCount = 30;  /*response.total*/
       setProfiles(profiles.length < totCount ? [...profiles, ...response.items] : [...profiles]);
       setTotalCount(totCount);
