@@ -49,7 +49,7 @@ class Api {
 	};
 
 	//получаем детальную информацию о пользователе - для студента
-	getProfileData = (_id: string): Promise<TStudent> => {
+	getProfileData = (_id: string): Promise<TStudentDetail> => {
 		return fetch(`${this.baseUrl}/profiles/${_id}`, {
 			method: 'GET',
 			headers: {

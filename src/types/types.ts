@@ -11,11 +11,18 @@ export type TUser = {
   name?: string
 } & TBaseUserData
 
-
 // Анна
  export type TStudent = {
    reactions: number,
  } & TBaseUserData & TProfileDetails
+
+
+export type TProfileShortItem = {
+  "name": string,
+  "photo": string,
+  "city": TCity
+}
+
 
 // Анна
 export type TProfileDetails = {
@@ -50,6 +57,46 @@ export type TCity = {
 export type TProfileBlock = {
   text?: string,
   image?: string | null
+}
+
+// Елизавета
+export type TStudentDetail = {
+  email: string,
+  cohort: string,
+  _id: string,
+  createdAt: number,
+  updatedAt?: number,
+  profile: {
+    name: string,
+    photo: string,
+    city?: TCity,
+    birthday: string,
+    quote?: string,
+    telegram?: string,
+    github?: string,
+    template: string
+  },
+  info?: {
+    hobby?: {
+      image?: string;
+      reactions?: number;
+      text?: string;
+    },
+    status?: {
+      image?: string;
+      reactions?: number;
+      text?: string;
+    },
+    job?: {
+      reactions?: number;
+      text?: string;
+    },
+    edu?: {
+      reactions?: number;
+      text?: string;
+    }
+  },
+  reactions: number
 }
 
 // Анна
