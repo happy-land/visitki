@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { ProfileCard } from '../profile-card/profile-card';
 import { api } from '../../api/Api';
 import { TStudentDetail } from '../../types/types';
+import { Select } from '../../ui/select/select';
 
 export const ProfileList: FC = () => {
   // const [photos, setPhotos] = useState<Array<TStude>>([]);
@@ -22,9 +23,16 @@ export const ProfileList: FC = () => {
 
   const [user, setUser] = useState();
 
+  const [citySelected, setCitySeleted] = useState("Москва");
+  const [optionCityArr, setOptionArr] = useState([
+    "Чебаксары",
+    "Москва",
+    "Санкт-Петербург",
+  ]);
+
   useEffect(() => {
-    let user: any
-    const _user = localStorage.getItem("user");
+    let user: any;
+    const _user = localStorage.getItem('user');
     if (_user) {
       // user = JSON.parse(_user)
       setUser(JSON.parse(_user));
@@ -66,18 +74,21 @@ export const ProfileList: FC = () => {
   }, []);
 
   useEffect(() => {
-    api.getCohortData()
-    .then((response) => {
-      console.log(response);
-      const totCount = 30;  /*response.total*/
-      setProfiles(profiles.length < totCount ? [...profiles, ...response.items] : [...profiles]);
-      setTotalCount(totCount);
-    })
-    .finally(() => {
-      setFetching(false);
-      setSpinner(false);
-    })
-  }, [fetching, cardLimit]);
+    api
+      .getCohortData()
+      .then((response) => {
+        console.log(response);
+        const totCount = 30; /*response.total*/
+        setProfiles(
+          profiles.length < totCount ? [...profiles, ...response.items] : [...profiles]
+        );
+        setTotalCount(totCount);
+      })
+      .finally(() => {
+        setFetching(false);
+        setSpinner(false);
+      });
+  }, [fetching]);
 
   // useEffect(() => {
   //   if (fetching && cardLimit !== 0) {
@@ -131,11 +142,17 @@ export const ProfileList: FC = () => {
     // console.log('innerHeight', window.innerHeight); // высота видимой области страницы (высота браузера)
   };
 
-
   return (
     <div className={styles.container}>
       <div className={styles.actions}>
-        <div className={styles.citySelector}>Выберите город</div>
+        <div className={styles.citySelector}>
+          <Select
+            setPayloadSeleted={setCitySeleted}
+            payload={citySelected}
+            optionArr={optionCityArr}
+            name='cites'
+          />
+        </div>
         <Link className={styles.mapLink} to='/map'>
           Посмотреть на карте
         </Link>
@@ -143,7 +160,12 @@ export const ProfileList: FC = () => {
       <div className={styles.cards}>
         {profiles.map((profile, index) => (
           // <Link className={styles.cardLink} to='' key={index}>
-            <ProfileCard key={index} profile={profile} user={user} desktopMode={desktopMode} />
+          <ProfileCard
+            key={index}
+            profile={profile}
+            user={user}
+            desktopMode={desktopMode}
+          />
           // </Link>
         ))}
       </div>
