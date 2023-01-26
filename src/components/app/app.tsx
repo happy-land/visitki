@@ -6,7 +6,7 @@ const App: FC = () => {
   return (
     <div>
       <BrowserRouter>
-          <AppRoutes />
+        <AppRoutes />
       </BrowserRouter>
     </div>
   );

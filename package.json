@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@pbe/react-yandex-maps": "^1.2.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -41,8 +40,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://visitki.practicum-team.ru",
-  "homepage": "/",
+  "proxy": "https://visitki.practicum-team.ru/api",
   "devDependencies": {
     "@types/jest": "^29.2.5",
     "@types/node": "^18.11.18",

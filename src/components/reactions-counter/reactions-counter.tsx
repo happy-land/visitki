@@ -1,23 +1,35 @@
-import { FC, useState, useEffect } from 'react';
+import { SetStateAction, useEffect, useState } from "react";
 import styles from "./reactions-counter.module.css";
 
-type TReactionCounter = {
-	counter?: number | null;
-  style: {
-    display:string
+export const ReactionCounter = (id: string) => {
+
+// переместить в апи
+const checkResponse = (res: Response) => {
+  if (!res.ok) {
+    return res.json()
+      .then((err: { message: string | undefined }) => {
+        throw new Error(err.message);
+      });
   }
+  return res.json();
 }
 
-export const ReactionCounter:FC<TReactionCounter> = ({counter, style}) => {
-  const [count, setCount] = useState(counter);
+const getReactions = (id: string) => fetch(`/profiles/${id}/reactions?offset=41026140&limit=20`)
+.then(checkResponse)
+  
+const [commentsNumber, setCommentsNumber] = useState<number>(0);
 
   useEffect(() => {
-    setCount(counter);
+    getReactions(id)
+    .then((data) => {
+      setCommentsNumber(data.total);
+    })
+    .catch((err: any) => console.log(err));     
   }, []);
 
   return (
-    <div className={styles.commentCounter} style={style}>
-      {count === 0 || null ? '' : count! > 99 ? '99+' : count}
-    </div>
+    <div className={styles.commentCounter}>
+      {commentsNumber < 100 ? commentsNumber : '99+'}
+    </div> 
   )
 }
