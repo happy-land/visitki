@@ -1,33 +1,31 @@
+import axios from "axios";
 import React, { FC, useState, useEffect } from "react";
 import commentstyle from "./admin-comments-list.module.css";
 import deleteIcon from "../../images/delete-icon.png";
-import {api} from "../../api/Api";
-import {TComment} from "../../types/types";
-/*import {getStudentsApi} from '../../utils/Api'*/
+{
+  /*import {getStudentsApi} from '../../utils/Api'*/
+}
 
-// interface IComments {
-//   _id: string;
-//   from: { _id: string; name: string; email: string };
-//   target: string;
-//   text: string;
-//   to: { _id: string; name: string; email: string };
-// }
+interface IComments {
+  _id: string;
+  from: { _id: string; name: string; email: string };
+  target: string;
+  text: string;
+  to: { _id: string; name: string; email: string };
+}
 
 export const AdminCommentsList: FC = () => {
-  const [comments, setComments] = useState<TComment[]>([]);
+  const [comments, setComments] = useState<IComments[]>([]);
 
   useEffect(() => {
-    // axios
-    //   .get("/comments")
-    //   .then((response) => {
-    //     setComments([...response.data.items]);
-    //     console.log(response.data.items[0].to.name);
-    //   })
-    //   .catch((error) => console.log(error))
-    //   .finally(() => {});
-    api.getCommentsData().then((data) => {
-      setComments([...data.items])
-    })
+    axios
+      .get("/comments")
+      .then((response) => {
+        setComments([...response.data.items]);
+        console.log(response.data.items[0].to.name);
+      })
+      .catch((error) => console.log(error))
+      .finally(() => {});
   }, []);
 
   return (

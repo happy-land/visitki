@@ -1,30 +1,26 @@
-// import { render } from "@testing-library/react";
+import { render } from "@testing-library/react";
+import axios from "axios";
 import React, { FC, useEffect, useState } from "react";
 import adminstyle from "./admin-students-list.module.css";
-import {api} from "../../api/Api";
-import {TUser} from "../../types/types";
 
 
-// interface IStudents {
-//   cohort: string;
-//   email: string;
-//   name: string;
-// }
+interface IStudents {
+  cohort: string;
+  email: string;
+  name: string;
+}
 
 export const AdminStudentsList: FC = () => {
-  const [students, setStudents] = useState<TUser[]>([]);
+  const [students, setStudents] = useState<IStudents[]>([]);
 
   useEffect(() => {
-    // axios
-    //   .get("/users")
-    //   .then((response) => {
-    //     setStudents([...response.data.items]);
-    //   })
-    //   .catch((error) => console.log(error))
-    //   .finally(() => {});
-    api.getUsersData().then((data) => {
-      setStudents([...data.items]);
-    })
+    axios
+      .get("/users")
+      .then((response) => {
+        setStudents([...response.data.items]);
+      })
+      .catch((error) => console.log(error))
+      .finally(() => {});
   }, []);
 
   return (

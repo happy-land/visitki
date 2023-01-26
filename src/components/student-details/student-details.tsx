@@ -1,49 +1,48 @@
-import { FC, MouseEvent, useEffect, useState } from 'react';
+import { FC, MouseEvent, SetStateAction, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './student-details.module.css';
 import { ReactComponent as ChatIcon } from '../../assets/images/ChatIcon.svg';
 import { CommentsBlock } from '../comments-block/commets-block';
 import { ReactionCounter } from '../reactions-counter/reactions-counter';
 import { useTheme } from '../../hooks/use-theme';
-import { TStudentDetail } from '../../types/types';
-import { api } from '../../api/Api';
+import { TStudent } from '../../types/types';
 
-type TStudentDetails = {
-	student?:TStudentDetail;
-}
+import photoStudent from '../../assets/images/user-photo.png'
+import hobby from '../../assets/images/hobby.png'
+import family from '../../assets/images/family.png'
 
 type TParams = {
   id: string;
 };
 
+type TStudentDetails = {
+	student?:TStudent;
+}
+
 export const StudentDetails: FC<TStudentDetails> = () => {
-	let user: any
-  const _user = localStorage.getItem("user")
-	if (_user) {
-		user = JSON.parse(_user)
-	}
+	//const { id } = useParams<TParams>();
+	//const id = '507f1f77bcf86cd799439011';
+	//const [student, setStudent] = useState([]);
 
-	const { id } = useParams<TParams>();
-	
-	const [student, setStudent] = useState<TStudentDetail>();
+	//const checkResponse = (res: Response) => {
+	//	if (!res.ok) {
+	//		return res.json()
+	//			.then((err: { message: string | undefined }) => {
+	//				throw new Error(err.message);
+	//			});
+	//	}
+	//	return res.json();
+	//}
 
-	const [isOwner, setOwner] = useState<boolean>(false);
-	
-	useEffect(() => {
-    if (user._id === id) {
-			setOwner(true)
-		} else {
-			setOwner(false)
-		}
-  }, []);
+	//const getStudentById = (id: string) => fetch(`/profiles/${id}`)
+  //.then(checkResponse)
+	//.then((data) => console.log(data))
 
-	useEffect(() => {
-    api.getProfileData(`${id}`)
-      .then((data) => {
-				setStudent(data);
-			})
-      .catch((err: any) => console.log(err));
-  }, []);
+	//useEffect(() => {
+  //  getStudentById(id)
+  //    .then((data) => setStudent(data))
+  //    .catch((err: any) => console.log(err));
+  //}, []);
 
 	const [desktopMode, setDeskTopMode] = useState<boolean>(true);
 	const [chatIconStylePhoto, setChatIconStylePhoto] = useState(desktopMode ? { display: 'none' } : { display: 'flex' });
@@ -59,17 +58,17 @@ export const StudentDetails: FC<TStudentDetails> = () => {
 	const [showCommentsJob, setShowCommentsJob] = useState<boolean>(false);
 	const [showCommentsEdu, setShowCommentsEdu] = useState<boolean>(false);
 
-
 	const {theme, setTheme} = useTheme();
-	useEffect(() => {
-    if (student?.profile.template === "dolore quis sint mollit") {
-      setTheme('seriuos'); 
-    } else if (student?.profile.template === "dolore quis sint mollite") {
-			setTheme('romantic'); 
-    } else {
-			setTheme('bold');
-		}
-  }, []);
+
+	//useEffect(() => {
+  //  if (student.profile.template === "dolore quis sint mollit") {
+  //    setTheme('seriuos'); 
+  //  } else if (student.profile.template === "dolore quis sint mollit") {
+	//		setTheme('romantic'); 
+  //  } else {
+	//		setTheme('bold');
+	//	}
+  //}, []);
 
 	useEffect(() => {
     const handleWindowResize = (event: Event) => {
@@ -98,7 +97,6 @@ export const StudentDetails: FC<TStudentDetails> = () => {
     } else {
 			setChatIconStylePhoto({ display: 'flex' }); 
 			setChatIconStyleQuote({ display: 'flex' });
-			setChatIconStyleHobby({ display: 'flex' });
 			setChatIconStyleStatus({ display: 'flex' });
 			setChatIconStyleJob({ display: 'flex' });
 			setChatIconStyleEdu({ display: 'flex' });
@@ -173,82 +171,98 @@ export const StudentDetails: FC<TStudentDetails> = () => {
     setShowCommentsEdu(!showCommentsEdu);
   }
 
+ 
+
   return (
     <section className={styles.section}>
     	<div className={styles.blockUser}>
       	<div className={styles.user}>
-  				<h2 className={styles.userName}>{student?.profile.name}</h2>
-      		<p className={styles.userCity}>{student?.profile.city?.name}</p>
+  				<h2 className={styles.userName}>Виктория Листвиновская</h2>
+      		<p className={styles.userCity}>Калуга</p>
       		<div className={styles.socialNetwork}>
-        		<a className={styles.iconTelegram} href={`https://t.me/${student?.profile.telegram}`}></a>
-        		<a className={styles.iconGithub} href={`https://github.com/${student?.profile.github}`}></a>
+        		<a className={styles.iconTelegram} href='#'></a>
+        		<a className={styles.iconGithub} href='#'></a>
       		</div>
       	</div>
       	<div className={styles.wrapperAvatar} onMouseOver={handleMouseOverPhoto}
       onMouseOut={handleMouseOutPhoto}>
-        	<img className={styles.userAvatar} src={student?.profile.photo} alt="Фотография пользователя" />
+        	<img className={styles.userAvatar} src={photoStudent} alt="Фотография пользователя" />
 					<div className={styles.userAvatarBold}></div>
 					<ChatIcon className={styles.chatIcon} style={chatIconStylePhoto} onClick={commentsBlockTogglePhoto} />
-      		<CommentsBlock isOpen={showCommentsPhoto} target={null} owner={isOwner}/>
+      		<CommentsBlock isOpen={showCommentsPhoto} />
+					
       	</div>
 				
-    		{ student?.profile.quote && (<div className={styles.quote} onMouseOver={handleMouseOverQuote}
+				
+    		<div className={styles.quote} onMouseOver={handleMouseOverQuote}
       onMouseOut={handleMouseOutQuote}>
         	<div className={styles.quoteIcon}></div>
-        	<blockquote className={styles.quoteText}>{student?.profile.quote}</blockquote>
+        	<blockquote className={styles.quoteText}>Делай, что должно и будь, что будет.</blockquote>
 					<ChatIcon className={styles.chatIcon} style={chatIconStyleQuote} onClick={commentsBlockToggleQuote} />
-      		<CommentsBlock isOpen={showCommentsQuote} target={null} owner={isOwner}/>
-      	</div>)}
+      		<CommentsBlock isOpen={showCommentsQuote} />
+      	</div>
 				
     	</div>
       <div className={styles.blockInfo}>
-			{student?.info?.hobby && 
-				(<div className={styles.unit} onMouseOver={handleMouseOverHobby}
-      onMouseOut={handleMouseOutHobby}>
-					<div className={styles.line}></div>
-          <h3 className={styles.unitTitle}>увлечения</h3>
-          <p className={styles.description}>{student?.info?.hobby?.text}</p>
+        <div className={styles.unit} onMouseOver={handleMouseOverHobby}
+      onMouseOut={handleMouseOutHobby} >
+        	<div className={styles.line}></div>
+        	<h3 className={styles.unitTitle}>увлечения</h3>
+					<div className={styles.unitImageContainer}>
+          	<img className={styles.unitImage} src={hobby} alt="Хобби" />
+						<img className={styles.unitImage} src={family} alt="Хобби" />
+						<img className={styles.unitImage} src={family} alt="Хобби" />
+					</div>
+        	<p className={styles.description}>
+        		Увлекаюсь программированием, игрой на гитаре, вышиваю крестиком и играю в настолки.
+          	Увлекаюсь программированием, игрой на гитаре, вышиваю крестиком и играю в настолки.
+          	Увлекаюсь программированием, игрой на гитаре, вышиваю крестиком и играю в настолки.
+        	</p>
 					<ChatIcon className={styles.chatIcon} style={chatIconStyleHobby} onClick={commentsBlockToggleHobby} />
-      		{user.tag === 'curator' || isOwner === true && 
-					(<ReactionCounter counter={student.info.hobby.reactions} style={chatIconStyleHobby}/>)}
-					<CommentsBlock isOpen={showCommentsHobby} target={'hobby'} owner={isOwner}/>
-				</div>)}
+      		<CommentsBlock isOpen={showCommentsHobby} />
+      	</div>
 				
-      	{student?.info?.status && 
-				(<div className={styles.unit} onMouseOver={handleMouseOverStatus}
+      	<div className={styles.unit} onMouseOver={handleMouseOverStatus}
       onMouseOut={handleMouseOutStatus}>
 					<div className={styles.line}></div>
-          <h3 className={styles.unitTitle}>семья</h3>
-          <p className={styles.description}>{student?.info?.status?.text}</p>
+          <h3 className={styles.unitTitle}>cемья</h3>
+					<div className={styles.unitImageContainer}>
+            <img className={styles.unitImage} src={family} alt="Семья" />
+						<img className={styles.unitImage} src={family} alt="Семья" />
+					</div>
+          <p className={styles.description}>
+            Замужем, двое детей, собака. Живу в городе Калуга, люблю этот маленький городок.
+            С собакой часто ходим на прогулки и наблюдаем за природой
+          </p>
 					<ChatIcon className={styles.chatIcon} style={chatIconStyleStatus} onClick={commentsBlockToggleStatus} />
-      		{user.tag === 'curator' || isOwner === true && 
-					(<ReactionCounter counter={student.info.status.reactions} style={chatIconStyleStatus}/>)}
-					<CommentsBlock isOpen={showCommentsStatus} target={'status'} owner={isOwner}/>
-				</div>)}
+      		<CommentsBlock isOpen={showCommentsStatus} />
+        </div>
 				
-        {student?.info?.job && 
-				(<div className={styles.unit} onMouseOver={handleMouseOverJob}
+        <div className={styles.unit} onMouseOver={handleMouseOverJob}
       onMouseOut={handleMouseOutJob}>
 					<div className={styles.line}></div>
           <h3 className={styles.unitTitle}>сфера</h3>
-          <p className={styles.description}>{student?.info?.job?.text}</p>
+          <p className={styles.description}>
+            Работаю в сфере гостиничного бизнеса, управляющим отелем. Люблю работать с людьми,
+            постоянно вижу новых людей, общаюсь с посетителями, управляю персоналом,
+            обучаю и принимаю на работу новых сотрудников.
+          </p>
 					<ChatIcon className={styles.chatIcon} style={chatIconStyleJob} onClick={commentsBlockToggleJob} />
-      		{user.tag === 'curator' || isOwner === true && 
-					(<ReactionCounter counter={student.info.job.reactions} style={chatIconStyleJob}/>)}
-					<CommentsBlock isOpen={showCommentsJob} target={'job'} owner={isOwner}/>
-				</div>)}
+      		<CommentsBlock isOpen={showCommentsJob} />
+        </div>
 				
-        {student?.info?.edu && 
-				(<div className={styles.unit} onMouseOver={handleMouseOverEdu}
+        <div className={styles.unit} onMouseOver={handleMouseOverEdu}
       onMouseOut={handleMouseOutEdu}>
 					<div className={styles.line}></div>
           <h3 className={styles.unitTitle}>учеба</h3>
-          <p className={styles.description}>{student?.info?.edu?.text}</p>
+          <p className={styles.description}>
+            Надоело работать в одной сфере, хочу сменить деятельность, нет шансов на рост, хочу быть айтишником.
+            В детстве любила информатику, компьютерные игры и разбираться с программами.
+            Вот вспомнила деские мечты и решила воплотить их в реальность. Надеюсь, что у меня все получится.
+          </p>
 					<ChatIcon className={styles.chatIcon} style={chatIconStyleEdu} onClick={commentsBlockToggleEdu} />
-      		{user.tag === 'curator' || isOwner === true && 
-					(<ReactionCounter counter={student.info.edu.reactions} style={chatIconStyleEdu}/>)}
-					<CommentsBlock isOpen={showCommentsEdu} target={'edu'} owner={isOwner}/>
-				</div>)}
+      		<CommentsBlock isOpen={showCommentsEdu} />
+        </div>
 				
       </div>
 		</section>
