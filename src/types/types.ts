@@ -25,32 +25,35 @@ export type TProfileShortItem = {
 
 
 // Анна
-export type TProfileDetails = {
-  profile: {
-    name?: string,
-    photo?: string,
-    city?: TCity,
-    birthday?: string,
-    quote?: string,
-    telegram?: string,
-    github?: string,
-    template?: string,
-  }
-  info?: TProfileInfo
-}
+// export type TProfileDetails = {
+//   profile: {
+//     name?: string,
+//     photo?: string,
+//     city?: TCity,
+//     birthday?: string,
+//     quote?: string,
+//     telegram?: string,
+//     github?: string,
+//     template?: string,
+//   }
+//   info?: TProfileInfo
+// }
 
-// Анна
-export type TProfileInfo = {
-  hobby?: TProfileBlock,
-  status?: TProfileBlock,
-  job?: TProfileBlock,
-  edu?: TProfileBlock
+export type TProfileDetails = {
+  name?: string,
+  photo?: string,
+  city: TCity,
+  birthday?: string,
+  quote?: string,
+  telegram?: string,
+  github?: string,
+  template?: string,
 }
 
 // Анна
 export type TCity = {
-  name: string,
-  geocode: Array<string>
+  name?: string,
+  geocode?: Array<string>
 }
 
 // Анна
@@ -69,12 +72,12 @@ export type TStudentDetail = {
   profile: {
     name: string,
     photo: string,
-    city?: TCity,
-    birthday: string,
+    city: TCity,
+    birthday?: string,
     quote?: string,
     telegram?: string,
     github?: string,
-    template: string
+    template?: string
   },
   info?: {
     hobby?: {
@@ -107,7 +110,7 @@ export type TReaction = {
     name: string;
     email: string;
   };
-  emotion?: 'like' | 'smile' | 'heart' | 'upset' | 'funny' | 'confused' | 'scream' | 'love' | 'heart';
+  emotion?: 'like' | 'smile' | 'upset' | 'funny' | 'confused' | 'scream' | 'love' | 'heart';
 } & TReactionBody
 
 // Анна
@@ -139,5 +142,5 @@ export type TEmotions = {
 }
 
 export type TStateMapPage = {
-  data: Array<TProfileShortItem> | null;
+  dataArr: Array<TProfileDetails> | null;
 }
