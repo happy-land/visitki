@@ -26,18 +26,20 @@ import styles from './button.module.css';
 
 interface IButtonProps {
   handleClick?: (event: FormEvent) => void;
+  variant?: ''; // не очень понимаю, зачем здесь этот пропс. под девайсы стилизацию можно сделать просто медиазапросом
   size?: 'large' | 'small'; // размеры под кнопки войти (large) и загрузка файлов (small)
+  type: 'primary'; // пока что этот пропс выглядит максимально избыточным)
   children: any; // здесь я бы заменила на текст и задала бы ему параметр string
   disabled?: boolean;
-  htmlType: 'button' | 'submit' | 'reset' | undefined
 }
 
 export const Button: FC<IButtonProps> = ({
   handleClick,
+  variant,
   size,
   children,
   disabled,
-  htmlType
+  type
 }) => {
   const getButtonSize = (size?: string) => size === 'large' ? styles.button_size_large : styles.button_size_small;
 
@@ -46,7 +48,6 @@ export const Button: FC<IButtonProps> = ({
       disabled={disabled}
       className={`${styles.button} ${getButtonSize(size)}`}
       onClick={handleClick}
-      type={htmlType}
     >
       {children}
     </button>
