@@ -18,7 +18,7 @@ export const Header: FC = () => {
       {user?  ( 
         (user.tag ==='student' 
         ?
-        (<NavLink to='/' className={styles.userContainer}>
+        (<NavLink to='/form' className={styles.userContainer}>
           <img className={styles.userIcon} src={user.photo} alt={user.name}></img>
           <p className={styles.userName}>{user.name}</p>
         </NavLink>)
