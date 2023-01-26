@@ -1,99 +1,66 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useState, useEffect, ChangeEvent } from 'react';
 import { EmojiBlock } from '../emoji-block/emoji-block';
-import { checkResponse } from '../../utils/utils';
-
 import styles from './comments-block.module.css';
-import { TReaction, TEmotions } from '../../types/types';
+import { useForm } from '../../hooks/use-form';
+import { api } from '../../api/Api';
+
 
 interface ICommentsBlockProps {
   isOpen: boolean;
-  target?: 'hobby' | 'edu' | 'status' | 'job'; // добавить остальные типы когда доделают бэкенд
+  target: 'hobby' | 'edu' | 'status' | 'job' | null;
+  owner: boolean;
 }
 
-type TReactionsData = {
-  items: Array<TReaction>;
-  length: number;
-};
+export const CommentsBlock: FC<ICommentsBlockProps> = ({ isOpen, target, owner }) => {
+  let user: any
+  const _user = localStorage.getItem("user")
+	if (_user) {
+		user = JSON.parse(_user)
+	}
 
-
-export const CommentsBlock: FC<ICommentsBlockProps> = ({ isOpen, target }) => {
-  const [reactions, setReactions] = useState<Array<TReaction>>([]);
-  const [emotions, setEmotions] = useState<TEmotions>();
-
+  const [ comments, setComments ] = useState(Array);
+  
+  const { form, handleChange, setForm } = useForm({text: ''});
+  
   useEffect(() => {
-    if (isOpen) {
-      fetch('/profiles/abfccdaa23e0bd1c4448d2f3/reactions')
-        // fetch('/profiles/e638ad9bce6d7efd1b5b035b/reactions')   0 items
-        .then((result) => checkResponse<TReactionsData>(result))
-        .then((responseBody) => {
-          // console.log(responseBody, 'this is RESPONSE BODY');
-          setReactions(responseBody.items);
-          setEmotions(getEmotionsObject(responseBody.items));
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [isOpen]);
+    if(user.tag === 'admin' || owner === true) {
+    api.getReactionsForUser(user._id)
+      .then((data) => {
+        setComments(data.items.filter((el: { text: string; }) => el.text));
+      })
+      .catch(err => console.log(err));
+  }}, [isOpen])
 
-  const getEmotionsObject = (reactions: Array<TReaction>):TEmotions => {
-    // добавим данных для тестирования
-    reactions.push(
-      {
-        _id: '123',
-        from: { email: 'Anita93@hotmail.com', name: 'Elvira Grady', _id: '111', },
-        target: 'hobby',
-        text: 'text text text!',
-        emotion: 'like',
-      }
-    );
-    const emotions = reactions.reduce<TEmotions>((prevVal: TEmotions, curVal: TReaction) => {
-      return {
-        ...prevVal,
-        [curVal.emotion!]: prevVal[curVal.emotion!]
-          ? [...prevVal[curVal.emotion!], curVal]
-          : [curVal]
-      }
-    }, {});
-    console.log(emotions, 'this is EMOTIONS');
-    console.log(emotions.like.length, 'this is EMOTIONS');
-
-    return emotions;
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    api.sendNewReaction(user._id, {text: form.text, target: target})
+      .then((data) => data && setForm({text: ''}))
+      .catch(err => console.log(err))
   }
 
   return (
     <>
-      {isOpen && emotions && (
+      {isOpen && (
         <div className={styles.container}>
+          {/* <p>Обратная связь</p> */}
           <ul className={styles.commentsList}>
-            {reactions.map((reaction, index) => {
-              return (
-                <li key={index} className={styles.comment}>
-                  {(reaction.target === target || reaction.target === 'edu') && (
-                    <>
-                      <p className={styles.comment}>{reaction.text}</p>
-                      <div className={styles.line}></div>
-                    </>
-                  )}
-                </li>
-              );
-            })}
-            {/* <li className={styles.comment}>
-              Классные у тебя увлечения, я тоже играю в настолки, любимая игра — Эволюция.
-              Люблю еще музыку {target}
+            {comments?.map((element: any, index: number) => 
+            <li className={styles.comment} key={index}>
+              <p className={styles.text}>{element.text}</p>
               <div className={styles.line}></div>
-            </li>
-            <li className={styles.comment}>
-              Классные у тебя увлечения, я тоже играю в настолки, любимая игра — Эволюция.
-              Люблю еще музыку
-              <div className={styles.line}></div>{' '}
-            </li>
-            <li className={styles.comment}>
-              Классные у тебя увлечения, я тоже играю в настолки, любимая игра — Эволюция.
-              Люблю еще музыку. в последнем комментарии линию не добавлять
-            </li> */}
+            </li>)}
           </ul>
-          {/* сделать отправку сообщения на сервер когда доделают бэкенд */}
-          <input className={styles.input} placeholder='Обратная связь' />
-          <EmojiBlock emotions={emotions} />
+          <form className={styles.form} onSubmit={event => handleSubmit(event)}>
+            <input 
+              className={styles.input}
+              placeholder="Обратная связь" 
+              name="text" 
+              type="text" 
+              value={form.text}
+              onChange={handleChange} 
+            />
+          </form>
+          <EmojiBlock />
         </div>
       )}
     </>

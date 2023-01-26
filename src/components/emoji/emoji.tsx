@@ -2,12 +2,15 @@ import { FC, useState, MouseEvent, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './emoji.module.css';
 
+
 interface IEmojiProps {
   image: string;
   counter: number | null;
+  type: string
 }
 
-export const Emoji: FC<IEmojiProps> = ({ image, counter }) => {
+export const Emoji: FC<IEmojiProps> = ({ image, counter, type }) => {
+
   const [border, setBorder] = useState(false);
   const [count, setCount] = useState(counter);
 
@@ -15,25 +18,24 @@ export const Emoji: FC<IEmojiProps> = ({ image, counter }) => {
     setCount(counter);
   }, []);
 
-  const handleClick = () => {
+
+  const handleClick = (e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {
     setBorder(!border);
     if (!border) {
       setCount(count! + 1);
-      // при клике на смайлик отправлять POST запрос на сервер
-      // {{baseUrl}}/profiles/:id/reactions
     } else {
       setCount(counter);
-      // сделать  DELETE запрос на удаление реакции
     }
-  };
+  }
+
 
   return (
     <div
       className={styles.container}
-      onClick={() => handleClick()}
+      onClick={(e) => handleClick(e)}
       style={border ? { border: '1px solid #ff00a8' } : { border: 'none' }}
     >
-      <img className={styles.image} src={image} alt='' />
+      <img className={styles.image} src={image} alt={type} />
       <p className={styles.counter}>
         {count === 0 || null ? '' : count! > 99 ? '99+' : count}
       </p>

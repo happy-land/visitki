@@ -13,7 +13,7 @@
 }
 
  .citySelector {
-
+  width: 325px;
  }
 
 .mapLink {
@@ -63,6 +63,9 @@
   .profileCard {
     width: 342px;
   }
+  .citySelector {
+    width: 342px;
+   }
 }
 
 @media screen and (max-width: 793px) {
@@ -73,4 +76,7 @@
   .profileCard {
     width: 272px;
   }
+  .citySelector {
+    width: 272px;
+   }
 }
