@@ -135,6 +135,7 @@
 .unit {
   position: relative;
   max-width: 440px;
+  min-height: 300px;
   text-overflow: ellipsis;
   overflow: hidden;
   cursor: pointer;

@@ -74,19 +74,28 @@ if (_owner) {
   owner = JSON.parse(_owner)
 }
 
-  useEffect(() => {
-    api.getReactionsForUser(owner._id)
-      .then((data) => {
-        setEmotions(data.items.filter((element) => element.emotion));
-        emojis && setEmojis(emojis.map(element => {
-          return {
-            ...element,
-            counter: countEmojis(emotions)[element.type] | 0
-          }
-        }))
-  })
-      .catch(err => console.log(err));
-  }, [])
+useEffect(() => {
+  api.getReactionsForUser(owner._id)
+    .then((data) => {
+      setEmotions(data.items.filter((element) => element.emotion));
+      emojis && setEmojis(emojis.map(element => {
+        return {
+          ...element,
+          counter: countEmojis(emotions)[element.type] | 0
+        }
+      }))
+})
+    .catch(err => console.log(err));
+}, [])
+
+useEffect(() => {
+      emojis && setEmojis(emojis.map(element => {
+        return {
+          ...element,
+          counter: countEmojis(emotions)[element.type] | 0
+        }
+      }))
+}, [emotions])
 
   const countEmojis = (array: any[]) => {
     return array.reduce((acc: { [emotion: string]: number}, val) => {
