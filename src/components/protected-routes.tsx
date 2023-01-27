@@ -27,22 +27,22 @@ const useAuth = () => {
 
 //protected Route state
 type ProtectedRouteType = {
-	roleRequired?: "student" | "curator"
+	roleRequired?: "student" | "curator" | ['student', 'curator']
 }
 
 const ProtectedRoutes = (props: ProtectedRouteType) => {
 	const {auth, role} = useAuth()
-  
+
 	//if the role required is there or not
 	if (props.roleRequired) {
 		return auth ? (
 			props.roleRequired === role ? (
-				<Outlet />
+				<Navigate to="/" />
 			) : (
 				<Navigate to="/login" />
 			)
 		) : (
-			<Navigate to="/login" />
+			<Navigate to="/" />
 		)
 	} else {
 		return auth ? <Outlet /> : <Navigate to="/login" />

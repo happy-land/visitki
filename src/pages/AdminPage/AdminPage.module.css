@@ -6,8 +6,7 @@
   align-items: flex-start;
   justify-content: space-between;
   margin: 0 auto;
-  margin-top: 90px;
-  padding: 40px;
+  padding: 48px 40px 0;
 }
 
 .button_wrapper {
@@ -16,18 +15,18 @@
   gap: 81px;
 }
 
-.button {
+.link {
   color: #a3a3a3;
-  background-color: inherit;
   padding: 0;
   margin: 0;
-  border: none;
+  font-weight: 700;
   font-size: 14px;
   line-height: 18px;
   cursor: pointer;
-  transition: 0.4s linear;
+  text-decoration: none;
 }
 
 .active {
+  composes: link;
   color: black;
 }

@@ -1,19 +1,17 @@
 import {
-  NavigationType,
   Route,
   Routes,
   useNavigate,
-  useResolvedPath,
 } from 'react-router-dom';
-import { LoginPage, DetailPage, HomePage, MapPage, FormPage } from '../../pages';
+
+import { LoginPage, DetailPage, HomePage, MapPage, FormPage, AdminPage } from '../../pages';
 import { Layout } from '../layout/layout';
 import { useState, useEffect } from 'react';
+import { AdminCommentsList } from '../admin-comments-list/admin-comments-list';
+import { AdminStudentsList } from '../admin-students-list/admin-students-list';
+
 
 import ProtectedRoutes from '../protected-routes';
-import { userInfo } from 'os';
-import userEvent from '@testing-library/user-event';
-
-import { AdminPage } from '../../pages/AdminPage/AdminPage';
 
 export const AppRoutes = () => {
   const navigate = useNavigate();
@@ -29,6 +27,7 @@ export const AppRoutes = () => {
     createdAt: 1669856400806,
     updatedAt: null,
     name: 'Ricky Fadel',
+    photo: "https://placehold.co/600",
     tag: 'student',
   };
 
@@ -38,21 +37,30 @@ export const AppRoutes = () => {
     createdAt: 1671899493440,
     updatedAt: 1671899493440,
     name: 'amet in tempor',
+    photo: "https://placehold.co/600",
     tag: 'curator',
   };
 
   useEffect(() => {
     //выбираем роль вручную, записываем student или curator
-    localStorage.setItem('user', JSON.stringify(student));
+    localStorage.setItem('user', JSON.stringify(curator));
 
     if (/access_token=([^&]+)/.test(document.location.hash)) {
       const reg: any = /access_token=([^&]+)/;
       setJwt(reg.exec(document.location.hash)[1]);
       localStorage.setItem('token', reg.exec(document.location.hash)[1]);
-      navigate('/');
-    }
-  }, []);
-  console.log(jwt);
+      let user: any
+      const _user = localStorage.getItem("user")
+	    if (_user) {
+		    user = JSON.parse(_user)
+	    }
+      if(user.tag === "student") {
+        navigate('/')
+      } else {
+        navigate('/admin')
+      }
+  }}, []);
+
 
   return (
     <div>
@@ -62,15 +70,20 @@ export const AppRoutes = () => {
           <Route path='/login' element={<LoginPage />} />
 
           {/** Protected Routes - будут разделены позже */}
-          <Route path='/' element={<ProtectedRoutes roleRequired={'student' || 'curator'} />}>
+          <Route path='/' element={<ProtectedRoutes />}>
             <Route path='/' element={<HomePage />} />
             <Route path="/form" element={<FormPage />} />
             <Route path='/detail/:id' element={<DetailPage />} />
             <Route path='/map' element={<MapPage />} />
             <Route path="/form" element={<FormPage />} />
-            <Route path='/admin' element={<AdminPage />} />
-            <Route path='/admin/users' element={<div>Страница списка студентов</div>} />
           </Route>
+          <Route path='/admin' element={<ProtectedRoutes  />}>
+            <Route path="/admin/" element={<AdminPage />}>
+              <Route path="/admin/" element={<AdminCommentsList />} />
+              <Route path='/admin/users' element={<AdminStudentsList />} />
+            </Route>
+          </Route>
+          
         </Route>
       </Routes>
     </div>

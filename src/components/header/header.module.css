@@ -6,6 +6,7 @@
   justify-content: space-between;
   margin: 0 auto;
   padding: 40px;
+  position: relative;
 }
 
 .userContainer {
@@ -25,7 +26,6 @@
   object-position: center;
   filter: grayscale(100%);
 
-  background-image: url(../../assets/images/user-photo.png);
   background-repeat: no-repeat;
   background-size: cover;
 }
