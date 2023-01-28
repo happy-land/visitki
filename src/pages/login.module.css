@@ -1,18 +1,25 @@
 .container {
-display: flex;
-justify-content: center;
-padding: 0;
-max-width: 1270px;
-height: 100vh;
-margin: 0 auto;
-flex-direction: column;
-align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  max-width: 1270px;
+  height: 100vh;
+  margin: 0 auto;
+  flex-direction: column;
+  align-items: center;
 }
 
 .title {
-  font-family: 'IBM Plex Sans';
+  font-family: 'IBM Plex Sans', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 40px;
   line-height: 52px;
+}
+
+@media screen and (max-width: 441px) {
+  .title {
+    font-size: 32px;
+    line-height: 42px;
+  }
 }

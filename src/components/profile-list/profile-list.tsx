@@ -1,5 +1,4 @@
 import { FC, useEffect, MouseEvent, useState } from 'react';
-import axios from 'axios';
 
 import styles from './profile-list.module.css';
 
@@ -84,6 +83,7 @@ export const ProfileList: FC = () => {
         );
         setTotalCount(totCount);
       })
+      .catch(err => console.log(err))
       .finally(() => {
         setFetching(false);
         setSpinner(false);

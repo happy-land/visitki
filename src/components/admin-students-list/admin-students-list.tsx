@@ -15,16 +15,10 @@ export const AdminStudentsList: FC = () => {
   const [students, setStudents] = useState<TUser[]>([]);
 
   useEffect(() => {
-    // axios
-    //   .get("/users")
-    //   .then((response) => {
-    //     setStudents([...response.data.items]);
-    //   })
-    //   .catch((error) => console.log(error))
-    //   .finally(() => {});
     api.getUsersData().then((data) => {
       setStudents([...data.items]);
     })
+    .catch(err => console.log(err));
   }, []);
 
   return (

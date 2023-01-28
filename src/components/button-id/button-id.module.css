@@ -1,9 +1,4 @@
-.button {
-    background: linear-gradient(269.17deg, #3B23B7 30.28%, #C914E7 63.24%);
-    font-weight: 500;
+.link {
+    text-decoration: none;
     color: #f0f0f0;
-    width: 30%;
-    padding: 20px 0;
-    text-align: center;
-    border-radius: 4px
 }
