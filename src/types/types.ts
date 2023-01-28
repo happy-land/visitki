@@ -123,6 +123,7 @@ export type TReactionBody = {
 export type TComment = {
   _id: string;
   from: {
+    cohort: string;
     _id: string;
     name: string;
     email: string;
@@ -130,6 +131,7 @@ export type TComment = {
   target: 'hobby' | 'edu' | 'status' | 'job' | null;
   text: string,
   to: {
+    cohort: string;
     _id: string;
     name: string;
     email: string;

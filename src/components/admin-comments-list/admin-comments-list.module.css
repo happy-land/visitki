@@ -1,5 +1,5 @@
 .page_wrapper {
-  
+  height: 100%;
   width: 100%;
   overflow: auto;
 }
@@ -72,9 +72,34 @@
   display: flex;
   align-items: center;
   justify-content: right;
+  border: 0;
+  background: none;
   cursor: pointer;
   transition: 0.3s linear;
 }
 .delete_icon:hover {
   opacity: 0.6;
+}
+
+.notfound {
+  color: #E90D41;
+}
+
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 70px 0;
+}
+
+@keyframes loaderAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.loader {
+  animation: loaderAnimation 1.5s linear infinite;
 }

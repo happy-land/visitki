@@ -63,11 +63,11 @@ export const StudentDetails: FC<TStudentDetails> = () => {
 	const {theme, setTheme} = useTheme();
 	useEffect(() => {
     if (student?.profile.template === "dolore quis sint mollit") {
-      setTheme('seriuos'); 
+      setTheme('romantic'); 
     } else if (student?.profile.template === "dolore quis sint mollite") {
-			setTheme('romantic'); 
+			setTheme('bold'); 
     } else {
-			setTheme('bold');
+			setTheme('serious');
 		}
   }, []);
 
