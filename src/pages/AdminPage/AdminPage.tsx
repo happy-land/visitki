@@ -2,14 +2,16 @@ import { FC, useState } from "react";
 import styles from "./AdminPage.module.css";
 import { AdminCommentsList } from "../../components/admin-comments-list/admin-comments-list";
 import { AdminStudentsList } from "../../components/admin-students-list/admin-students-list";
+import { XlsmButton } from "../../components/xlsx-button/xlsx-button";
 
 export const AdminPage: FC = () => {
   let [category, setCategory] = useState("students");
+  const [xlsx, setXlsm] =useState<never[] | Array<Object>>([]);
 
   const setStudentsList = () => {
     setCategory((category = "students"));
   };
-
+  console.log(xlsx)
   const setCommentsList = () => {
     setCategory((category = "comments"));
   };
@@ -35,6 +37,7 @@ export const AdminPage: FC = () => {
           </button>
         </nav>
         {category === "students" ? <AdminStudentsList /> : <AdminCommentsList />}
+        <XlsmButton setXlsm={setXlsm}/> / компонетн твой стили и наработки меняй как хочешь 
       </>
     </section>
   );

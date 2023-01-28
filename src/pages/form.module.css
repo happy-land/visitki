@@ -103,3 +103,15 @@
 .errorVisible {
     visibility: visible;
 }
+
+@media (max-width:1024px) {
+    .form {
+        width: 57%;
+    }   
+}
+
+@media (max-width: 540px) {
+    .form {
+        width: auto;
+    }
+}

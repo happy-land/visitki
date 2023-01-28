@@ -66,11 +66,13 @@ export const AppRoutes = () => {
             <Route path='/' element={<HomePage />} />
             <Route path="/form" element={<FormPage />} />
             <Route path='/detail/:id' element={<DetailPage />} />
+          </Route>
+          {/* <Route path='/admin' element={<ProtectedRoutes roleRequired='curator' />}> */}
             <Route path='/map' element={<MapPage />} />
             <Route path="/form" element={<FormPage />} />
             <Route path='/admin' element={<AdminPage />} />
             <Route path='/admin/users' element={<div>Страница списка студентов</div>} />
-          </Route>
+          {/* </Route> */}
         </Route>
       </Routes>
     </div>

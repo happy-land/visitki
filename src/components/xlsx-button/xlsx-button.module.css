@@ -1,0 +1,19 @@
+.button {
+    background: linear-gradient(269.17deg, #3B23B7 30.28%, #C914E7 63.24%);
+    font-weight: 500;
+    color: #f0f0f0;
+    padding: 20px 0;
+    text-align: center;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    display: block;
+    width: 285px;
+}
+
+.hidden {
+    width: 1px;
+    height: 1px;
+    position: absolute;
+    visibility: hidden;
+}
