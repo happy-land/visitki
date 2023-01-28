@@ -74,6 +74,8 @@ export const AppRoutes = () => {
             <Route path='/' element={<HomePage />} />
             <Route path="/form" element={<FormPage />} />
             <Route path='/detail/:id' element={<DetailPage />} />
+          </Route>
+          {/* <Route path='/admin' element={<ProtectedRoutes roleRequired='curator' />}> */}
             <Route path='/map' element={<MapPage />} />
             <Route path="/form" element={<FormPage />} />
           </Route>
@@ -83,7 +85,6 @@ export const AppRoutes = () => {
               <Route path='/admin/users' element={<AdminStudentsList />} />
             </Route>
           </Route>
-          
         </Route>
       </Routes>
     </div>
