@@ -20,7 +20,6 @@ export const Select: FC<SelectType> = ({ payload, setPayloadSeleted, optionArr, 
   const readOnly = () => null;
   const [ulElemActive, setUlElemActive] = useState(false);
   const [imageActive, setImageActive] = useState(false);
-  // const optionArr = ["Чебаксары", "Москва", "Санкт-Петербург"];
 
   const handleClick = (e: BaseSyntheticEvent) => {
     e.stopPropagation();
@@ -62,7 +61,7 @@ export const Select: FC<SelectType> = ({ payload, setPayloadSeleted, optionArr, 
             alt="иконка стрека вниз список"
           />
         </div>
-        <ul className={`${styles.ul} ${ulElemActive && styles.ulActive}`}>
+        <ul className={`${styles.ul} ${ulElemActive && styles.ulActive} ${optionArr.length > 3 && styles.ulScroll }`}>
           {optionArr.map((item, index) => (
             <li key={index}>{item}</li>
           ))}
