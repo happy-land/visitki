@@ -1,12 +1,19 @@
 import styles from "./button-id.module.css";
+import {Button} from "../../ui/button/button";
 
 export const ButtonId = () => {
   return (
-    <a
-      href="https://oauth.yandex.ru/authorize?response_type=token&client_id=6c35df8e2c51463782163dab89f6874d"
-      className={styles.button}
+    <Button
+      htmlType='button'
+      size='large'
     >
-      Войти с Яндекс ID
-    </a>
+      <a
+        href="https://oauth.yandex.ru/authorize?response_type=token&client_id=6c35df8e2c51463782163dab89f6874d"
+        className={styles.link}
+      >
+        Войти с Яндекс ID
+      </a>
+    </Button>
+
   );
 };

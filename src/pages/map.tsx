@@ -29,6 +29,7 @@ export const MapPage: FC = () => {
 				dataArr: profiles
 			})
 		})
+		.catch(err => console.log(err));
 	}, []);
 
 	const mapData = {
