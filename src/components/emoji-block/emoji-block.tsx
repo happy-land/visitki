@@ -1,6 +1,6 @@
 import { FC, useState, useEffect } from 'react';
 import { Emoji } from '../emoji/emoji';
-import { getReaction } from '../../utils/api';
+import { api } from '../../api/Api';
 
 import ThumbsUpIcon from '../../ui/icons/thumbsup-icon.svg';
 import ThumbsDownIcon from '../../ui/icons/thumbsdown-icon.svg';
@@ -16,101 +16,9 @@ import BlackHeartIcon from '../../ui/icons/blackheart-icon.svg';
 
 import styles from './emoji-block.module.css';
 
-
-const reactions = {
-  total: 8,
-  items: [
-    {
-      _id: "c824a2de0b675b0acb5a2923",
-      from: {
-        _id: "e638ad9bce6d7efd1b5b035b",
-        name: "Elvira Grady",
-        email: "Anita93@hotmail.com"
-      },
-      target: "hobby",
-      text: "Laborum omnis harum modi omnis architecto ipsam adipisci dolore."
-    },
-    {
-      _id: "bad224dbc4a601caff7e0b2c",
-      from: {
-        _id: "e638ad9bce6d7efd1b5b035b",
-        name: "Elvira Grady",
-        email: "Anita93@hotmail.com"
-      },
-      target: "edu",
-      text: "Soluta consectetur tempore eaque modi sequi autem ducimus."
-    },
-    {
-      _id: "c2f15f9b4315bb20aebf9a1d",
-      from: {
-        _id: "e638ad9bce6d7efd1b5b035b",
-        name: "Elvira Grady",
-        email: "Anita93@hotmail.com"
-      },
-      target: "status",
-      text: "Eveniet excepturi commodi eaque dignissimos quae nesciunt nam dolorum."
-    },
-    {
-      _id: "38eb4bbe3da2fcf2d4cfcd59",
-      from: {
-        _id: "e638ad9bce6d7efd1b5b035b",
-        name: "Elvira Grady",
-        email: "Anita93@hotmail.com"
-      },
-      target: "job",
-      text: "Accusantium neque minus tempora."
-    },
-    {
-      _id: "0ebcdb97d72b2b17345c30c8",
-      from: {
-        _id: "e638ad9bce6d7efd1b5b035b",
-        name: "Elvira Grady",
-        email: "Anita93@hotmail.com"
-      },
-      target: null,
-      text: "Libero ad tempora exercitationem numquam adipisci quibusdam doloremque incidunt."
-    },
-    {
-      _id: "71d2cb1e9e2fdedb9ad435ac",
-      from: {
-        _id: "e638ad9bce6d7efd1b5b035b",
-        name: "Elvira Grady",
-        email: "Anita93@hotmail.com"
-      },
-      target: null,
-      emotion: "like"
-    },
-    {
-      _id: "28b1a7432df6dcf73ac9d45f",
-      from: {
-        _id: "e638ad9bce6d7efd1b5b035b",
-        name: "Elvira Grady",
-        email: "Anita93@hotmail.com"
-      },
-      target: null,
-      emotion: "smile"
-    },
-    {
-      _id: "3ebe958d84bd8de740abdaab",
-      from: {
-        _id: "e638ad9bce6d7efd1b5b035b",
-        name: "Elvira Grady",
-        email: "Anita93@hotmail.com"
-      },
-      target: null,
-      emotion: "heart"
-    }
-  ]
-}
-
-
-type TEmotion = {
-  emotion: string;
-}
-
 export const EmojiBlock: FC = () => {
 
-  const [ emotions, setEmotions ] = useState([]);
+  const [ emotions, setEmotions ] = useState(Array);
   const [ emojis, setEmojis ] = useState([{
     type: 'like',
     image: ThumbsUpIcon,
@@ -160,24 +68,36 @@ export const EmojiBlock: FC = () => {
     counter: 0
   },
 ]);
+let owner: any;
+const _owner = localStorage.getItem(("user"));
+if (_owner) {
+  owner = JSON.parse(_owner)
+}
 
-  // получить список реакций с сервера
-  // {{baseUrl}}/profiles/:id/reactions
-  useEffect(() => {
-    getReaction()
-      .then((data) => {
-        setEmotions(data.items.filter((element: { emotion: string; }) => element.emotion));
-        emojis && setEmojis(emojis.map(element => {
-          return {
-            ...element,
-            counter: countEmojis(emotions)[element.type] | 0
-          }
-        }))
-  })
-      .catch(err => console.log(err));
-  }, [])
+useEffect(() => {
+  api.getReactionsForUser(owner._id)
+    .then((data) => {
+      setEmotions(data.items.filter((element) => element.emotion));
+      emojis && setEmojis(emojis.map(element => {
+        return {
+          ...element,
+          counter: countEmojis(emotions)[element.type] | 0
+        }
+      }))
+})
+    .catch(err => console.log(err));
+}, [])
 
-  const countEmojis = (array: Array<TEmotion>) => {
+useEffect(() => {
+      emojis && setEmojis(emojis.map(element => {
+        return {
+          ...element,
+          counter: countEmojis(emotions)[element.type] | 0
+        }
+      }))
+}, [emotions])
+
+  const countEmojis = (array: any[]) => {
     return array.reduce((acc: { [emotion: string]: number}, val) => {
         const emotion = val.emotion;
         acc[emotion] = (acc[emotion] || 0) + 1;

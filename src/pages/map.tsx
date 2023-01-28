@@ -9,57 +9,57 @@ import {
 	YMaps,
 	ZoomControl
 } from "@pbe/react-yandex-maps";
-import {getProfiles, testProfilesResponse, TProfileItem} from "../utils/constants";
 import styles from "./map.module.css";
 import pin from "../images/map-pin.svg";
+import {TStateMapPage} from "../types/types";
+import {api} from "../api/Api";
 
-type TStateMapPage = {
-	data: Array<TProfileItem> | null;
-}
 
 export const MapPage: FC = () => {
 
 	const [profilesData, setProfilesData] = useState<TStateMapPage>({
-		data: null
+		dataArr: null
 	})
 
 	useEffect(() => {
-		const profiles = getProfiles(testProfilesResponse);
-		setProfilesData({
-			...profilesData,
-			data: profiles
+		api.getCohortData().then((data) => {
+			const profiles = data.items.map(item => item.profile);
+			setProfilesData({
+				...profilesData,
+				dataArr: profiles
+			})
 		})
 	}, []);
 
 	const mapData = {
 		center: [55.751574, 37.573856],
-		zoom: 5,
+		zoom: 7,
 	}
 
 	return (
 		<>
-			{profilesData.data &&
+			{profilesData.dataArr &&
 				<YMaps query={{lang: "ru_RU", apikey: '7b03e5be-fa74-4659-af5a-b6eb243376e6'}} >
 					<Map className={styles.container}
 							 defaultState={mapData}
 					>
-						{profilesData.data.map((profile, index) =>
+						{profilesData.dataArr.map((item, index) =>
 							<Placemark
-								key={`${index} - ${profile.city.geocode}`}
-								geometry={profile.city.geocode}
+								key={`${index} - ${item.city.geocode}`}
+								geometry={item.city.geocode}
 								properties={{
 									balloonContent:
 										`<div class='${styles.balloonContainer}'>
 											<div class='${styles.photoContainer}'>
 												<img
 													class='${styles.avatar}' 
-													src='${profile.photo}'
+													src='${item.photo}'
 													alt='avatar'
 												/>
 											</div>
 											<div class='${styles.textContainer}'>
-												<p class='${styles.text}'>${profile.name}</p>
-												<p class='${styles.text} ${styles.textCaption}'>${profile.city.name}</p> 
+												<p class='${styles.text}'>${item.name}</p>
+												<p class='${styles.text} ${styles.textCaption}'>${item.city.name}</p> 
 											</div>
 										</div>`
 								}}

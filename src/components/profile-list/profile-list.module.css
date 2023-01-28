@@ -13,7 +13,7 @@
 }
 
  .citySelector {
-
+  width: 325px;
  }
 
 .mapLink {
@@ -30,21 +30,14 @@
   grid-template-columns: repeat(auto-fit, minmax(325px, 1fr));
   row-gap: 39px;
   column-gap: 20px;
-  /* margin: 0; */
   max-width: 100%;
 }
 
 .cardLink {
-  /* border: 1px solid red; */
   text-decoration: none;
 }
 
-
-
-
-
 .spinnerContainer {
-  /* border: 1px dotted red; */
   margin: 0 auto;
   padding: 70px 0;
 }
@@ -63,12 +56,16 @@
 
 @media screen and (max-width: 1440px) {
   .cards {
+    margin: 0 auto;
     grid-template-columns: repeat(auto-fit, minmax(342px, 1fr));
     row-gap: 31px;
   }
   .profileCard {
     width: 342px;
   }
+  .citySelector {
+    width: 342px;
+   }
 }
 
 @media screen and (max-width: 793px) {
@@ -79,4 +76,7 @@
   .profileCard {
     width: 272px;
   }
+  .citySelector {
+    width: 272px;
+   }
 }

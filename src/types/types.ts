@@ -11,69 +11,49 @@ export type TUser = {
   name?: string
 } & TBaseUserData
 
-// Елизавета
-// export type TUser = {
-//   _id: string,
-//   createdAt: number,
-//   updatedAt?: number,
-//   email: string,
-//   cohort: string,
-//   name: string
-//   photo?: string
-// };
+// Анна
+ export type TStudent = {
+   reactions: number,
+ } & TBaseUserData & TProfileDetails
 
-// Елизавета
-export type TStudent = {
-  _id: string,
-  createdAt: number,
-  updatedAt?: number,
-  email: string,
-  cohort: string,
-  profile: {
-      name: string,
-      photo: string,
-      city: {
-          name: string,
-          geocode: [
-              string,
-              string
-          ]
-      }
-  }
+
+export type TProfileShortItem = {
+  "name": string,
+  "photo": string,
+  "city": TCity
 }
 
-// Анна
-// export type TStudent = {
-//   reactions?: number | null,
-// } & TBaseUserData & TProfileDetails
 
 // Анна
+// export type TProfileDetails = {
+//   profile: {
+//     name?: string,
+//     photo?: string,
+//     city?: TCity,
+//     birthday?: string,
+//     quote?: string,
+//     telegram?: string,
+//     github?: string,
+//     template?: string,
+//   }
+//   info?: TProfileInfo
+// }
+
 export type TProfileDetails = {
-  profile: {
-    name?: string,
-    photo?: string,
-    city?: TCity,
-    birthday?: string,
-    quote?: string,
-    telegram?: string,
-    github?: string,
-    template?: string,
-  }
-  info?: TProfileInfo
-}
-
-// Анна
-export type TProfileInfo = {
-  hobby?: TProfileBlock,
-  status?: TProfileBlock,
-  job?: TProfileBlock,
-  edu?: TProfileBlock
+  name?: string,
+  photo?: string,
+  city: TCity,
+  birthday?: string,
+  quote?: string,
+  telegram?: string,
+  github?: string,
+  template?: string,
 }
 
 // Анна
 export type TCity = {
-  name: string,
-  geocode: Array<string>
+  name?: string,
+  geocode?: Array<string>
 }
 
 // Анна
@@ -92,58 +72,35 @@ export type TStudentDetail = {
   profile: {
     name: string,
     photo: string,
-    city?: {
-      name: string,
-      geocode: [
-          string,
-          string
-      ]
-    },
-    birthday: string,
+    city: TCity,
+    birthday?: string,
     quote?: string,
     telegram?: string,
     github?: string,
-    template: string
+    template?: string
   },
   info?: {
     hobby?: {
-      image: string;
-      reactions: number;
-      text: string;
+      image?: string;
+      reactions?: number;
+      text?: string;
     },
     status?: {
-      image: string;
-      reactions: number;
-      text: string;
+      image?: string;
+      reactions?: number;
+      text?: string;
     },
     job?: {
-      reactions: number;
-      text: string;
+      reactions?: number;
+      text?: string;
     },
     edu?: {
-      reactions: number;
-      text: string;
+      reactions?: number;
+      text?: string;
     }
   },
-  reactions?: number
+  reactions: number
 }
-
-// Елизавета
-// export type TReaction = {
-//   _id: string;
-//   from: {
-//     _id: string;
-//     name: string;
-//     email: string;
-//   };
-//   target: 'hobby' | 'edu' | 'status' | 'job' | null;
-//   text: string,
-//   to: {
-//     _id: string;
-//     name: string;
-//     email: string;
-//   }
-// }
 
 // Анна
 export type TReaction = {
@@ -153,12 +110,12 @@ export type TReaction = {
     name: string;
     email: string;
   };
-  emotion?: 'like' | 'smile' | 'heart' | undefined;
+  emotion?: 'like' | 'smile' | 'upset' | 'funny' | 'confused' | 'scream' | 'love' | 'heart';
 } & TReactionBody
 
 // Анна
 export type TReactionBody = {
-  target: 'hobby' | 'edu' | 'status' | null;
+  target: 'hobby' | 'edu' | 'status' | 'job' | null;
   text:string
 }
 
@@ -181,8 +138,9 @@ export type TComment = {
 
 export type TEmotions = {
   [key: string]: Array<TReaction>;
+
 }
 
-// type T = {
-//   [key: string]: Array<TReaction>;
-// }
+export type TStateMapPage = {
+  dataArr: Array<TProfileDetails> | null;
+}

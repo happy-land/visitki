@@ -1,31 +1,39 @@
 import { FC, useState, useEffect, ChangeEvent } from 'react';
 import { EmojiBlock } from '../emoji-block/emoji-block';
 import styles from './comments-block.module.css';
-import { getReaction, sendReaction } from '../../utils/api';
 import { useForm } from '../../hooks/use-form';
+import { api } from '../../api/Api';
 
 
 interface ICommentsBlockProps {
   isOpen: boolean;
+  target: 'hobby' | 'edu' | 'status' | 'job' | null;
+  owner: boolean;
 }
 
+export const CommentsBlock: FC<ICommentsBlockProps> = ({ isOpen, target, owner }) => {
+  let user: any
+  const _user = localStorage.getItem("user")
+	if (_user) {
+		user = JSON.parse(_user)
+	}
 
-export const CommentsBlock: FC<ICommentsBlockProps> = ({ isOpen }) => {
-  const [ comments, setComments ] = useState([]);
+  const [ comments, setComments ] = useState(Array);
   
   const { form, handleChange, setForm } = useForm({text: ''});
   
   useEffect(() => {
-    getReaction()
+    if(user.tag === 'admin' || owner === true) {
+    api.getReactionsForUser(user._id)
       .then((data) => {
         setComments(data.items.filter((el: { text: string; }) => el.text));
       })
       .catch(err => console.log(err));
-  }, [isOpen])
+  }}, [isOpen])
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    sendReaction({text: form.text, target: null})
+    api.sendNewReaction(user._id, {text: form.text, target: target})
       .then((data) => data && setForm({text: ''}))
       .catch(err => console.log(err))
   }
