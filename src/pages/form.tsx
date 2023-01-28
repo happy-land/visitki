@@ -1,4 +1,4 @@
-import { FC, useState, BaseSyntheticEvent } from "react";
+import { FC, useState, BaseSyntheticEvent, useRef, ChangeEvent } from "react";
 import { Select } from "../ui/select/select";
 import { InputDate } from "../ui/widget-date/input-date";
 import styles from "./form.module.css";
@@ -20,6 +20,8 @@ export const FormPage = () => {
     "Чебаксары",
     "Москва",
     "Санкт-Петербург",
+    "Омск",
+    "Омск",
   ]);
   const [templateArr, setTemplateArr] = useState([
     "серьезный",
@@ -27,6 +29,7 @@ export const FormPage = () => {
     "романтичный",
   ]);
   const [templateSelected, setTemplateSelected] = useState("серьезный");
+  const avatar = useRef<any>(null)
 
   const hadleSubmit = (e: BaseSyntheticEvent) => {
     e.preventDefault()
@@ -51,19 +54,28 @@ export const FormPage = () => {
         }
       }
     });
-
-    
-
   }
 
-  const readOnly = () => null;
+  const handleChangeAvatr = (e: any) => {
+    const avatarContainer = avatar.current;
+    const reader = new FileReader();
+    reader.onload = function (e: ProgressEvent<FileReader> ) {
+      if (avatarContainer) {
+        avatarContainer.style.backgroundImage = `url(${e?.target?.result})`;
+        avatarContainer.style.backgroundSize = 'cover';
+      }
+    };
+    reader.readAsDataURL(e.target.files[0]);
+    console.log('event=')
+  }
+
   return (
     <form className={styles.form} onSubmit={hadleSubmit}>
       <fieldset>
-        <legend className={styles.legendFile}>
+        <legend className={styles.legendFile} >
           Загрузите фото *<span>(размер не менее 440х440 пикселей)</span>
         </legend>
-        <label htmlFor="avatar" className={styles.customInputAvatart}>
+        <label htmlFor="avatar" className={styles.customInputAvatart} ref={avatar}>
           <span className={styles.avatarSpan}></span>
         </label>
         <span id='error' className={styles.error}>Нет файла</span>
@@ -72,6 +84,7 @@ export const FormPage = () => {
           id="avatar"
           name="avatar"
           className={styles.hideInput}
+          onChange={handleChangeAvatr}
         />
       </fieldset>
       <fieldset>
