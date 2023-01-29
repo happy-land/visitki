@@ -26,7 +26,6 @@ export const StudentElement: FC<TStudentElement> = ( { student } ) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, id: string) => {
     const { value, name } = e.target;
-    console.log(e.target)
     if (name === "cohort") {
         setCohort( e.target.value );
       }

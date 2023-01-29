@@ -75,7 +75,6 @@ export const AdminStudentsList: FC = () => {
       setOrder('ASC');
     }
   };
-  console.log(students);
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
     event.target.value === '' ? setClearIcon(false) : setClearIcon(true);

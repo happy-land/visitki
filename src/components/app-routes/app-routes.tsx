@@ -23,7 +23,7 @@ export const AppRoutes = () => {
   const student = {
     email: 'Chaim.Armstrong@gmail.com',
     cohort: 'web+16',
-    _id: '2cb3baaa7528a9bb5e2c20d9',
+    _id: 'a18ca3c1e13dd93ddded5bbc',
     createdAt: 1669856400806,
     updatedAt: null,
     name: 'Ricky Fadel',
@@ -34,7 +34,7 @@ export const AppRoutes = () => {
   const curator = {
     email: 'Chaim.Armstrong@gmail.com',
     cohort: 'web+16',
-    _id: '2cb3baaa7528a9bb5e2c20d9',
+    _id: 'a18ca3c1e13dd93ddded5bbc',
     createdAt: 1669856400806,
     updatedAt: null,
     name: 'Ricky Curator',
