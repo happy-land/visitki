@@ -29,6 +29,8 @@ export const Emoji: FC<IEmojiProps> = ({ image, counter, type, user, target }) =
 
 
   const handleClick = (e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {
+    e.preventDefault();
+    e.stopPropagation();
     setBorder(!border);
     if (!border) {
       setCount(count! + 1);

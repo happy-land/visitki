@@ -24,15 +24,6 @@ export const ProfileCard: FC<IProfileCard> = ({ profile, user, desktopMode }) =>
   const [showComments, setShowComments] = useState<boolean>(false);
   const [count, setCount] = useState(0);
 
-  // useEffect(() => {
-  //   console.log(owner, 'THIS IS OWNER');
-  //   api.getReactionsForUser(owner._id)
-  //   .then((data) => {
-  //     setCount(data.items);
-  //   })
-  //   .catch((err: any) => console.log(err));
-  // }, []);
-
   const [isOwner, setOwner] = useState<boolean>(false);
   useEffect(() => {
     if (user._id === profile._id) {
@@ -47,6 +38,7 @@ export const ProfileCard: FC<IProfileCard> = ({ profile, user, desktopMode }) =>
     api
       .getProfileData(profile._id)
       .then((data) => {
+        // console.log(data);
         setCount(data.reactions);
       })
       .catch((err: any) => console.log(err));
