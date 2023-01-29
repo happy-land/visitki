@@ -1,5 +1,5 @@
 import { FC, MouseEvent, useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ReactComponent as ChatIcon } from '../../assets/images/ChatIcon.svg';
 import { CommentsBlock } from '../comments-block/commets-block';
 import '../../assets/css/common.scss';
@@ -7,6 +7,7 @@ import styles from './profile-card.module.css';
 import { ReactionCounter } from '../reactions-counter/reactions-counter';
 import { TReaction, TStudentDetail } from '../../types/types';
 import { api } from '../../api/Api';
+import { isDataView } from 'util/types';
 
 interface IProfileCard {
   profile: TStudentDetail;
@@ -41,6 +42,7 @@ export const ProfileCard: FC<IProfileCard> = ({ profile, user, desktopMode }) =>
     }
   }, []);
 
+
   useEffect(() => {
     api
       .getProfileData(profile._id)
@@ -49,6 +51,7 @@ export const ProfileCard: FC<IProfileCard> = ({ profile, user, desktopMode }) =>
       })
       .catch((err: any) => console.log(err));
   }, []);
+  
 
   useEffect(() => {
     if (desktopMode) {
@@ -108,11 +111,9 @@ export const ProfileCard: FC<IProfileCard> = ({ profile, user, desktopMode }) =>
           onClick={commentsBlockToggle}
         />
 
-        {user.tag === 'curator' ||
-          (isOwner === true && count && (
-            <ReactionCounter counter={count} style={chatIconStyle} />
-          ))}
-        <CommentsBlock isOpen={showComments} target={null} owner={isOwner} />
+        {count ? ((user.tag === 'curator' || isOwner === true) && (
+          <ReactionCounter counter={count} style={chatIconStyle} />)) : null}
+        <CommentsBlock isOpen={showComments} target={null} owner={isOwner} id={profile._id}/>
       </article>
     </Link>
   );

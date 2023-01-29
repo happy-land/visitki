@@ -1,15 +1,20 @@
 // Анна
 export type TBaseUserData = {
-  email: string,
-  cohort: string,
+  email?: string,
+  cohort?: string,
   _id?: string,
   createdAt?: number,
   updatedAt?: number,
 }
 
 export type TUser = {
-  name?: string
-} & TBaseUserData
+  name: string
+  email: string,
+  cohort: string,
+  _id: string,
+  createdAt: number,
+  updatedAt?: number,
+}
 
 // Анна
  export type TStudent = {
@@ -110,13 +115,13 @@ export type TReaction = {
     name: string;
     email: string;
   };
-  emotion?: 'like' | 'smile' | 'upset' | 'funny' | 'confused' | 'scream' | 'love' | 'heart';
 } & TReactionBody
 
 // Анна
 export type TReactionBody = {
   target: 'hobby' | 'edu' | 'status' | 'job' | null;
-  text:string
+  text?:string
+  emotion?: 'like' | 'dislike' | 'wave' | 'smile' | 'upset' | 'funny' | 'confused' | 'scream' | 'love' | 'heart';
 }
 
 // Анна
@@ -138,9 +143,10 @@ export type TComment = {
   }
 }
 
-export type TEmotions = {
-  [key: string]: Array<TReaction>;
-
+export type TEmotion = {
+  type: 'like' | 'dislike' | 'wave' | 'smile' | 'upset' | 'funny' | 'confused' | 'scream' | 'love' | 'heart',
+  image: string,
+  counter: number
 }
 
 export type TStateMapPage = {

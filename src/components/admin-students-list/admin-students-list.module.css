@@ -1,5 +1,8 @@
 .page_wrapper {
- 
+  width: 100%;
+}
+
+.table {
   max-width: 1440px;
   overflow: auto;
 }
@@ -28,6 +31,7 @@
   font-size: 16px;
   line-height: 24px;
   gap: 31px;
+  cursor: pointer;
 }
 
 .list {
@@ -53,6 +57,7 @@
   color: #100c34;
   text-overflow: ellipsis;
   overflow: hidden;
+  text-decoration: none
 }
 
 .list_item:first-child {
@@ -66,4 +71,64 @@
 .list_wrapper::-webkit-scrollbar-thumb {
   background-color: #83828f;
   border-radius: 7px;
+}
+
+.input{
+  border: none;
+  color: #100C34;
+  cursor: pointer;
+}
+
+.input:focus {
+  border: 1px solid #100C34;
+  border-radius: 4px;
+}
+
+::-webkit-input-placeholder {
+  color: #100C34;
+}
+:-moz-placeholder {
+  color: #100C34;
+}
+::-moz-placeholder {
+  color: #100C34;
+}
+:-ms-input-placeholder {
+  color: #100C34;
+}
+
+.delete_icon {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  transition: 0.3s linear;
+}
+.delete_icon:hover {
+  opacity: 0.6;
+}
+
+.notfound {
+  color: #E90D41;
+}
+
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 70px 0;
+}
+
+@keyframes loaderAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.loader {
+  animation: loaderAnimation 1.5s linear infinite;
 }

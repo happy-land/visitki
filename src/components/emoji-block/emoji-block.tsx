@@ -15,11 +15,18 @@ import BlackHeartIcon from '../../ui/icons/blackheart-icon.svg';
 
 
 import styles from './emoji-block.module.css';
+import { TEmotion } from '../../types/types';
 
-export const EmojiBlock: FC = () => {
+interface IEmojiBlockProps {
+  target: 'hobby' | 'edu' | 'status' | 'job' | null;
+  owner: boolean;
+  id: string 
+}
+
+export const EmojiBlock: FC<IEmojiBlockProps> = ({ target, owner, id }) => {
 
   const [ emotions, setEmotions ] = useState(Array);
-  const [ emojis, setEmojis ] = useState([{
+  const [ emojis, setEmojis ] = useState<TEmotion[]>([{
     type: 'like',
     image: ThumbsUpIcon,
     counter: 0
@@ -67,15 +74,18 @@ export const EmojiBlock: FC = () => {
     image: BlackHeartIcon,
     counter: 0
   },
-]);
-let owner: any;
-const _owner = localStorage.getItem(("user"));
-if (_owner) {
-  owner = JSON.parse(_owner)
-}
+  ]);
+
+  let user: any
+  const _user = localStorage.getItem("user")
+  if (_user) {
+    user = JSON.parse(_user)
+  }
+
 
 useEffect(() => {
-  api.getReactionsForUser(owner._id)
+  if((user.tag === 'curator' || owner === true)) {
+  api.getReactionsForUser(id)
     .then((data) => {
       setEmotions(data.items.filter((element) => element.emotion));
       emojis && setEmojis(emojis.map(element => {
@@ -84,9 +94,9 @@ useEffect(() => {
           counter: countEmojis(emotions)[element.type] | 0
         }
       }))
-})
+  })
     .catch(err => console.log(err));
-}, [])
+}}, [])
 
 useEffect(() => {
       emojis && setEmojis(emojis.map(element => {
@@ -110,7 +120,7 @@ useEffect(() => {
       <ul className={styles.emojiList}>
         {emojis.map((element, index) =>
         <li className={styles.emojiItem} key={index}>
-          <Emoji image={element.image} counter={element.counter} type={element.type} />
+          <Emoji image={element.image} counter={element.counter} type={element.type} user={user} target={target}/>
         </li>)}
       </ul>
     </div>

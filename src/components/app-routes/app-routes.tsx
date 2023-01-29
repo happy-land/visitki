@@ -32,11 +32,12 @@ export const AppRoutes = () => {
   };
 
   const curator = {
-    email: 'I71H@VArJZgkhjEHavZtMuiasmnSmchejephX.qack',
-    _id: '507f1f77bcf86cd799439011',
-    createdAt: 1671899493440,
-    updatedAt: 1671899493440,
-    name: 'amet in tempor',
+    email: 'Chaim.Armstrong@gmail.com',
+    cohort: 'web+16',
+    _id: '2cb3baaa7528a9bb5e2c20d9',
+    createdAt: 1669856400806,
+    updatedAt: null,
+    name: 'Ricky Curator',
     photo: "https://placehold.co/600",
     tag: 'curator',
   };
@@ -77,7 +78,6 @@ export const AppRoutes = () => {
             <Route path='/map' element={<MapPage />} />
             <Route path="/form" element={<FormPage />} />
           </Route>
-          {/* <Route path='/admin' element={<ProtectedRoutes roleRequired='curator' />}> */}
             
           <Route path='/admin' element={<ProtectedRoutes  />}>
             <Route path="/admin/" element={<AdminPage />}>
