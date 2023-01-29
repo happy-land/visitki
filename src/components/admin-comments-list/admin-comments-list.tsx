@@ -4,7 +4,6 @@ import deleteIcon from '../../assets/images/trash-can.svg';
 import { api } from '../../api/Api';
 import { TComment } from '../../types/types';
 import { ReactComponent as Loader } from '../../assets/images/Loader.svg';
-import { InputText } from '../../ui/input-text/input-text';
 import inputClear from '../../ui/form-icons/input-clear.svg';
 
 export const AdminCommentsList: FC = () => {
@@ -51,47 +50,48 @@ export const AdminCommentsList: FC = () => {
     event.target.value === '' ? setClearIcon(false) : setClearIcon(true);
   };
 
-  const filteredComments = comments.filter(comment => {
-    return comment.from.name.toLowerCase().includes(inputValue.toLowerCase()) ||
-           comment.from.cohort.toLowerCase().includes(inputValue.toLowerCase()) ||
-           comment.from.email.toLowerCase().includes(inputValue.toLowerCase())
+  const filteredComments = comments.filter((comment) => {
+    return (
+      comment.from.name.toLowerCase().includes(inputValue.toLowerCase()) ||
+      comment.from.cohort.toLowerCase().includes(inputValue.toLowerCase()) ||
+      comment.from.email.toLowerCase().includes(inputValue.toLowerCase())
+    );
   });
 
   const clearInput = () => {
     setInputValue('');
     setClearIcon(false);
-  }
+  };
 
   return (
     <div className={commentstyle.page_wrapper}>
+      <form className={commentstyle.form} onSubmit={() => {}}>
+        <fieldset>
+          <label className={commentstyle.label}>Фильтровать</label>
+          <div className={commentstyle.container_input}>
+            <img
+              className={commentstyle.clearIcon}
+              src={inputClear}
+              style={clearIcon ? { display: 'flex' } : { display: 'none' }}
+              onClick={clearInput}
+            />
+          </div>
+          <input
+            value={inputValue}
+            onChange={(event) => handleInputChange(event)}
+            className={commentstyle.input}
+            type='text'
+            name='filter'
+            placeholder='По имени или фамилии или почте или номеру когорты (введите любой из этих параметров)'
+          />
+        </fieldset>
+      </form>
       {isLoading ? (
         <div className={commentstyle.loaderContainer}>
           <Loader className={commentstyle.loader} />
         </div>
-      ) : comments?.length ? (
+      ) : filteredComments?.length ? (
         <>
-          <form className={commentstyle.form} onSubmit={() => {}}>
-            <fieldset>
-              <label className={commentstyle.label}>Фильтровать</label>
-              <div className={commentstyle.container_input}>
-                <img
-                  className={commentstyle.clearIcon}
-                  src={inputClear}
-                  style={clearIcon ? { display: 'flex' } : { display: 'none' }}
-                  onClick={clearInput}
-                />
-              </div>
-              <input
-                value={inputValue}
-                onChange={(event) => handleInputChange(event)}
-                className={commentstyle.input}
-                type='text'
-                name='filter'
-                placeholder='По имени или фамилии или почте или номеру когорты (введите любой из этих параметров)'
-              />
-            </fieldset>
-          </form>
-
           <div className={commentstyle.headings_wrapper}>
             <ul className={commentstyle.headings_list}>
               <li>Когорта</li>
