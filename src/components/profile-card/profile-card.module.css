@@ -1,7 +1,12 @@
+.cardLink{
+  text-decoration: none;
+}
+
 .profileCard {
   position: relative;
   width: 325px;
   box-sizing: content-box;
+  text-decoration: none;
 }
 
 .profilePhotoContainer {

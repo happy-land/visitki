@@ -1,15 +1,24 @@
 import { FC, useState, MouseEvent, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import styles from './emoji.module.css';
+import { api } from '../../api/Api';
 
 
 interface IEmojiProps {
   image: string;
   counter: number | null;
-  type: string
+  type: 'like' | 'dislike' | 'wave' | 'smile' | 'upset' | 'funny' | 'confused' | 'scream' | 'love' | 'heart';
+  target: 'hobby' | 'edu' | 'status' | 'job' | null;
+  user: {
+    email: string,
+    cohort: string,
+    _id: string,
+    name: string,
+    photo: string,
+    tag: 'student' | 'curator',
+  },
 }
 
-export const Emoji: FC<IEmojiProps> = ({ image, counter, type }) => {
+export const Emoji: FC<IEmojiProps> = ({ image, counter, type, user, target }) => {
 
   const [border, setBorder] = useState(false);
   const [count, setCount] = useState(counter);
@@ -23,6 +32,10 @@ export const Emoji: FC<IEmojiProps> = ({ image, counter, type }) => {
     setBorder(!border);
     if (!border) {
       setCount(count! + 1);
+      //апи не принимает эмоджи как реакцию, ожидается только текст
+      api.sendNewReaction(user._id, {emotion: type, target: target})
+      .then((data) => console.log("Реакция успешно отправлена"))
+      .catch(err => console.log(err))
     } else {
       setCount(counter);
     }

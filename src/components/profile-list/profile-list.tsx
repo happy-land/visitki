@@ -57,7 +57,7 @@ export const ProfileList: FC = () => {
   }, [cardLimit, desktopMode]);
 
   useEffect(() => {
-    const handleWindowResize = (event: Event) => {
+    const handleWindowResize = () => {
       if (window.innerWidth >= 1440) {
         setDeskTopMode(true);
       } else {
@@ -65,10 +65,10 @@ export const ProfileList: FC = () => {
       }
     };
 
-    window.addEventListener('resize', (event) => handleWindowResize(event));
+    window.addEventListener('resize', handleWindowResize);
 
     return () => {
-      window.removeEventListener('resize', (event) => handleWindowResize(event));
+      window.removeEventListener('resize', handleWindowResize);
     };
   }, []);
 
@@ -76,7 +76,6 @@ export const ProfileList: FC = () => {
     api
       .getCohortData()
       .then((response) => {
-        console.log(response);
         const totCount = 30; /*response.total*/
         setProfiles(
           profiles.length < totCount ? [...profiles, ...response.items] : [...profiles]
@@ -111,10 +110,10 @@ export const ProfileList: FC = () => {
   // }, [fetching, cardLimit]);
 
   useEffect(() => {
-    document.addEventListener('scroll', (event) => scrollHandler(event));
+    document.addEventListener('scroll', scrollHandler);
 
     return () => {
-      document.removeEventListener('scroll', (event) => scrollHandler(event));
+      document.removeEventListener('scroll', scrollHandler);
     };
   }, [totalCount, profiles]);
 

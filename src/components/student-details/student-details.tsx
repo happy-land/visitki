@@ -72,7 +72,7 @@ export const StudentDetails: FC<TStudentDetails> = () => {
   }, []);
 
 	useEffect(() => {
-    const handleWindowResize = (event: Event) => {
+    const handleWindowResize = () => {
       if (window.innerWidth >= 1440) {
         setDeskTopMode(true);
       } else {
@@ -80,10 +80,10 @@ export const StudentDetails: FC<TStudentDetails> = () => {
       }
     };
 
-    window.addEventListener('resize', (event) => handleWindowResize(event));
+    window.addEventListener('resize', handleWindowResize);
 
     return () => {
-      window.removeEventListener('resize', (event) => handleWindowResize(event));
+      window.removeEventListener('resize', handleWindowResize);
     };
   }, []);
 
@@ -189,7 +189,7 @@ export const StudentDetails: FC<TStudentDetails> = () => {
         	<img className={styles.userAvatar} src={student?.profile.photo} alt="Фотография пользователя" />
 					<div className={styles.userAvatarBold}></div>
 					<ChatIcon className={styles.chatIcon} style={chatIconStylePhoto} onClick={commentsBlockTogglePhoto} />
-      		<CommentsBlock isOpen={showCommentsPhoto} target={null} owner={isOwner}/>
+      		<CommentsBlock isOpen={showCommentsPhoto} target={null} owner={isOwner} id={`${id}`}/>
       	</div>
 				
     		{ student?.profile.quote && (<div className={styles.quote} onMouseOver={handleMouseOverQuote}
@@ -197,7 +197,7 @@ export const StudentDetails: FC<TStudentDetails> = () => {
         	<div className={styles.quoteIcon}></div>
         	<blockquote className={styles.quoteText}>{student?.profile.quote}</blockquote>
 					<ChatIcon className={styles.chatIcon} style={chatIconStyleQuote} onClick={commentsBlockToggleQuote} />
-      		<CommentsBlock isOpen={showCommentsQuote} target={null} owner={isOwner}/>
+      		<CommentsBlock isOpen={showCommentsQuote} target={null} owner={isOwner} id={`${id}`}/>
       	</div>)}
 				
     	</div>
@@ -209,9 +209,9 @@ export const StudentDetails: FC<TStudentDetails> = () => {
           <h3 className={styles.unitTitle}>увлечения</h3>
           <p className={styles.description}>{student?.info?.hobby?.text}</p>
 					<ChatIcon className={styles.chatIcon} style={chatIconStyleHobby} onClick={commentsBlockToggleHobby} />
-      		{user.tag === 'curator' || isOwner === true && 
+      		{(user.tag === 'curator' || isOwner === true) && 
 					(<ReactionCounter counter={student.info.hobby.reactions} style={chatIconStyleHobby}/>)}
-					<CommentsBlock isOpen={showCommentsHobby} target={'hobby'} owner={isOwner}/>
+					<CommentsBlock isOpen={showCommentsHobby} target={'hobby'} owner={isOwner} id={`${id}`}/>
 				</div>)}
 				
       	{student?.info?.status && 
@@ -221,9 +221,9 @@ export const StudentDetails: FC<TStudentDetails> = () => {
           <h3 className={styles.unitTitle}>семья</h3>
           <p className={styles.description}>{student?.info?.status?.text}</p>
 					<ChatIcon className={styles.chatIcon} style={chatIconStyleStatus} onClick={commentsBlockToggleStatus} />
-      		{user.tag === 'curator' || isOwner === true && 
+      		{(user.tag === 'curator' || isOwner === true) && 
 					(<ReactionCounter counter={student.info.status.reactions} style={chatIconStyleStatus}/>)}
-					<CommentsBlock isOpen={showCommentsStatus} target={'status'} owner={isOwner}/>
+					<CommentsBlock isOpen={showCommentsStatus} target={'status'} owner={isOwner} id={`${id}`}/>
 				</div>)}
 				
         {student?.info?.job && 
@@ -233,9 +233,9 @@ export const StudentDetails: FC<TStudentDetails> = () => {
           <h3 className={styles.unitTitle}>сфера</h3>
           <p className={styles.description}>{student?.info?.job?.text}</p>
 					<ChatIcon className={styles.chatIcon} style={chatIconStyleJob} onClick={commentsBlockToggleJob} />
-      		{user.tag === 'curator' || isOwner === true && 
+      		{(user.tag === 'curator' || isOwner === true) && 
 					(<ReactionCounter counter={student.info.job.reactions} style={chatIconStyleJob}/>)}
-					<CommentsBlock isOpen={showCommentsJob} target={'job'} owner={isOwner}/>
+					<CommentsBlock isOpen={showCommentsJob} target={'job'} owner={isOwner} id={`${id}`}/>
 				</div>)}
 				
         {student?.info?.edu && 
@@ -245,9 +245,9 @@ export const StudentDetails: FC<TStudentDetails> = () => {
           <h3 className={styles.unitTitle}>учеба</h3>
           <p className={styles.description}>{student?.info?.edu?.text}</p>
 					<ChatIcon className={styles.chatIcon} style={chatIconStyleEdu} onClick={commentsBlockToggleEdu} />
-      		{user.tag === 'curator' || isOwner === true && 
+      		{(user.tag === 'curator' || isOwner === true) && 
 					(<ReactionCounter counter={student.info.edu.reactions} style={chatIconStyleEdu}/>)}
-					<CommentsBlock isOpen={showCommentsEdu} target={'edu'} owner={isOwner}/>
+					<CommentsBlock isOpen={showCommentsEdu} target={'edu'} owner={isOwner} id={`${id}`}/>
 				</div>)}
 				
       </div>

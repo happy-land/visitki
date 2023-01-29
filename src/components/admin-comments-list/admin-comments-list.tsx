@@ -1,10 +1,9 @@
-import React, { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect } from "react";
 import commentstyle from "./admin-comments-list.module.css";
 import deleteIcon from "../../assets/images/trash-can.svg";
 import {api} from "../../api/Api";
 import {TComment} from "../../types/types";
 import { ReactComponent as Loader } from '../../assets/images/Loader.svg';
-import { STATUS_CODES } from "http";
 
 export const AdminCommentsList: FC = () => {
 
