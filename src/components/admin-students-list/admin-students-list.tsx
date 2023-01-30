@@ -1,23 +1,59 @@
-import { FC, useEffect, useState, ChangeEvent, useRef, RefObject } from 'react';
-import { Link } from 'react-router-dom';
-import adminstyle from './admin-students-list.module.css';
-import { api } from '../../api/Api';
-import { TUser } from '../../types/types';
-import deleteIcon from '../../assets/images/trash-can.svg';
-import { StudentElement } from './admin-student-element';
+import { FC, useEffect, useState, ChangeEvent, useRef, RefObject } from "react";
+import { Link } from "react-router-dom";
+import adminstyle from "./admin-students-list.module.css";
+import { api } from "../../api/Api";
+import { TUser } from "../../types/types";
+import deleteIcon from "../../assets/images/trash-can.svg";
+import { StudentElement } from "./admin-student-element";
 
-import { ReactComponent as Loader } from '../../assets/images/Loader.svg';
-import inputClear from '../../ui/form-icons/input-clear.svg';
-import { Button } from '../../ui/button/button';
+import { ReactComponent as Loader } from "../../assets/images/Loader.svg";
+import inputClear from "../../ui/form-icons/input-clear.svg";
+import { Button } from "../../ui/button/button";
+
+import { readFile, utils } from "xlsx";
+import { json } from "stream/consumers";
 
 export const AdminStudentsList: FC = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
   const [students, setStudents] = useState<TUser[]>([]);
-  const [order, setOrder] = useState('ASC');
-  const [inputValue, setInputValue] = useState<string>('');
+  const [order, setOrder] = useState("ASC");
+  const [inputValue, setInputValue] = useState<string>("");
   const [clearIcon, setClearIcon] = useState(false);
 
   const fileLoad = useRef<HTMLInputElement>(null);
+
+  //Блок загрузки файла со списком студентов
+
+  type TNewEntry = {
+    email: string;
+    cohort: string;
+  };
+
+  const sendFile = (json: TNewEntry[]) => {
+    json.map((el: TNewEntry) => {
+      api.addNewUserData(el);
+    });
+  };
+
+  const fileToJson = (path: string) => {
+    const res = readFile(path);
+    const sheetNames = res.SheetNames;
+    const firstSheetName = sheetNames[0];
+    const firstSheet = res.Sheets[firstSheetName];
+    const json = utils.sheet_to_json(firstSheet) as TNewEntry[];
+    return json;
+  };
+
+  const uploadSheet = async (evt: any) => {
+    const [file] = evt.target.files;
+    console.log(evt.target.files);
+    let buffer = await file.arrayBuffer();
+    let json = fileToJson(buffer);
+    console.log(json);
+    sendFile(json);
+  };
+
+  ////
 
   useEffect(() => {
     setLoading(true);
@@ -32,55 +68,55 @@ export const AdminStudentsList: FC = () => {
   }, []);
 
   const sortingCohort = () => {
-    if (order === 'ASC') {
+    if (order === "ASC") {
       const sorted = [...students].sort((a, b) =>
         a.cohort.toLowerCase() > b.cohort.toLowerCase() ? 1 : -1
       );
       setStudents(sorted);
-      setOrder('DSC');
+      setOrder("DSC");
     } else {
       const sorted = [...students].sort((a, b) =>
         a.cohort.toLowerCase() < b.cohort.toLowerCase() ? 1 : -1
       );
       setStudents(sorted);
-      setOrder('ASC');
+      setOrder("ASC");
     }
   };
 
   const sortingEmail = () => {
-    if (order === 'ASC') {
+    if (order === "ASC") {
       const sorted = [...students].sort((a, b) =>
         a.email.toLowerCase() > b.email.toLowerCase() ? 1 : -1
       );
       setStudents(sorted);
-      setOrder('DSC');
+      setOrder("DSC");
     } else {
       const sorted = [...students].sort((a, b) =>
         a.email.toLowerCase() < b.email.toLowerCase() ? 1 : -1
       );
       setStudents(sorted);
-      setOrder('ASC');
+      setOrder("ASC");
     }
   };
 
   const sortingName = () => {
-    if (order === 'ASC') {
+    if (order === "ASC") {
       const sorted = [...students].sort((a, b) =>
         a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
       );
       setStudents(sorted);
-      setOrder('DSC');
+      setOrder("DSC");
     } else {
       const sorted = [...students].sort((a, b) =>
         a.name.toLowerCase() < b.name.toLowerCase() ? 1 : -1
       );
       setStudents(sorted);
-      setOrder('ASC');
+      setOrder("ASC");
     }
   };
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
-    event.target.value === '' ? setClearIcon(false) : setClearIcon(true);
+    event.target.value === "" ? setClearIcon(false) : setClearIcon(true);
   };
 
   const filteredStudents = students.filter((student) => {
@@ -92,7 +128,7 @@ export const AdminStudentsList: FC = () => {
   });
 
   const clearInput = () => {
-    setInputValue('');
+    setInputValue("");
     setClearIcon(false);
   };
 
@@ -106,17 +142,18 @@ export const AdminStudentsList: FC = () => {
               <img
                 className={adminstyle.clearIcon}
                 src={inputClear}
-                style={clearIcon ? { display: 'flex' } : { display: 'none' }}
+                style={clearIcon ? { display: "flex" } : { display: "none" }}
                 onClick={clearInput}
+                alt="иконка"
               />
             </div>
             <input
               value={inputValue}
               onChange={(event) => handleInputChange(event)}
               className={adminstyle.filter_input}
-              type='text'
-              name='filter'
-              placeholder='По имени или фамилии или почте или номеру когорты (введите любой из этих параметров)'
+              type="text"
+              name="filter"
+              placeholder="По имени или фамилии или почте или номеру когорты (введите любой из этих параметров)"
             />
           </fieldset>
         </form>
@@ -149,9 +186,17 @@ export const AdminStudentsList: FC = () => {
       </div>
       <div className={adminstyle.loadfile_container}>
         <h1 className={adminstyle.loadfile_title}>Добавить студентов</h1>
-        <p className={adminstyle.loadfile_description}>Чтобы добавить новых студентов, загрузите csv или xlsx файл: первая колонка должна содержать email студентов, вторая колонка — номер когорты.</p>
-        <input type='file' ref={fileLoad} style={{ display: 'none' }} />
-        <Button htmlType='button'>Выберите файл</Button>
+        <p className={adminstyle.loadfile_description}>
+          Чтобы добавить новых студентов, загрузите csv или xlsx файл: первая
+          колонка должна содержать email студентов, вторая колонка — номер
+          когорты.
+        </p>
+        <input
+          type="file"
+          onChange={uploadSheet}
+          ref={fileLoad} /*style={{ display: 'none' }} */
+        />
+        <Button htmlType="button">Выберите файл</Button>
       </div>
     </div>
   );
