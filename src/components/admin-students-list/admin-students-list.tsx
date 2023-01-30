@@ -1,4 +1,4 @@
-import { FC, useEffect, useState, ChangeEvent } from 'react';
+import { FC, useEffect, useState, ChangeEvent, useRef, RefObject } from 'react';
 import { Link } from 'react-router-dom';
 import adminstyle from './admin-students-list.module.css';
 import { api } from '../../api/Api';
@@ -8,6 +8,7 @@ import { StudentElement } from './admin-student-element';
 
 import { ReactComponent as Loader } from '../../assets/images/Loader.svg';
 import inputClear from '../../ui/form-icons/input-clear.svg';
+import { Button } from '../../ui/button/button';
 
 export const AdminStudentsList: FC = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -15,6 +16,8 @@ export const AdminStudentsList: FC = () => {
   const [order, setOrder] = useState('ASC');
   const [inputValue, setInputValue] = useState<string>('');
   const [clearIcon, setClearIcon] = useState(false);
+
+  const fileLoad = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setLoading(true);
@@ -95,53 +98,61 @@ export const AdminStudentsList: FC = () => {
 
   return (
     <div className={adminstyle.page_wrapper}>
-      <form className={adminstyle.form} onSubmit={() => {}}>
-        <fieldset>
-          <label className={adminstyle.label}>Фильтровать</label>
-          <div className={adminstyle.container_input}>
-            <img
-              className={adminstyle.clearIcon}
-              src={inputClear}
-              style={clearIcon ? { display: 'flex' } : { display: 'none' }}
-              onClick={clearInput}
-            />
-          </div>
-          <input
-            value={inputValue}
-            onChange={(event) => handleInputChange(event)}
-            className={adminstyle.filter_input}
-            type='text'
-            name='filter'
-            placeholder='По имени или фамилии или почте или номеру когорты (введите любой из этих параметров)'
-          />
-        </fieldset>
-      </form>
-      {isLoading ? (
-        <div className={adminstyle.loaderContainer}>
-          <Loader className={adminstyle.loader} />
-        </div>
-      ) : filteredStudents?.length ? (
-        <>
-          <div className={adminstyle.table}>
-            <ul className={adminstyle.list_headings}>
-              <li onClick={() => sortingCohort()}>Номер когорты</li>
-              <li onClick={() => sortingEmail()}>E-mail</li>
-              <li onClick={() => sortingName()}>Имя и фамилия студента</li>
-            </ul>
-            <div className={adminstyle.list_wrapper}>
-              <ul className={adminstyle.list}>
-                {filteredStudents.map((element) => (
-                  <StudentElement key={element._id} student={element} />
-                ))}
-              </ul>
+      <div className={adminstyle.content_wrapper}>
+        <form className={adminstyle.form} onSubmit={() => {}}>
+          <fieldset>
+            <label className={adminstyle.label}>Фильтровать</label>
+            <div className={adminstyle.container_input}>
+              <img
+                className={adminstyle.clearIcon}
+                src={inputClear}
+                style={clearIcon ? { display: 'flex' } : { display: 'none' }}
+                onClick={clearInput}
+              />
             </div>
+            <input
+              value={inputValue}
+              onChange={(event) => handleInputChange(event)}
+              className={adminstyle.filter_input}
+              type='text'
+              name='filter'
+              placeholder='По имени или фамилии или почте или номеру когорты (введите любой из этих параметров)'
+            />
+          </fieldset>
+        </form>
+        {isLoading ? (
+          <div className={adminstyle.loaderContainer}>
+            <Loader className={adminstyle.loader} />
           </div>
-        </>
-      ) : (
-        <div className={`${adminstyle.list_wrapper} ${adminstyle.notfound}`}>
-          Не удалось никого найти. Исправьте запрос или сбросьте фильтр
-        </div>
-      )}
+        ) : filteredStudents?.length ? (
+          <>
+            <div className={adminstyle.table}>
+              <ul className={adminstyle.list_headings}>
+                <li onClick={() => sortingCohort()}>Номер когорты</li>
+                <li onClick={() => sortingEmail()}>E-mail</li>
+                <li onClick={() => sortingName()}>Имя и фамилия студента</li>
+              </ul>
+              <div className={adminstyle.list_wrapper}>
+                <ul className={adminstyle.list}>
+                  {filteredStudents.map((element) => (
+                    <StudentElement key={element._id} student={element} />
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </>
+        ) : (
+          <div className={`${adminstyle.list_wrapper} ${adminstyle.notfound}`}>
+            Не удалось никого найти. Исправьте запрос или сбросьте фильтр
+          </div>
+        )}
+      </div>
+      <div className={adminstyle.loadfile_container}>
+        <h1 className={adminstyle.loadfile_title}>Добавить студентов</h1>
+        <p className={adminstyle.loadfile_description}>Чтобы добавить новых студентов, загрузите csv или xlsx файл: первая колонка должна содержать email студентов, вторая колонка — номер когорты.</p>
+        <input type='file' ref={fileLoad} style={{ display: 'none' }} />
+        <Button htmlType='button'>Выберите файл</Button>
+      </div>
     </div>
   );
 };

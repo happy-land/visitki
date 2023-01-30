@@ -1,5 +1,9 @@
 .page_wrapper {
   width: 100%;
+  display: flex;
+}
+
+.content_wrapper {
 }
 
 .table {
@@ -163,6 +167,29 @@
 }
 .clearIcon_hidden {
   display: none;
+}
+
+.loadfile_container {
+  width: 285px;
+  padding: 48px 0 0 40px;
+}
+
+.loadfile_title {
+  margin: 0 0 12px 0;
+  padding: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.loadfile_description {
+  margin: 0 0 12px 0;
+  padding: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
 }
 
 
