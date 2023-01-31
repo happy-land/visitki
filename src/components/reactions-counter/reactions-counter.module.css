@@ -1,0 +1,19 @@
+.commentCounter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 13px;
+  right: 3%;
+  background-color: #100C34;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  color: #FFFFFF;
+  font-size: 12px;
+  line-height: 12px;
+  margin: 0;
+  padding: 0;
+}

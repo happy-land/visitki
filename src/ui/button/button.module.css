@@ -1,0 +1,47 @@
+/*.button {*/
+/*  border: none;*/
+/*  border-radius: 4px;*/
+/*  cursor: pointer;*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*  font-family: 'IBM Plex Sans';*/
+/*}*/
+
+.button {
+	border: none;
+	background: linear-gradient(269.17deg, #3B23B7 30.28%, #C914E7 63.24%);
+	border-radius: 4px;
+	cursor: pointer;
+	font-family: inherit;
+	font-weight: 500;
+	font-style: normal;
+	color: #f0f0f0;
+	text-align: center;
+	text-decoration: none;
+}
+
+.button_size_large {
+	width: 440px;
+	padding: 20px;
+	font-size: 20px;
+	line-height: 28px;
+}
+
+@media screen and (max-width: 441px) {
+	.button_size_large {
+		width: 272px;
+		padding: 16px;
+	}
+}
+
+.button_size_small {
+	width: 260px;
+	padding: 12px;
+	font-size: 16px;
+	line-height: 20px;
+}
+
+.button:disabled {
+	background: #BFBFBF;
+	cursor: unset;
+}

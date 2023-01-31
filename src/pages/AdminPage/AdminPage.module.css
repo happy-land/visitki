@@ -1,0 +1,32 @@
+.page {
+  /*border: 1px solid red;*/
+  max-width: 1440px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 48px 40px 0;
+}
+
+.button_wrapper {
+  width: 100%;
+  display: flex;
+  gap: 81px;
+}
+
+.link {
+  color: #a3a3a3;
+  padding: 0;
+  margin: 0;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 18px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.active {
+  composes: link;
+  color: black;
+}

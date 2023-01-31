@@ -1,0 +1,59 @@
+.header {
+  max-width: 1440px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 40px;
+  position: relative;
+}
+
+.userContainer {
+  max-width: 248px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-decoration: none;
+}
+
+.userIcon {
+  margin: 0 4px 0 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  filter: grayscale(100%);
+
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.userName {
+  margin: 0;
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  max-width: 212px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 1023px) {
+  .header {
+    padding: 24px 32px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header {
+    padding: 24px 24px;
+  }
+  .userName {
+    display: none;
+  }
+}
